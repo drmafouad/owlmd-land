@@ -1,0 +1,71 @@
+🎨 THEME PREVIEW IMAGES NEEDED
+
+Please add the following 4 PDF theme preview images to this folder:
+
+1. theme-professional.png (800x1000px)
+   - Screenshot or export of PDF in Professional theme
+   - Blue accent colors, Helvetica font
+   - Show variety of markdown elements (headers, lists, code, etc.)
+
+2. theme-modern.png (800x1000px)
+   - Screenshot or export of PDF in Modern theme
+   - Amber accent colors, contemporary spacing
+   - Same content as Professional for comparison
+
+3. theme-minimalist.png (800x1000px)
+   - Screenshot or export of PDF in Minimalist theme
+   - Gray accent colors, ultra-clean design
+   - Same content for consistency
+
+4. theme-classic.png (800x1000px)
+   - Screenshot or export of PDF in Classic theme
+   - Brown accent colors, Times font
+   - Same content for comparison
+
+HOW TO CREATE:
+
+Method 1 - From App:
+1. Open Owl.md app
+2. Create sample markdown with these elements:
+   # Header 1
+   ## Header 2
+   **Bold text** and *italic text*
+   - Bullet list
+   - Another item
+
+   ```code
+   function example() {
+     return true;
+   }
+   ```
+
+   ⚡TIP This is a tip callout
+   📄NOTE This is a note callout
+
+3. Export PDF with each theme
+4. Open each PDF on computer
+5. Take screenshot of first page or convert to PNG
+6. Crop to show just document content (no PDF viewer UI)
+7. Resize to 800x1000px
+8. Save with appropriate filename
+
+Method 2 - From PDF:
+1. Export PDFs from app (one per theme)
+2. Use ImageMagick or similar tool:
+   convert -density 150 theme-professional.pdf[0] -resize 800x1000 theme-professional.png
+3. Repeat for each theme
+
+OPTIONAL FILES:
+
+- logo.svg
+  - Owl.md logo in SVG format (already have emoji placeholder)
+
+- og-image.jpg (1200x630px)
+  - Social media preview image
+  - Should show app screenshot + branding
+  - Used when sharing link on Facebook, Twitter, LinkedIn
+
+After adding images:
+- Delete this PLACEHOLDER_INFO.txt file
+- Verify all images are optimized (<500KB each)
+- Test landing page displays correctly

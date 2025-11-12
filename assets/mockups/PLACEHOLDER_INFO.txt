@@ -1,0 +1,48 @@
+📸 MOCKUP SCREENSHOTS NEEDED
+
+Please add the following 5 app screenshots to this folder:
+
+1. hero-screen.png (1080x2400px)
+   - Main app interface showing editor or preview
+   - Use clean, representative content
+   - This will be the hero section mockup
+
+2. live-preview.png (1080x2400px)
+   - Split view showing markdown editor on one side and preview on other
+   - Demonstrates the live preview feature
+   - Show actual markdown syntax being rendered
+
+3. themes.png (1080x2400px)
+   - Theme selection screen
+   - Show all 4 themes if possible (Professional, Modern, Minimalist, Classic)
+   - Or show the theme picker UI
+
+4. github.png (1080x2400px)
+   - GitHub URL input screen or loading screen
+   - Show the GitHub integration feature
+   - Can be URL input field or a successfully loaded file
+
+5. files.png (1080x2400px)
+   - File history/management screen
+   - Show list of recent files
+   - Demonstrates file organization feature
+
+HOW TO CAPTURE:
+1. Open Owl.md app on Android device
+2. Navigate to each screen listed above
+3. Take screenshot (Power + Volume Down)
+4. Transfer to computer via USB or cloud
+5. Rename according to filenames above
+6. Place in this folder (owlmd/assets/mockups/)
+
+TIPS:
+- Use high resolution (1080p or better)
+- Remove any personal/sensitive information
+- Use clean, professional demo content
+- Consistent theme across all screenshots (light or dark mode)
+- Make sure app is in portrait orientation
+
+After adding screenshots:
+- Delete this PLACEHOLDER_INFO.txt file
+- Test the landing page locally
+- Deploy to server
