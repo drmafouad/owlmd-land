@@ -1,0 +1,151 @@
+/* ===================================
+   Performance Optimizations
+   =================================== */
+
+/* Lazy loading images - fade in smoothly */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+img[data-src].loaded,
+img[src]:not([data-src]) {
+    opacity: 1;
+}
+
+/* Loading placeholder for images */
+.lazyload,
+.lazyloading {
+    opacity: 0;
+}
+
+.lazyloaded {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+/* Reduce animations on slow devices */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Critical CSS - above the fold content */
+.hero {
+    min-height: 100vh;
+    contain: layout style paint;
+}
+
+/* GPU acceleration for animations */
+.phone-mockup,
+.gradient-orb,
+.floating {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Optimize paint performance */
+.nav {
+    contain: layout style;
+}
+
+/* Font display optimization */
+@font-face {
+    font-display: swap;
+}
+
+/* Prevent layout shift for images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Blur-up technique for images (optional) */
+.blur-up {
+    filter: blur(5px);
+    transition: filter 0.3s;
+}
+
+.blur-up.loaded {
+    filter: blur(0);
+}
+
+/* Loading spinner for slow connections */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent-orange);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Optimize images for retina displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Use higher quality images only on retina displays */
+    .retina-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Skeleton loading for better perceived performance */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Prevent font flash */
+body {
+    font-display: optional;
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 768px) {
+    .gradient-orb {
+        will-change: auto;
+    }
+
+    .phone-mockup.floating {
+        animation: none;
+    }
+}
+
+/* Content visibility for faster initial rendering */
+.feature-showcase,
+.theme-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion) {
+    .floating,
+    .gradient-orb {
+        animation: none !important;
+    }
+}

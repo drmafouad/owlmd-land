@@ -12,17 +12,30 @@
     <meta property="og:image" content="https://owlmd.injazapps.com/assets/images/og-image.jpg">
     <meta property="og:url" content="https://owlmd.injazapps.com">
 
-    <!-- Fonts -->
+    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.hugeicons.com">
 
-    <!-- HugeIcons -->
-    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="assets/css/main.css" as="style">
+    <link rel="preload" href="assets/css/animations.css" as="style">
 
-    <!-- Styles -->
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+
+    <!-- Fonts with display swap for faster rendering -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <!-- HugeIcons - defer loading -->
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"></noscript>
+
+    <!-- Critical Styles -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/performance.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
@@ -95,7 +108,7 @@
                         <div class="phone-frame">
                             <div class="phone-notch"></div>
                             <div class="phone-screen">
-                                <img src="assets/mockups/hero-screen.png" alt="Owl.md App Interface" class="screen-img">
+                                <img src="assets/mockups/hero-screen.png" alt="Owl.md App Interface" class="screen-img" loading="eager" width="300" height="650">
                             </div>
                         </div>
                     </div>
@@ -135,7 +148,7 @@
                         <div class="phone-frame">
                             <div class="phone-notch"></div>
                             <div class="phone-screen">
-                                <img src="assets/mockups/live-preview.png" alt="Live Preview Feature" class="screen-img">
+                                <img data-src="assets/mockups/live-preview.png" alt="Live Preview Feature" class="screen-img lazyload" loading="lazy" width="300" height="650">
                             </div>
                         </div>
                     </div>
@@ -165,7 +178,7 @@
                         <div class="phone-frame">
                             <div class="phone-notch"></div>
                             <div class="phone-screen">
-                                <img src="assets/mockups/themes.png" alt="PDF Themes" class="screen-img">
+                                <img data-src="assets/mockups/themes.png" alt="PDF Themes" class="screen-img lazyload" loading="lazy" width="300" height="650">
                             </div>
                         </div>
                     </div>
@@ -195,7 +208,7 @@
                         <div class="phone-frame">
                             <div class="phone-notch"></div>
                             <div class="phone-screen">
-                                <img src="assets/mockups/files.png" alt="File Management" class="screen-img">
+                                <img data-src="assets/mockups/files.png" alt="File Management" class="screen-img lazyload" loading="lazy" width="300" height="650">
                             </div>
                         </div>
                     </div>
@@ -215,7 +228,7 @@
             <div class="themes-grid">
                 <div class="theme-card" data-aos="zoom-in" data-aos-delay="0">
                     <div class="theme-preview">
-                        <img src="assets/images/theme-professional.png" alt="Professional Theme">
+                        <img data-src="assets/images/theme-professional.png" alt="Professional Theme" class="lazyload" loading="lazy" width="400" height="500">
                     </div>
                     <div class="theme-info">
                         <h3 class="theme-name">Professional</h3>
@@ -234,7 +247,7 @@
 
                 <div class="theme-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="theme-preview">
-                        <img src="assets/images/theme-modern.png" alt="Modern Theme">
+                        <img data-src="assets/images/theme-modern.png" alt="Modern Theme" class="lazyload" loading="lazy" width="400" height="500">
                     </div>
                     <div class="theme-info">
                         <h3 class="theme-name">Modern</h3>
@@ -253,7 +266,7 @@
 
                 <div class="theme-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="theme-preview">
-                        <img src="assets/images/theme-minimalist.png" alt="Minimalist Theme">
+                        <img data-src="assets/images/theme-minimalist.png" alt="Minimalist Theme" class="lazyload" loading="lazy" width="400" height="500">
                     </div>
                     <div class="theme-info">
                         <h3 class="theme-name">Minimalist</h3>
@@ -272,7 +285,7 @@
 
                 <div class="theme-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="theme-preview">
-                        <img src="assets/images/theme-classic.png" alt="Classic Theme">
+                        <img data-src="assets/images/theme-classic.png" alt="Classic Theme" class="lazyload" loading="lazy" width="400" height="500">
                     </div>
                     <div class="theme-info">
                         <h3 class="theme-name">Classic</h3>
@@ -396,8 +409,26 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="assets/js/animations.js"></script>
-    <script src="assets/js/main.js"></script>
+    <!-- Scripts - defer for faster page load -->
+    <script defer src="assets/js/animations.js"></script>
+    <script defer src="assets/js/main.js"></script>
+
+    <!-- Inline lazy loading script for instant loading -->
+    <script>
+        // Minimal inline lazy loading implementation
+        if ('loading' in HTMLImageElement.prototype) {
+            // Browser supports native lazy loading
+            const images = document.querySelectorAll('img[data-src]');
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        } else {
+            // Fallback for browsers without native lazy loading
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+            script.async = true;
+            document.body.appendChild(script);
+        }
+    </script>
 </body>
 </html>
