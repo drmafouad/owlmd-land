@@ -9,13 +9,16 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Owl.md - Beautiful PDFs from Markdown">
     <meta property="og:description" content="Convert markdown to professionally formatted PDFs with live preview and 4 stunning themes.">
-    <meta property="og:image" content="https://injazapps.com/owlmd/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://injazapps.com/owlmd">
+    <meta property="og:image" content="https://owlmd.injazapps.com/assets/images/og-image.jpg">
+    <meta property="og:url" content="https://owlmd.injazapps.com">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- HugeIcons -->
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/main.css">
@@ -65,9 +68,7 @@
                     <div class="hero-cta">
                         <a href="#download" class="btn btn-primary">
                             <span>Download for Android</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M10 14L4 8L5.4 6.6L9 10.2V2H11V10.2L14.6 6.6L16 8L10 14ZM4 18V14H6V16H14V14H16V18H4Z" fill="currentColor"/>
-                            </svg>
+                            <i class="hgi-stroke hgi-download-02" style="font-size: 20px;"></i>
                         </a>
                         <a href="#features" class="btn btn-secondary">
                             <span>Explore Features</span>
@@ -84,7 +85,7 @@
                         </div>
                         <div class="stat">
                             <div class="stat-value">Free</div>
-                            <div class="stat-label">Open Source</div>
+                            <div class="stat-label">To Use</div>
                         </div>
                     </div>
                 </div>
@@ -114,17 +115,8 @@
             <!-- Feature 1: Live Preview -->
             <div class="feature-showcase">
                 <div class="feature-content" data-aos="fade-right">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="12" fill="url(#gradient1)"/>
-                            <path d="M16 14H32V16H16V14ZM16 20H32V22H16V20ZM16 26H28V28H16V26ZM16 32H24V34H16V32Z" fill="white"/>
-                            <defs>
-                                <linearGradient id="gradient1" x1="0" y1="0" x2="48" y2="48">
-                                    <stop stop-color="#F59E0B"/>
-                                    <stop offset="1" stop-color="#D97706"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                        <i class="hgi-stroke hgi-file-edit" style="font-size: 28px; color: white;"></i>
                     </div>
                     <h3 class="feature-title">Live Preview</h3>
                     <p class="feature-description">
@@ -153,17 +145,8 @@
             <!-- Feature 2: PDF Themes -->
             <div class="feature-showcase reverse">
                 <div class="feature-content" data-aos="fade-left">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="12" fill="url(#gradient2)"/>
-                            <path d="M24 14L28 22H32L26 28L28 36L24 32L20 36L22 28L16 22H20L24 14Z" fill="white"/>
-                            <defs>
-                                <linearGradient id="gradient2" x1="0" y1="0" x2="48" y2="48">
-                                    <stop stop-color="#8B5CF6"/>
-                                    <stop offset="1" stop-color="#6366F1"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);">
+                        <i class="hgi-stroke hgi-paint-board" style="font-size: 28px; color: white;"></i>
                     </div>
                     <h3 class="feature-title">4 Professional Themes</h3>
                     <p class="feature-description">
@@ -192,17 +175,8 @@
             <!-- Feature 3: File Management -->
             <div class="feature-showcase">
                 <div class="feature-content" data-aos="fade-right">
-                    <div class="feature-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect width="48" height="48" rx="12" fill="url(#gradient3)"/>
-                            <path d="M20 14H14V34H34V20H26L20 14ZM16 32V16H19L25 22H32V32H16Z" fill="white"/>
-                            <defs>
-                                <linearGradient id="gradient3" x1="0" y1="0" x2="48" y2="48">
-                                    <stop stop-color="#10B981"/>
-                                    <stop offset="1" stop-color="#059669"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                        <i class="hgi-stroke hgi-folder-library" style="font-size: 28px; color: white;"></i>
                     </div>
                     <h3 class="feature-title">Smart File Management</h3>
                     <p class="feature-description">
@@ -354,21 +328,15 @@
 
                 <div class="download-features">
                     <div class="download-feature">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#10B981"/>
-                        </svg>
-                        <span>Free & Open Source</span>
+                        <i class="hgi-stroke hgi-checkmark-circle-01" style="font-size: 20px; color: #10B981;"></i>
+                        <span>Free to Download & Use</span>
                     </div>
                     <div class="download-feature">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#10B981"/>
-                        </svg>
+                        <i class="hgi-stroke hgi-checkmark-circle-01" style="font-size: 20px; color: #10B981;"></i>
                         <span>No Ads or Subscriptions</span>
                     </div>
                     <div class="download-feature">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#10B981"/>
-                        </svg>
+                        <i class="hgi-stroke hgi-checkmark-circle-01" style="font-size: 20px; color: #10B981;"></i>
                         <span>Works Completely Offline</span>
                     </div>
                 </div>
@@ -403,6 +371,7 @@
                         <a href="#features">Features</a>
                         <a href="#themes">Themes</a>
                         <a href="#download">Download</a>
+                        <a href="privacy.html">Privacy Policy</a>
                     </div>
 
                     <div class="footer-column">
@@ -422,7 +391,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 Owl.md • Open Source (MIT License) • Made with ❤️ by InjazApps</p>
+                <p>&copy; 2025 InjazApps • All Rights Reserved • <a href="privacy.html" style="color: inherit; text-decoration: underline;">Privacy Policy</a> • Made with ❤️ by InjazApps</p>
             </div>
         </div>
     </footer>
