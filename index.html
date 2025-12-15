@@ -1,367 +1,248 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Owl.md - Beautiful PDFs from Markdown</title>
-    <meta name="description" content="Convert markdown to professionally formatted PDFs with live preview and 4 stunning themes. Modern, fast, and free.">
+    <meta name="description"
+        content="Generate professional PDFs from Markdown instantly. 4 stunning themes, offline privacy, and live preview.">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Owl.md - Beautiful PDFs from Markdown">
-    <meta property="og:description" content="Convert markdown to professionally formatted PDFs with live preview and 4 stunning themes.">
-    <meta property="og:image" content="https://owlmd.injazapps.com/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://owlmd.injazapps.com">
-
-    <!-- Preconnect to external resources -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.hugeicons.com">
 
-    <!-- Preload critical CSS -->
-    <link rel="preload" href="assets/css/main.css" as="style">
-    <link rel="preload" href="assets/css/animations.css" as="style">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
 
-    <!-- Fonts with display swap for faster rendering -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-
-    <!-- HugeIcons - defer loading -->
-    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"></noscript>
-
-    <!-- Critical Styles -->
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/performance.css">
 
-    <!-- Favicon -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 </head>
+
 <body>
-    <!-- Navigation -->
+
+    <!-- Modern Pill Navigation -->
     <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <img src="assets/images/logo.png" alt="Owl.md Logo" class="logo-icon" style="height: 45px; width: auto;">
-                    <span class="logo-text">Owl.md</span>
-                </div>
-                <div class="nav-links">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#themes" class="nav-link">Themes</a>
-                    <a href="#download" class="nav-link">Download</a>
-                    <a href="https://github.com/drmafouad/Owl.md" class="nav-link" target="_blank">GitHub</a>
-                </div>
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.png" alt="Owl.md">
+                <span>Owl.md</span>
+            </a>
+
+            <div class="nav-links mobile-hidden">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#showcase" class="nav-link">Showcase</a>
+                <a href="guide.html" class="nav-link">User Guide</a>
             </div>
+
+            <a href="#download" class="btn-nav-cta">Download</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-bg">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
-        </div>
+        <div class="hero-bg"></div>
 
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text" data-aos="fade-up">
+                    <div class="hero-badge">
+                        <i class="hgi-stroke hgi-star" style="font-size: 14px;"></i>
+                        <span>v1.1 Now Available</span>
+                    </div>
+
                     <h1 class="hero-title">
-                        Beautiful PDFs from<br>
-                        <span class="gradient-text">Markdown</span> in Seconds
+                        Beautiful PDFs from <span class="text-gradient">Markdown</span> in Seconds
                     </h1>
+
                     <p class="hero-subtitle">
-                        Convert markdown to professionally formatted documents with live preview
-                        and 4 stunning themes. Create beautiful PDFs in seconds.
+                        Transform your notes into professionally formatted documents.
+                        Features live preview, 4 stunning themes, and complete offline privacy.
                     </p>
-                    <div class="hero-cta">
+
+                    <div class="hero-actions">
                         <a href="#download" class="btn btn-primary">
-                            <span>Download for Android</span>
-                            <i class="hgi-stroke hgi-download-02" style="font-size: 20px;"></i>
+                            <i class="hgi-stroke hgi-download-02"></i>
+                            <span>Get App</span>
                         </a>
-                        <a href="#features" class="btn btn-secondary">
-                            <span>Explore Features</span>
+                        <a href="guide.html" class="btn btn-secondary">
+                            <span>Read Guide</span>
                         </a>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-value">10K+</div>
-                            <div class="stat-label">Downloads</div>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-val">4.8</span>
+                            <span class="stat-lbl">Rating</span>
                         </div>
-                        <div class="stat">
-                            <div class="stat-value">4</div>
-                            <div class="stat-label">PDF Themes</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">Free</div>
-                            <div class="stat-label">To Use</div>
+                        <div class="stat-item">
+                            <span class="stat-val">100%</span>
+                            <span class="stat-lbl">Offline</span>
                         </div>
                     </div>
+
                 </div>
 
-                <div class="hero-mockup" data-aos="fade-left" data-aos-delay="200">
+                <div class="hero-visual" data-aos="fade-left" data-aos-delay="100">
                     <div class="phone-mockup floating">
-                        <div class="phone-frame">
-                            <div class="phone-notch"></div>
-                            <div class="phone-screen">
-                                <img src="assets/mockups/hero-screen.png" alt="Owl.md App Interface" class="screen-img" loading="eager" width="300" height="650">
-                            </div>
-                        </div>
+                        <img src="assets/mockups/hero-screen.png" alt="App Screenshot"
+                            style="width: 100%; height: 100%; border-radius: 40px; border: 8px solid #1e293b; object-fit: cover;">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
+    <!-- Bento Grid Features Section -->
+    <section id="features" class="section-padding">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Powerful Features</h2>
-                <p class="section-subtitle">Everything you need to create professional PDFs</p>
+                <h2 class="section-title">Everything you need</h2>
+                <p class="section-sub">Powerful tools to make your writing stand out, all in one place.</p>
             </div>
 
-            <!-- Feature 1: Live Preview -->
-            <div class="feature-showcase">
-                <div class="feature-content" data-aos="fade-right">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
-                        <i class="hgi-stroke hgi-file-edit" style="font-size: 28px; color: white;"></i>
-                    </div>
-                    <h3 class="feature-title">Live Preview</h3>
-                    <p class="feature-description">
-                        See your changes instantly as you type. Real-time markdown rendering
-                        with syntax highlighting and callout blocks.
-                    </p>
-                    <ul class="feature-list">
-                        <li>✓ Instant markdown parsing</li>
-                        <li>✓ Syntax highlighting for code</li>
-                        <li>✓ Rich callout blocks (TIP, NOTE, WARN)</li>
-                        <li>✓ Table and list support</li>
-                    </ul>
-                </div>
-                <div class="feature-mockup" data-aos="fade-left">
-                    <div class="phone-mockup">
-                        <div class="phone-frame">
-                            <div class="phone-notch"></div>
-                            <div class="phone-screen">
-                                <img data-src="assets/mockups/live-preview.png" alt="Live Preview Feature" class="screen-img lazyload" loading="lazy" width="300" height="650">
-                            </div>
+            <div class="bento-grid">
+                <!-- Large Item: Live Preview -->
+                <div class="bento-item span-2 glow-orange" data-aos="fade-up">
+                    <div class="bento-content">
+                        <div class="bento-icon-box">
+                            <i class="hgi-stroke hgi-eye" style="color: var(--accent-orange);"></i>
                         </div>
+                        <h3 class="bento-title">Real-time Preview</h3>
+                        <p class="bento-desc">See your changes instantly with silky smooth 60fps rendering. Split view
+                            available for larger screens.</p>
+                    </div>
+                    <div class="bento-img-container" style="height: 300px;">
+                        <img src="assets/mockups/live-preview.png" alt="Live Preview interface"
+                            style="object-position: top; transform: scale(1.05);">
                     </div>
                 </div>
-            </div>
 
-            <!-- Feature 2: PDF Themes -->
-            <div class="feature-showcase reverse">
-                <div class="feature-content" data-aos="fade-left">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);">
-                        <i class="hgi-stroke hgi-paint-board" style="font-size: 28px; color: white;"></i>
+                <!-- Small Item: Themes -->
+                <div class="bento-item glow-purple" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bento-icon-box">
+                        <i class="hgi-stroke hgi-paint-board" style="color: var(--accent-purple);"></i>
                     </div>
-                    <h3 class="feature-title">4 Professional Themes</h3>
-                    <p class="feature-description">
-                        Choose from carefully crafted PDF themes designed for different use cases.
-                        From corporate to academic, we've got you covered.
-                    </p>
-                    <ul class="feature-list">
-                        <li>✓ Professional - Corporate documents</li>
-                        <li>✓ Modern - Contemporary style</li>
-                        <li>✓ Minimalist - Clean and simple</li>
-                        <li>✓ Classic - Traditional serif</li>
-                    </ul>
+                    <h3 class="bento-title">4 Pro Themes</h3>
+                    <p class="bento-desc">Professional, Modern, Minimalist, and Classic styles included.</p>
                 </div>
-                <div class="feature-mockup" data-aos="fade-right">
-                    <div class="phone-mockup">
-                        <div class="phone-frame">
-                            <div class="phone-notch"></div>
-                            <div class="phone-screen">
-                                <img data-src="assets/mockups/themes.png" alt="PDF Themes" class="screen-img lazyload" loading="lazy" width="300" height="650">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Feature 3: File Management -->
-            <div class="feature-showcase">
-                <div class="feature-content" data-aos="fade-right">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
-                        <i class="hgi-stroke hgi-folder-library" style="font-size: 28px; color: white;"></i>
+                <!-- Small Item: Offline -->
+                <div class="bento-item glow-blue" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bento-icon-box">
+                        <i class="hgi-stroke hgi-wifi-off" style="color: var(--accent-blue);"></i>
                     </div>
-                    <h3 class="feature-title">Smart File Management</h3>
-                    <p class="feature-description">
-                        Keep track of your markdown files with built-in history and quick access.
-                        Share PDFs instantly across apps and devices.
-                    </p>
-                    <ul class="feature-list">
-                        <li>✓ File history tracking</li>
-                        <li>✓ Quick file picker</li>
-                        <li>✓ Share PDFs anywhere</li>
-                        <li>✓ Works completely offline</li>
-                    </ul>
+                    <h3 class="bento-title">100% Offline</h3>
+                    <p class="bento-desc">Your data never leaves your device. Zero tracking, zero ads.</p>
                 </div>
-                <div class="feature-mockup" data-aos="fade-left">
-                    <div class="phone-mockup">
-                        <div class="phone-frame">
-                            <div class="phone-notch"></div>
-                            <div class="phone-screen">
-                                <img data-src="assets/mockups/files.png" alt="File Management" class="screen-img lazyload" loading="lazy" width="300" height="650">
-                            </div>
+
+                <!-- Large Item: Formatting -->
+                <div class="bento-item span-2 glow-blue" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bento-content">
+                        <div class="bento-icon-box">
+                            <i class="hgi-stroke hgi-text-font" style="color: var(--accent-blue);"></i>
                         </div>
+                        <h3 class="bento-title">Advanced Formatting</h3>
+                        <p class="bento-desc">Tables, code blocks, images, diagrams, and auto-generated Table of
+                            Contents support.</p>
+                    </div>
+                    <div class="bento-img-container" style="height: 250px;">
+                        <img src="assets/mockups/files.png" alt="Formatting options" style="object-position: top;">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Themes Showcase -->
-    <section id="themes" class="themes-section">
+    <!-- NEW: Horizontal PDF Showcase -->
+    <section id="showcase" class="section-padding" style="overflow: hidden;">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Choose Your Perfect Theme</h2>
-                <p class="section-subtitle">Four professionally designed themes, each crafted for specific document types and audiences</p>
+                <h2 class="section-title">Perfect PDF Output</h2>
+                <p class="section-sub">Swipe to see actual exported documents.</p>
             </div>
+        </div>
 
-            <div class="themes-grid">
-                <div class="theme-card" data-aos="zoom-in" data-aos-delay="0">
-                    <div class="theme-preview">
-                        <img data-src="assets/images/theme-professional.png" alt="Professional Theme" class="lazyload" loading="lazy" width="400" height="500">
-                    </div>
-                    <div class="theme-info">
-                        <h3 class="theme-name">Professional</h3>
-                        <p class="theme-description">Crisp blue accents with Helvetica typography. Ideal for business reports, proposals, and corporate documentation.</p>
-                        <div class="theme-colors">
-                            <span class="color-dot" style="background: #2563EB;"></span>
-                            <span class="color-dot" style="background: #1E293B;"></span>
-                            <span class="color-dot" style="background: #F8FAFC;"></span>
-                        </div>
-                        <div class="theme-features">
-                            <span class="theme-badge">Corporate</span>
-                            <span class="theme-badge">Business</span>
-                        </div>
-                    </div>
+        <!-- Scroll Container -->
+        <div class="horizontal-scroll-container">
+            <div class="scroll-track">
+                <div class="pdf-card">
+                    <img src="assets/pdf-samples/professional-preview.png" alt="Professional Theme">
+                    <div class="pdf-meta">Professional Theme</div>
                 </div>
-
-                <div class="theme-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="theme-preview">
-                        <img data-src="assets/images/theme-modern.png" alt="Modern Theme" class="lazyload" loading="lazy" width="400" height="500">
-                    </div>
-                    <div class="theme-info">
-                        <h3 class="theme-name">Modern</h3>
-                        <p class="theme-description">Vibrant amber highlights with generous white space. Perfect for creative portfolios, marketing materials, and presentations.</p>
-                        <div class="theme-colors">
-                            <span class="color-dot" style="background: #F59E0B;"></span>
-                            <span class="color-dot" style="background: #1F2937;"></span>
-                            <span class="color-dot" style="background: #FFFFFF;"></span>
-                        </div>
-                        <div class="theme-features">
-                            <span class="theme-badge">Creative</span>
-                            <span class="theme-badge">Marketing</span>
-                        </div>
-                    </div>
+                <div class="pdf-card">
+                    <img src="assets/pdf-samples/modern-preview.png" alt="Modern Theme">
+                    <div class="pdf-meta">Modern Theme</div>
                 </div>
-
-                <div class="theme-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="theme-preview">
-                        <img data-src="assets/images/theme-minimalist.png" alt="Minimalist Theme" class="lazyload" loading="lazy" width="400" height="500">
-                    </div>
-                    <div class="theme-info">
-                        <h3 class="theme-name">Minimalist</h3>
-                        <p class="theme-description">Subtle gray tones with ultra-clean design. Best for technical documentation, academic papers, and focused content.</p>
-                        <div class="theme-colors">
-                            <span class="color-dot" style="background: #6B7280;"></span>
-                            <span class="color-dot" style="background: #111827;"></span>
-                            <span class="color-dot" style="background: #F9FAFB;"></span>
-                        </div>
-                        <div class="theme-features">
-                            <span class="theme-badge">Technical</span>
-                            <span class="theme-badge">Academic</span>
-                        </div>
-                    </div>
+                <div class="pdf-card">
+                    <img src="assets/pdf-samples/minimalist-preview.png" alt="Minimalist Theme">
+                    <div class="pdf-meta">Minimalist Theme</div>
                 </div>
-
-                <div class="theme-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="theme-preview">
-                        <img data-src="assets/images/theme-classic.png" alt="Classic Theme" class="lazyload" loading="lazy" width="400" height="500">
-                    </div>
-                    <div class="theme-info">
-                        <h3 class="theme-name">Classic</h3>
-                        <p class="theme-description">Warm brown accents with traditional serif fonts. Excellent for formal documents, literary works, and traditional publications.</p>
-                        <div class="theme-colors">
-                            <span class="color-dot" style="background: #92400E;"></span>
-                            <span class="color-dot" style="background: #1C1917;"></span>
-                            <span class="color-dot" style="background: #FFFBEB;"></span>
-                        </div>
-                        <div class="theme-features">
-                            <span class="theme-badge">Formal</span>
-                            <span class="theme-badge">Literary</span>
-                        </div>
-                    </div>
+                <div class="pdf-card">
+                    <img src="assets/pdf-samples/classic-preview.png" alt="Classic Theme">
+                    <div class="pdf-meta">Classic Theme</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Download Section -->
+    <!-- NEW: Testimonials (Wall of Love) -->
+    <section class="section-padding" style="background: var(--bg-darker);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Loved by Writers</h2>
+                <p class="section-sub">Join 10,000+ users creating better documents.</p>
+            </div>
+
+            <div class="grid-3" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Finally an app that respects privacy and works offline. The PDF output is gorgeous."</p>
+                    <div class="user">- Sarah M., Student</div>
+                </div>
+                <!-- Removed 2nd testimonial -->
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Clean, fast, and no subscriptions. Exactly what I needed for my lecture notes."</p>
+                    <div class="user">- Dr. Ahmed, Professor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download CTA -->
     <section id="download" class="download-section">
-        <div class="download-bg">
-            <div class="gradient-orb orb-4"></div>
-            <div class="gradient-orb orb-5"></div>
-        </div>
-
         <div class="container">
-            <div class="download-content" data-aos="fade-up">
-                <h2 class="download-title">Ready to Create Beautiful PDFs?</h2>
-                <p class="download-subtitle">Download Owl.md now and start converting markdown to professional documents</p>
+            <div class="section-header">
+                <h2 class="section-title">Start Writing Today</h2>
+                <p class="section-sub">Free forever. No ads. No tracking.</p>
+            </div>
 
-                <div class="download-buttons">
-                    <a href="https://play.google.com/store/apps/details?id=com.owlmd" class="store-button google-play" target="_blank">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                        </svg>
-                        <div class="store-text">
-                            <span class="store-label">GET IT ON</span>
-                            <span class="store-name">Google Play</span>
-                        </div>
-                    </a>
-
-                    <a href="#" class="store-button app-store disabled">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
-                        </svg>
-                        <div class="store-text">
-                            <span class="store-label">Coming Soon</span>
-                            <span class="store-name">App Store</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="download-features">
-                    <div class="download-feature">
-                        <i class="hgi-stroke hgi-checkmark-circle-01" style="font-size: 20px; color: #10B981;"></i>
-                        <span>Free to Download & Use</span>
+            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <a href="https://play.google.com/store/apps/details?id=com.owlmd" class="store-btn">
+                    <i class="hgi-stroke hgi-play-store" style="font-size: 24px;"></i>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 10px; text-transform: uppercase; opacity: 0.7;">Get it on</span>
+                        <span style="font-weight: 600;">Google Play</span>
                     </div>
-                    <div class="download-feature">
-                        <i class="hgi-stroke hgi-checkmark-circle-01" style="font-size: 20px; color: #10B981;"></i>
-                        <span>No Ads or Subscriptions</span>
-                    </div>
-                    <div class="download-feature">
-                        <i class="hgi-stroke hgi-checkmark-circle-01" style="font-size: 20px; color: #10B981;"></i>
-                        <span>Works Completely Offline</span>
-                    </div>
-                </div>
+                </a>
 
-                <div class="github-link">
-                    <a href="https://github.com/drmafouad/Owl.md" target="_blank" class="btn-github">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0C5.37 0 0 5.37 0 12C0 17.31 3.435 21.795 8.205 23.385C8.805 23.49 9.03 23.13 9.03 22.815C9.03 22.53 9.015 21.585 9.015 20.58C6 21.135 5.22 19.845 4.98 19.17C4.845 18.825 4.26 17.76 3.75 17.475C3.33 17.25 2.73 16.695 3.735 16.68C4.68 16.665 5.355 17.55 5.58 17.91C6.66 19.725 8.385 19.215 9.075 18.9C9.18 18.12 9.495 17.595 9.84 17.295C7.17 16.995 4.38 15.96 4.38 11.37C4.38 10.065 4.845 8.985 5.61 8.145C5.49 7.845 5.07 6.615 5.73 4.965C5.73 4.965 6.735 4.65 9.03 6.195C9.99 5.925 11.01 5.79 12.03 5.79C13.05 5.79 14.07 5.925 15.03 6.195C17.325 4.635 18.33 4.965 18.33 4.965C18.99 6.615 18.57 7.845 18.45 8.145C19.215 8.985 19.68 10.05 19.68 11.37C19.68 15.975 16.875 16.995 14.205 17.295C14.64 17.67 15.015 18.39 15.015 19.515C15.015 21.12 15 22.41 15 22.815C15 23.13 15.225 23.505 15.825 23.385C20.565 21.795 24 17.295 24 12C24 5.37 18.63 0 12 0Z"/>
-                        </svg>
-                        View on GitHub
-                    </a>
-                </div>
+                <a href="#" class="store-btn disabled">
+                    <i class="hgi-stroke hgi-apple" style="font-size: 24px;"></i>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 10px; text-transform: uppercase; opacity: 0.7;">Coming Soon</span>
+                        <span style="font-weight: 600;">App Store</span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -369,66 +250,60 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <img src="assets/images/logo.png" alt="Owl.md Logo" class="logo-icon" style="height: 45px; width: auto;">
-                        <span class="logo-text">Owl.md</span>
-                    </div>
-                    <p class="footer-tagline">Beautiful PDFs from Markdown</p>
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="logo" style="margin-bottom: 16px; display: inline-flex;">
+                        <img src="assets/images/logo.png" style="width: 24px;">
+                        Owl.md
+                    </a>
+                    <p style="opacity: 0.7;">Markdown to PDF converter for professionals.</p>
                 </div>
 
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Product</h4>
-                        <a href="#features">Features</a>
-                        <a href="#themes">Themes</a>
-                        <a href="#download">Download</a>
-                        <a href="privacy.html">Privacy Policy</a>
-                    </div>
+                <div>
+                    <h4>Product</h4>
+                    <a href="guide.html">User Guide</a>
+                    <a href="#features">Features</a>
+                    <a href="#download">Download</a>
+                </div>
 
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <a href="https://github.com/drmafouad/Owl.md#readme" target="_blank">Documentation</a>
-                        <a href="https://github.com/drmafouad/Owl.md/blob/main/BUILD.md" target="_blank">Build Guide</a>
-                        <a href="https://github.com/drmafouad/Owl.md/releases" target="_blank">Changelog</a>
-                    </div>
+                <div>
+                    <h4>Resources</h4>
+                    <a href="privacy.html">Privacy</a>
+                </div>
 
-                    <div class="footer-column">
-                        <h4>Connect</h4>
-                        <a href="https://github.com/drmafouad/Owl.md" target="_blank">GitHub</a>
-                        <a href="https://github.com/drmafouad/Owl.md/issues" target="_blank">Report Issue</a>
-                        <a href="mailto:support@injazapps.com">Contact</a>
-                    </div>
+                <div>
+                    <h4>Contact</h4>
+                    <a href="mailto:support@injazapps.com">Support</a>
+                    <a href="https://x.com/injazapps">@injazapps</a>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2025 InjazApps • All Rights Reserved • <a href="privacy.html" style="color: inherit; text-decoration: underline;">Privacy Policy</a> • Made with ❤️ by InjazApps</p>
+            <div
+                style="text-align: center; padding-top: 32px; border-top: 1px solid var(--border-light); margin-top: 32px;">
+                <p>&copy; 2025 InjazApps. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts - defer for faster page load -->
-    <script defer src="assets/js/animations.js"></script>
-    <script defer src="assets/js/main.js"></script>
-
-    <!-- Inline lazy loading script for instant loading -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Minimal inline lazy loading implementation
-        if ('loading' in HTMLImageElement.prototype) {
-            // Browser supports native lazy loading
-            const images = document.querySelectorAll('img[data-src]');
-            images.forEach(img => {
-                img.src = img.dataset.src;
-            });
-        } else {
-            // Fallback for browsers without native lazy loading
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-            script.async = true;
-            document.body.appendChild(script);
-        }
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile Toggle logic
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
+
 </html>

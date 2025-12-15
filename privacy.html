@@ -1,455 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Owl.md</title>
-    <meta name="description" content="Privacy Policy for Owl.md - Markdown to PDF Converter. We don't collect, store, or transmit any personal information.">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        :root {
-            --primary: #F59E0B;
-            --primary-dark: #D97706;
-            --text-primary: #1F2937;
-            --text-secondary: #6B7280;
-            --bg-light: #FFFFFF;
-            --bg-gray: #F9FAFB;
-            --border: #E5E7EB;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-light);
-        }
-
-        .container {
+        /* Privacy Specific Overrides */
+        .privacy-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            padding: 120px var(--space-lg) var(--space-3xl);
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 3rem 1.5rem;
+        .privacy-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: var(--space-3xl);
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.125rem;
-            opacity: 0.95;
-        }
-
-        .last-updated {
-            background: var(--bg-gray);
-            padding: 1rem 1.5rem;
-            border-left: 4px solid var(--primary);
-            margin-bottom: 2rem;
-            border-radius: 0.5rem;
+        .privacy-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
         }
 
         h2 {
-            font-size: 1.875rem;
-            font-weight: 700;
-            margin: 2.5rem 0 1rem;
+            font-size: 1.75rem;
+            margin-top: var(--space-2xl);
+            margin-bottom: var(--space-md);
             color: var(--text-primary);
         }
 
         h3 {
             font-size: 1.25rem;
-            font-weight: 600;
-            margin: 2rem 0 1rem;
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
             color: var(--text-primary);
         }
 
-        p {
-            margin-bottom: 1rem;
+        p,
+        li {
             color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
         }
 
         ul {
-            margin: 1rem 0 1rem 2rem;
-            color: var(--text-secondary);
+            padding-left: var(--space-lg);
+            margin-bottom: var(--space-md);
         }
 
-        li {
-            margin-bottom: 0.5rem;
+        .check-list li {
+            list-style: none;
+            position: relative;
+        }
+
+        .check-list li::before {
+            content: '✅';
+            position: absolute;
+            left: -28px;
         }
 
         .highlight-box {
-            background: var(--bg-gray);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .highlight-box h3 {
-            margin-top: 0;
-        }
-
-        .privacy-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-
-        .feature-item::before {
-            content: '✅';
-            font-size: 1.25rem;
-            flex-shrink: 0;
-        }
-
-        .contact-box {
-            background: linear-gradient(135deg, #F59E0B22 0%, #D9770622 100%);
-            border: 1px solid var(--primary);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .contact-box h3 {
-            margin-top: 0;
-            color: var(--primary-dark);
-        }
-
-        .contact-box p {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            margin: var(--space-lg) 0;
             color: var(--text-primary);
-        }
-
-        a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .summary-box {
-            background: linear-gradient(135deg, #10B98122 0%, #05966922 100%);
-            border: 1px solid #10B981;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .summary-box h3 {
-            margin-top: 0;
-            color: #059669;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            margin-top: 3rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            font-weight: 500;
-        }
-
-        .back-link:hover {
-            color: var(--primary-dark);
-        }
-
-        strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        code {
-            background: var(--bg-gray);
-            padding: 0.125rem 0.375rem;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            font-family: 'Courier New', monospace;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .privacy-features {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <h1>Privacy Policy</h1>
-        <p>Owl.md - Markdown to PDF Converter</p>
-    </header>
 
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
+    <!-- Nav -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Owl.md">
+                <span>Owl.md</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="guide.html" class="nav-link">User Guide</a>
+            </div>
+        </div>
+    </nav>
 
-        <div class="last-updated">
-            <strong>Last Updated:</strong> 2025-11-14
+    <div class="privacy-container">
+        <div class="privacy-header">
+            <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 16px;">Privacy Policy</h1>
+            <p style="font-size: 1.25rem; color: var(--text-secondary);">Last Updated: 2025-11-14</p>
         </div>
 
-        <section>
-            <h2>Our Privacy Commitment</h2>
-            <div class="privacy-features">
-                <div class="feature-item">No personal data collection</div>
-                <div class="feature-item">No user accounts required</div>
-                <div class="feature-item">No tracking or analytics</div>
-                <div class="feature-item">No advertisements</div>
-                <div class="feature-item">Works completely offline</div>
-                <div class="feature-item">Privacy-focused design</div>
-            </div>
-        </section>
+        <div class="privacy-box">
+            <h3>Summary</h3>
+            <p>We believe your documents belong to you. Owl.md is an <strong>offline-first</strong> application.</p>
+            <ul class="check-list" style="margin-top: 16px;">
+                <li>No personal data collection</li>
+                <li>No user accounts required</li>
+                <li>No tracking or analytics</li>
+                <li>Files stay on your device</li>
+            </ul>
+        </div>
 
         <section>
             <h2>Information We Do NOT Collect</h2>
             <p>Owl.md does <strong>NOT</strong> collect, store, or transmit:</p>
             <ul>
-                <li>Personal information (name, email, phone number, etc.)</li>
+                <li>Personal information (name, email, etc.)</li>
                 <li>User accounts or credentials</li>
                 <li>Location data</li>
-                <li>Device identifiers</li>
                 <li>Usage statistics or analytics</li>
-                <li>Crash reports or diagnostics</li>
-                <li>Any personally identifiable information (PII)</li>
             </ul>
         </section>
 
         <section>
-            <h2>Data That Stays on Your Device</h2>
-            <p>The following data is stored <strong>locally on your device only</strong> and never leaves your device:</p>
+            <h2>Data Stored Locally</h2>
+            <p>The following data stays on your device and is never sent to our servers:</p>
 
             <h3>1. Document Content</h3>
-            <ul>
-                <li>Markdown files you create or edit</li>
-                <li>PDF files you generate</li>
-                <li>All document content remains on your device</li>
-            </ul>
+            <p>Your Markdown and PDF files are stored in your device's local storage.</p>
 
             <h3>2. App Preferences</h3>
-            <ul>
-                <li>Theme preference (light/dark mode)</li>
-                <li>Selected PDF theme</li>
-                <li>App settings</li>
-            </ul>
-            <p><em>Stored using: Android SharedPreferences (local storage)</em></p>
-
-            <h3>3. File History</h3>
-            <ul>
-                <li>List of recently opened files (file paths only)</li>
-                <li>Accessed dates of files</li>
-            </ul>
-            <p><em>Stored using: Android SharedPreferences (local storage)</em></p>
-
-            <h3>4. Announcement Read Status</h3>
-            <ul>
-                <li>Which in-app announcements you've viewed</li>
-                <li>Timestamps of when announcements were read</li>
-            </ul>
-            <p><em>Stored using: Android SharedPreferences (local storage)</em></p>
-
-            <div class="highlight-box">
-                <p><strong>Note:</strong> All of this data is stored locally on your device. We have no access to it, and it is never transmitted to our servers or any third party.</p>
-            </div>
+            <p>Theme selection, PDF settings, and history are stored effectively using Android SharedPreferences.</p>
         </section>
 
         <section>
             <h2>Network Requests</h2>
-            <p>Owl.md makes limited network requests in the following scenarios:</p>
-
-            <h3>1. GitHub Markdown Loading (Optional Feature)</h3>
+            <p>The app only connects to the internet for:</p>
             <ul>
-                <li><strong>When:</strong> You explicitly choose to load a markdown file from a GitHub URL</li>
-                <li><strong>What:</strong> HTTP request to fetch the raw markdown content from GitHub</li>
-                <li><strong>Data Sent:</strong> The GitHub URL you provide</li>
-                <li><strong>Recipient:</strong> GitHub.com</li>
-                <li><strong>Purpose:</strong> To download the markdown file content you requested</li>
+                <li><strong>GitHub Import (Optional):</strong> If you choose to load a file from a URL.</li>
+                <li><strong>Announcements:</strong> Checking for app updates via a public JSON file on GitHub.</li>
+                <li><strong>External Images:</strong> Loading images you add via URL.</li>
             </ul>
-
-            <h3>2. In-App Announcements (Optional Feature)</h3>
-            <ul>
-                <li><strong>When:</strong> App checks for announcements (every 4 hours when online)</li>
-                <li><strong>What:</strong> HTTP request to fetch announcements.json from our GitHub repository</li>
-                <li><strong>URL:</strong> <code>https://raw.githubusercontent.com/drmafouad/Owl.md/main/announcements.json</code></li>
-                <li><strong>Data Sent:</strong> None (simple GET request)</li>
-                <li><strong>Purpose:</strong> To inform you of app updates, new features, or important notices</li>
-            </ul>
-
-            <div class="highlight-box">
-                <p><strong>Important:</strong> These network requests do not include any personal information, do not track your identity or device, and are made to public GitHub repositories only.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>Permissions</h2>
-
-            <h3>Storage Permissions</h3>
-            <p><strong>Permissions:</strong> <code>READ_EXTERNAL_STORAGE</code>, <code>WRITE_EXTERNAL_STORAGE</code> (Android 12 and below)<br>
-            <code>READ_MEDIA_IMAGES</code>, <code>READ_MEDIA_VIDEO</code>, <code>READ_MEDIA_AUDIO</code> (Android 13+)</p>
-
-            <p><strong>Purpose:</strong> To allow you to:</p>
-            <ul>
-                <li>Load markdown files from your device storage</li>
-                <li>Save PDF files to your device storage</li>
-                <li>Access files you choose through the file picker</li>
-            </ul>
-
-            <p><strong>What we access:</strong> Only the specific files you explicitly select through the system file picker. We do not scan, index, or access any other files on your device.</p>
-
-            <h3>Internet Permission</h3>
-            <p><strong>Permission:</strong> <code>INTERNET</code></p>
-            <p><strong>Purpose:</strong> To enable optional features like loading markdown files from GitHub URLs and fetching in-app announcements.</p>
-            <p><strong>Note:</strong> All core features (editing, PDF generation, local file operations) work completely offline.</p>
         </section>
 
         <section>
             <h2>Third-Party Services</h2>
             <p>Owl.md does <strong>NOT</strong> use:</p>
             <ul>
-                <li>Analytics services (e.g., Google Analytics, Firebase Analytics)</li>
-                <li>Crash reporting services (e.g., Crashlytics)</li>
-                <li>Advertising networks</li>
-                <li>Social media SDKs</li>
-                <li>Cloud storage providers</li>
-                <li>User authentication services</li>
-                <li>Any third-party data collection services</li>
-            </ul>
-
-            <p>The only external interaction is optional HTTP requests to GitHub. GitHub's privacy policy applies to these interactions: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a></p>
-        </section>
-
-        <section>
-            <h2>Children's Privacy</h2>
-            <p>Owl.md does not collect any personal information from anyone, including children under 13 years of age. The app is safe for all ages and complies with the Children's Online Privacy Protection Act (COPPA).</p>
-        </section>
-
-        <section>
-            <h2>Data Retention and Deletion</h2>
-            <p>Since all data is stored locally on your device:</p>
-            <ul>
-                <li><strong>To delete app data:</strong> Uninstall the app or clear app data in Android settings</li>
-                <li><strong>To delete documents:</strong> Use your device's file manager to delete files you created</li>
-                <li><strong>To clear history:</strong> Use the "Clear History" option in the app's file history drawer</li>
+                <li>Analytics services (No Firebase, No Google Analytics)</li>
+                <li>Crash reporting tools</li>
+                <li> Advertising networks</li>
             </ul>
         </section>
 
         <section>
-            <h2>Changes to This Privacy Policy</h2>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by:</p>
-            <ul>
-                <li>Posting the new Privacy Policy on this page</li>
-                <li>Updating the "Last Updated" date</li>
-                <li>Announcing changes through in-app announcements (if significant)</li>
-            </ul>
-            <p>We encourage you to review this Privacy Policy periodically for any changes.</p>
+            <h2>Contact Us</h2>
+            <p>If you have any questions, please contact us:</p>
+            <p><strong>Email:</strong> <a href="mailto:support@injazapps.com"
+                    style="color: var(--accent-orange);">support@injazapps.com</a></p>
         </section>
 
-        <section>
-            <h2>Your Rights</h2>
-            <p>Since we don't collect or store any of your personal data, issues of data access, correction, or deletion do not apply. However, you have complete control over:</p>
-            <ul>
-                <li>All documents you create (stored locally on your device)</li>
-                <li>App preferences and settings</li>
-                <li>File history (can be cleared from the app)</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Software Transparency</h2>
-            <p>Owl.md is committed to transparency about our privacy practices:</p>
-            <ul>
-                <li>This privacy policy clearly explains what data we collect (none) and how the app works</li>
-                <li>All app functionality is clearly documented</li>
-                <li>We're responsive to user questions and concerns about privacy</li>
-                <li>Contact us at <a href="mailto:support@injazapps.com">support@injazapps.com</a> with any privacy questions</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Compliance</h2>
-            <p>This privacy policy is designed to comply with:</p>
-            <ul>
-                <li>General Data Protection Regulation (GDPR)</li>
-                <li>California Consumer Privacy Act (CCPA)</li>
-                <li>Children's Online Privacy Protection Act (COPPA)</li>
-                <li>Google Play Store Developer Policy</li>
-            </ul>
-        </section>
-
-        <div class="summary-box">
-            <h3>Summary - In Simple Terms</h3>
-            <ul>
-                <li>Owl.md is a privacy-focused app that works completely offline</li>
-                <li>All your data stays on your device - we never see it</li>
-                <li>No tracking, no analytics, no ads</li>
-                <li>Optional network features only access public GitHub content</li>
-                <li>Transparent privacy policy so you know exactly how the app works</li>
-            </ul>
-            <p><strong>We believe your documents are yours and yours alone.</strong></p>
-        </div>
-
-        <div class="contact-box">
-            <h3>Contact Us</h3>
-            <p>If you have any questions about this Privacy Policy, please contact us:</p>
-            <ul>
-                <li><strong>Email:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a></li>
-                <li><strong>Website:</strong> <a href="https://owlmd.injazapps.com">owlmd.injazapps.com</a></li>
-            </ul>
-            <p style="margin-top: 1rem;">For bug reports, feature requests, or technical support, please email us at <a href="mailto:support@injazapps.com">support@injazapps.com</a></p>
-        </div>
-
-        <section>
-            <h2>Developer Information</h2>
-            <p><strong>Developer:</strong> Mohamed Fouad / InjazApps<br>
-            <strong>Contact Email:</strong> support@injazapps.com<br>
-            <strong>Website:</strong> <a href="https://owlmd.injazapps.com">owlmd.injazapps.com</a></p>
-        </section>
     </div>
 
-    <footer>
-        <p>© 2025 InjazApps • All Rights Reserved • Made with ❤️ by InjazApps</p>
-        <p style="margin-top: 0.5rem; font-size: 0.875rem;">This privacy policy is effective as of 2025-11-14 and applies to all versions of Owl.md.</p>
+    <footer class="footer" style="text-align: center;">
+        <div class="container">
+            <p>&copy; 2025 InjazApps • All Rights Reserved</p>
+        </div>
     </footer>
+
 </body>
+
 </html>

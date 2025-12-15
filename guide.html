@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide - Owl.md</title>
+    <meta name="description"
+        content="Complete user guide for Owl.md. Learn to create beautiful PDFs, use Markdown syntax, and master advanced features.">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.hugeicons.com">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        /* Guide Specific Styles */
+        body {
+            background: var(--bg-dark);
+        }
+
+        .guide-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-2xl);
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 120px var(--space-lg) var(--space-3xl);
+            position: relative;
+        }
+
+        /* Sidebar */
+        .guide-sidebar {
+            position: sticky;
+            top: 120px;
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+            border-right: 1px solid var(--border-light);
+            padding-right: var(--space-md);
+        }
+
+        .guide-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .guide-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .guide-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .toc-link {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            transition: all 0.2s;
+        }
+
+        .toc-link:hover {
+            color: var(--text-primary);
+        }
+
+        .toc-link.active {
+            color: var(--accent-orange);
+            border-left-color: var(--accent-orange);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.05), transparent);
+        }
+
+        .toc-header {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Content */
+        .guide-content {
+            min-width: 0;
+            /* Prevent grid blowout */
+        }
+
+        .guide-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .guide-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: var(--space-3xl);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+            scroll-margin-top: 120px;
+        }
+
+        .guide-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+            scroll-margin-top: 120px;
+        }
+
+        .guide-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .guide-content ul,
+        .guide-content ol {
+            margin-bottom: var(--space-lg);
+            padding-left: var(--space-lg);
+            color: var(--text-secondary);
+        }
+
+        .guide-content li {
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #0f172a;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-lg);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        p>code,
+        li>code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent-orange);
+            font-size: 0.85em;
+        }
+
+        /* Callouts */
+        .callout {
+            border-left: 4px solid var(--accent-blue);
+            background: rgba(59, 130, 246, 0.05);
+            padding: var(--space-md);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-bottom: var(--space-lg);
+        }
+
+        .callout h4 {
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .guide-layout {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+            }
+
+            .guide-sidebar {
+                display: none;
+                /* Hide sidebar on mobile for now */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Nav (Simplified for subpage) -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Owl.md">
+                <span>Owl.md</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#download" class="nav-link">Download</a>
+            </div>
+            <a href="index.html" class="btn-nav-cta">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="guide-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="guide-sidebar">
+            <div class="toc-header">Quick Start</div>
+            <a href="#quick-start" class="toc-link">Getting Started</a>
+            <a href="#editor" class="toc-link">Using the Editor</a>
+            <a href="#formatting" class="toc-link">Toolbar</a>
+
+            <div class="toc-header">Features</div>
+            <a href="#images" class="toc-link">Images (New!)</a>
+            <a href="#files" class="toc-link">Working with Files</a>
+            <a href="#themes" class="toc-link">PDF Themes</a>
+            <a href="#syntax" class="toc-link">Markdown Syntax</a>
+
+            <div class="toc-header">Advanced</div>
+            <a href="#metadata" class="toc-link">Metadata & TOC</a>
+            <a href="#github" class="toc-link">GitHub Integration</a>
+            <a href="#faq" class="toc-link">Troubleshooting</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="guide-content">
+            <h1>User Guide</h1>
+            <p style="font-size: 1.25rem; color: var(--text-primary);">Master Owl.md with our comprehensive
+                documentation. Updated for Version 1.1.47.</p>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 32px 0;">
+
+            <section id="quick-start">
+                <h2>🚀 Quick Start</h2>
+                <h3>Creating Your First PDF</h3>
+                <ol>
+                    <li><strong>Write Markdown</strong>: Type or paste your content in the editor.</li>
+                    <li><strong>Preview</strong>: Swipe left or tap the "Preview" tab to see the live render.</li>
+                    <li><strong>Choose Theme</strong>: Tap the menu (⋮) -> Document Theme to select from 4 pro styles.
+                    </li>
+                    <li><strong>Share</strong>: Tap the Share button to export as PDF instantly.</li>
+                </ol>
+            </section>
+
+            <section id="editor">
+                <h2>✏️ The Editor</h2>
+                <p>The editor is designed for focus and speed. It autosaves your work locally so you never lose
+                    progress.</p>
+
+                <div class="callout">
+                    <h4>Pro Tip</h4>
+                    <p>Owl.md works 100% offline. Swiping between editor and preview features a silky smooth animation
+                        to keep you in flow.</p>
+                </div>
+
+                <h3 id="formatting">Formatting Toolbar</h3>
+                <ul>
+                    <li><strong>H</strong> - Insert Headings (H1-H6)</li>
+                    <li><strong>B / I</strong> - Bold and Italic</li>
+                    <li><strong>==</strong> - Highlight Text</li>
+                    <li><strong>[ ]</strong> - Checklist</li>
+                    <li><strong>Code</strong> - Code blocks</li>
+                    <li><strong>🖼️</strong> - Insert Image (Smart Dialog)</li>
+                </ul>
+            </section>
+
+            <section id="images">
+                <h2>🖼️ Images</h2>
+                <p>Insert images from your device or URLs. The new Image Dialog gives you full control.</p>
+
+                <pre><code>![Alt text](url){width=50% align=center}</code></pre>
+
+                <ul>
+                    <li><strong>Width Control</strong>: 25%, 50%, 75%, or 100%</li>
+                    <li><strong>Alignment</strong>: Left, Center, or Right</li>
+                    <li><strong>Sources</strong>: Local storage or any HTTPS URL</li>
+                </ul>
+            </section>
+
+            <section id="themes">
+                <h2>🎨 PDF Themes</h2>
+                <div class="bento-grid" style="grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0;">
+                    <div class="bento-item">
+                        <h4 style="color: var(--accent-blue); margin-bottom: 8px;">1. Professional</h4>
+                        <p style="font-size: 0.9rem;">Clean Inter font with blue accents. Perfect for business reports.
+                        </p>
+                    </div>
+                    <div class="bento-item">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 8px;">2. Modern</h4>
+                        <p style="font-size: 0.9rem;">Asap font with vibrant orange. Great for creative docs.</p>
+                    </div>
+                    <div class="bento-item">
+                        <h4 style="color: #9CA3AF; margin-bottom: 8px;">3. Minimalist</h4>
+                        <p style="font-size: 0.9rem;">Ubuntu font, grayscale only. Ideal for technical specs.</p>
+                    </div>
+                    <div class="bento-item">
+                        <h4 style="color: #78350F; margin-bottom: 8px;">4. Classic</h4>
+                        <p style="font-size: 0.9rem;">Noto Serif on ivory background. For academic writing.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="syntax">
+                <h2>📝 Markdown Syntax</h2>
+
+                <h3>Headers</h3>
+                <pre><code># H1 (Largest)
+## H2
+### H3</code></pre>
+
+                <h3>Lists</h3>
+                <pre><code>- Bullet item
+1. Numbered item
+- [x] Completed task</code></pre>
+
+                <h3>Tables</h3>
+                <pre><code>| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |</code></pre>
+            </section>
+
+            <section id="metadata">
+                <h2>🎯 Advanced Features</h2>
+
+                <h3>Automatic Table of Contents</h3>
+                <p>Add the marker <code>[TOC]</code> anywhere in your document to auto-generate a clickable Table of
+                    Contents with page numbers.</p>
+
+                <h3>Title Page Metadata</h3>
+                <p>Add YAML frontmatter to the very top of your file to generate a professional cover page:</p>
+                <pre><code>---
+title: My Annual Report
+author: John Doe
+date: 2025-12-14
+version: 1.0
+---</code></pre>
+            </section>
+
+            <section id="github">
+                <h2>🔗 GitHub Integration</h2>
+                <p>You can load Markdown files directly from any public repository.</p>
+                <ol>
+                    <li>Tap the <strong>Folder Icon</strong>.</li>
+                    <li>Select <strong>Load from GitHub URL</strong>.</li>
+                    <li>Paste the link (blob or raw format).</li>
+                </ol>
+            </section>
+
+            <section id="faq">
+                <h2>❓ Troubleshooting</h2>
+
+                <h3>PDF Won't Generate?</h3>
+                <ul>
+                    <li>Check if your Markdown syntax is valid.</li>
+                    <li>Ensure you have storage space.</li>
+                    <li>Try switching themes.</li>
+                </ul>
+
+                <h3>Images Not Loading?</h3>
+                <ul>
+                    <li>For network images, ensure you have internet.</li>
+                    <li>For local images, ensure the file wasn't deleted.</li>
+                    <li>Check the URL format (must be HTTPS).</li>
+                </ul>
+            </section>
+
+            <div
+                style="background: var(--bg-card); padding: 32px; border-radius: var(--radius-lg); margin-top: 64px; text-align: center;">
+                <h3>Need more help?</h3>
+                <p>We're here for you.</p>
+                <a href="mailto:support@injazapps.com" class="btn btn-primary" style="display: inline-flex;">Contact
+                    Support</a>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer Script for TOC Highlighting -->
+    <script>
+        // Simple Intersection Observer for TOC
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+
+        document.querySelectorAll('section[id]').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>
