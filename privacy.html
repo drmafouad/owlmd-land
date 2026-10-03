@@ -3,110 +3,58 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#EDE4D3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1B1A17" media="(prefers-color-scheme: dark)">
+    <!-- Set the theme before first paint (no flash). Choice is remembered in localStorage. -->
+    <script>
+        (function () {
+            var d = document.documentElement, p = 'auto';
+            try { p = localStorage.getItem('owlmd-theme') || 'auto'; } catch (e) { }
+            if (p !== 'light' && p !== 'dark') p = 'auto';
+            d.setAttribute('data-pref', p);
+            if (p !== 'auto') d.setAttribute('data-theme', p);
+            d.className += ' js';
+        })();
+    </script>
+    <link rel="preload" href="assets/fonts/inter-400.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-700.woff" as="font" type="font/woff" crossorigin>
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
     <title>Privacy Policy - Owl.md</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/main.css">
-
-    <style>
-        /* Privacy Specific Overrides */
-        .privacy-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 120px var(--space-lg) var(--space-3xl);
-        }
-
-        .privacy-header {
-            text-align: center;
-            margin-bottom: var(--space-3xl);
-        }
-
-        .privacy-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
-        }
-
-        h2 {
-            font-size: 1.75rem;
-            margin-top: var(--space-2xl);
-            margin-bottom: var(--space-md);
-            color: var(--text-primary);
-        }
-
-        h3 {
-            font-size: 1.25rem;
-            margin-top: var(--space-lg);
-            margin-bottom: var(--space-sm);
-            color: var(--text-primary);
-        }
-
-        p,
-        li {
-            color: var(--text-secondary);
-            margin-bottom: var(--space-sm);
-        }
-
-        ul {
-            padding-left: var(--space-lg);
-            margin-bottom: var(--space-md);
-        }
-
-        .check-list li {
-            list-style: none;
-            position: relative;
-        }
-
-        .check-list li::before {
-            content: '✅';
-            position: absolute;
-            left: -28px;
-        }
-
-        .highlight-box {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-            margin: var(--space-lg) 0;
-            color: var(--text-primary);
-        }
-    </style>
+    <meta name="description" content="Privacy Policy for the Owl.md app by InjazApps.">
+    <link rel="canonical" href="https://owlmd.injazapps.com/privacy.html">
 </head>
 
 <body>
-
-    <!-- Nav -->
-    <nav class="nav">
-        <div class="nav-content">
-            <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="Owl.md">
-                <span>Owl.md</span>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-tile"><img src="assets/images/logo-light.svg" alt="" width="32" height="32"></span>
+                <span>OwlMD</span>
             </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="guide.html" class="nav-link">User Guide</a>
+            <span class="header-spacer"></span>
+            <a class="nav-guide" href="guide.html">User guide</a>
+            <div class="theme-toggle" role="group" aria-label="Theme">
+                <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+                <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+                <button type="button" data-theme-set="auto" aria-pressed="true">Auto</button>
             </div>
         </div>
-    </nav>
-
-    <div class="privacy-container">
-        <div class="privacy-header">
-            <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 16px;">Privacy Policy</h1>
-            <p style="font-size: 1.25rem; color: var(--text-secondary);">Last Updated: 2025-11-14</p>
+    </header>
+    <main id="main" class="doc">
+        <div class="doc-head">
+            <h1>Privacy Policy</h1>
+            <p>Last Updated: 2025-11-14</p>
         </div>
 
-        <div class="privacy-box">
+        <div class="doc-box">
             <h3>Summary</h3>
             <p>We believe your documents belong to you. Owl.md is an <strong>offline-first</strong> application.</p>
-            <ul class="check-list" style="margin-top: 16px;">
+            <ul class="check-list">
                 <li>No personal data collection</li>
                 <li>No user accounts required</li>
                 <li>No tracking or analytics</li>
@@ -159,18 +107,45 @@
         <section>
             <h2>Contact Us</h2>
             <p>If you have any questions, please contact us:</p>
-            <p><strong>Email:</strong> <a href="mailto:support@injazapps.com"
-                    style="color: var(--accent-orange);">support@injazapps.com</a></p>
+            <p><strong>Email:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a></p>
         </section>
 
-    </div>
-
-    <footer class="footer" style="text-align: center;">
+    </main>
+    <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 InjazApps • All Rights Reserved</p>
+            <div class="footer-grid">
+                <div>
+                    <p class="footer-brand"><span class="dot" aria-hidden="true"></span> InjazApps</p>
+                    <p class="label">OwlMD</p>
+                </div>
+                <nav aria-label="Product">
+                    <h2>Product</h2>
+                    <ul>
+                        <li><a href="guide.html">User guide</a></li>
+                        <li><a href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" rel="noopener">Google Play</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="Legal">
+                    <h2>Legal</h2>
+                    <ul>
+                        <li><a href="privacy.html">Privacy policy</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <h2>Support</h2>
+                    <address>
+                        <span class="email-text">support@injazapps.com</span>
+                        <a href="mailto:support@injazapps.com">Write to us</a>
+                        <a href="https://x.com/injazapps" rel="noopener">@injazapps on X</a>
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 InjazApps</p>
+            </div>
         </div>
     </footer>
-
+    <script src="assets/js/site.js" defer></script>
 </body>
 
 </html>

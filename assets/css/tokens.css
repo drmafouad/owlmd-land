@@ -1,0 +1,93 @@
+/*
+ * OwlMD website — design tokens.
+ * Every hex below is a SHIPPED value from the app, no new colours:
+ *   lib/core/theme/palettes.dart  → AppPalettes.cairo (Cairo), AppPalettes.cairoDark (Cairo Night)
+ *   lib/core/theme/cairo_brass.dart → cairoBrass (0xFFC08A2E)
+ *   docs/adr/0042-cairo-fourth-palette.md (+ ADR 0045 for the dark twin)
+ * Logo beak orange #CF6A33 comes from assets/images/logo-light.svg.
+ *
+ * Mapping (CSS name → ColorScheme field):
+ *   --surface            surface
+ *   --on-surface         onSurface
+ *   --primary            primary
+ *   --on-primary         onPrimary
+ *   --secondary          secondary
+ *   --surface-container  surfaceContainer
+ *   --outline            outline
+ *   --outline-variant    outlineVariant   (hairline borders)
+ *   --muted              onSurfaceVariant
+ *
+ * Contrast rules that follow from the measured table (see report):
+ *   - Cairo Night: --primary and --secondary text must sit on --surface only
+ *     (4.22:1 / 4.28:1 on --surface-container fails 4.5:1).
+ *   - --brass is a FILL only, always with --on-brass (Basalt) on top. One use per page.
+ *   - --dot is a decorative circle only, never text.
+ */
+
+:root {
+  /* Cairo (light) */
+  --surface: #EDE4D3;
+  --on-surface: #1B1A17;
+  --primary: #14655E;
+  --on-primary: #EDE4D3;
+  --secondary: #5A574F;
+  --surface-container: #E4DBCB;
+  --outline: #55514B;
+  --outline-variant: #BDB6A8;
+  --muted: #45423D;
+  --logo-tile: transparent; /* navy logo lines read fine on Limestone */
+  color-scheme: light;
+
+  /* Theme-independent */
+  --brass: #C08A2E;     /* Cairo Brass: fill only */
+  --on-brass: #1B1A17;  /* Basalt on brass = 5.73:1 */
+  --dot: #CF6A33;       /* logo beak: decorative dot only */
+  --paper: #EDE4D3;     /* typeset PDF page = Cairo surface, both themes */
+  --paper-ink: #1B1A17;
+  --paper-muted: #45423D;
+  --paper-rule: #BDB6A8;
+  --tile-limestone: #EDE4D3; /* logo tile on Cairo Night */
+
+  /* Radius scale: chips 4 · buttons/inputs 8 · cards 12 · overlays 16 */
+  --r-chip: 4px;
+  --r-btn: 8px;
+  --r-card: 12px;
+  --r-overlay: 16px;
+
+  /* Layout */
+  --gutter: 24px;
+  --max: 1120px;
+  --hit: 44px;
+}
+
+/* Cairo Night — auto: follow the OS unless the visitor picked Light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #1B1A17;
+    --on-surface: #EDE4D3;
+    --primary: #1E968C;
+    --on-primary: #1B1A17;
+    --secondary: #8C877D;
+    --surface-container: #272522;
+    --outline: #8C867C;
+    --outline-variant: #3F3D38;
+    --muted: #B9B2A4;
+    --logo-tile: var(--tile-limestone); /* navy on Basalt is 1.55:1 → tile */
+    color-scheme: dark;
+  }
+}
+
+/* Cairo Night — explicit choice */
+:root[data-theme="dark"] {
+  --surface: #1B1A17;
+  --on-surface: #EDE4D3;
+  --primary: #1E968C;
+  --on-primary: #1B1A17;
+  --secondary: #8C877D;
+  --surface-container: #272522;
+  --outline: #8C867C;
+  --outline-variant: #3F3D38;
+  --muted: #B9B2A4;
+  --logo-tile: var(--tile-limestone);
+  color-scheme: dark;
+}

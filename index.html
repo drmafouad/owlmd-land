@@ -1,309 +1,242 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owl.md - Beautiful PDFs from Markdown</title>
-    <meta name="description"
-        content="Generate professional PDFs from Markdown instantly. 4 stunning themes, offline privacy, and live preview.">
-
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.hugeicons.com">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#EDE4D3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1B1A17" media="(prefers-color-scheme: dark)">
+    <!-- Set the theme before first paint (no flash). Choice is remembered in localStorage. -->
+    <script>
+        (function () {
+            var d = document.documentElement, p = 'auto';
+            try { p = localStorage.getItem('owlmd-theme') || 'auto'; } catch (e) { }
+            if (p !== 'light' && p !== 'dark') p = 'auto';
+            d.setAttribute('data-pref', p);
+            if (p !== 'auto') d.setAttribute('data-theme', p);
+            d.className += ' js';
+        })();
+    </script>
+    <link rel="preload" href="assets/fonts/inter-400.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-700.woff" as="font" type="font/woff" crossorigin>
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/site.css">
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <title>OwlMD: Markdown is easy. PDFs aren't.</title>
+    <meta name="description" content="OwlMD 2 turns your notes into real documents, in Arabic and English. Markdown, one-tap PDF export, works offline. Android. Coming soon.">
+    <link rel="canonical" href="https://owlmd.injazapps.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
+    <meta property="og:description" content="OwlMD 2 turns your notes into real documents, in Arabic and English.">
+    <meta property="og:url" content="https://owlmd.injazapps.com/">
+    <link rel="preload" href="assets/fonts/noto-sans-arabic-400.woff" as="font" type="font/woff" crossorigin>
 </head>
 
 <body>
-
-    <!-- Modern Pill Navigation -->
-    <nav class="nav">
-        <div class="nav-content">
-            <a href="#" class="logo">
-                <img src="assets/images/logo.png" alt="Owl.md">
-                <span>Owl.md</span>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-tile"><img src="assets/images/logo-light.svg" alt="" width="32" height="32"></span>
+                <span>OwlMD</span>
             </a>
-
-            <div class="nav-links mobile-hidden">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#showcase" class="nav-link">Showcase</a>
-                <a href="guide.html" class="nav-link">User Guide</a>
+            <span class="header-spacer"></span>
+            <a class="nav-guide" href="guide.html">User guide</a>
+            <div class="theme-toggle" role="group" aria-label="Theme">
+                <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+                <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+                <button type="button" data-theme-set="auto" aria-pressed="true">Auto</button>
             </div>
-
-            <a href="#download" class="btn-nav-cta">Download</a>
         </div>
-    </nav>
+    </header>
+    <main id="main">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <p class="chip chip-brass">OwlMD 2 &middot; Coming soon</p>
+                <h1 class="hero-title">
+                    <span class="line">Markdown is easy.</span>
+                    <span class="line">PDFs aren&rsquo;t<span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></span>
+                </h1>
+                <p class="hero-sub">OwlMD 2 turns your notes into real documents &mdash; in Arabic and English.</p>
+                <div class="hero-actions" id="download">
+                    <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l14-8.5z"/></svg>
+                        <span>Get it on Google Play</span>
+                    </a>
+                    <a class="btn btn-secondary" href="guide.html">Read the user guide</a>
+                </div>
+                <p class="hero-note">Android. OwlMD 2 is coming soon.</p>
+            </div>
+        </section>
 
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text" data-aos="fade-up">
-                    <div class="hero-badge">
-                        <i class="hgi-stroke hgi-star" style="font-size: 14px;"></i>
-                        <span>v1.1 Now Available</span>
+        <!-- Promo video slot -->
+        <section class="promo" id="video" aria-labelledby="video-h">
+            <div class="container">
+                <h2 id="video-h" class="label" style="margin-bottom: 12px;">Video</h2>
+                <div class="promo-frame">
+                    <!--
+                        When the OwlMD 2 promo is ready: delete the <p> below and add
+                        <video controls preload="none" playsinline poster="assets/video/poster.jpg">
+                            <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
+                        </video>
+                        (the frame already reserves 16:9, so nothing shifts when it loads).
+                    -->
+                    <p>The OwlMD 2 promo video is coming soon.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- a) Arabic -->
+        <span id="features"></span><!-- keeps old #features links landing here -->
+        <section class="split" id="arabic">
+            <div class="container split-in rv">
+                <div>
+                    <h2>Arabic stays Arabic.</h2>
+                    <p class="lead">Right-to-left order, diacritics and joined letters are kept in the PDF.</p>
+                </div>
+                <div class="stack">
+                    <div>
+                        <span class="label md-label">Markdown</span>
+<pre class="md" tabindex="0" dir="ltr"><span class="m-mark">#</span> اُكْتُبْ بِالْعَرَبِيَّةِ</pre>
                     </div>
-
-                    <h1 class="hero-title">
-                        Beautiful PDFs from <span class="text-gradient">Markdown</span> in Seconds
-                    </h1>
-
-                    <p class="hero-subtitle">
-                        Transform your notes into professionally formatted documents.
-                        Features live preview, 4 stunning themes, and complete offline privacy.
-                    </p>
-
-                    <div class="hero-actions">
-                        <a href="#download" class="btn btn-primary">
-                            <i class="hgi-stroke hgi-download-02"></i>
-                            <span>Get App</span>
-                        </a>
-                        <a href="guide.html" class="btn btn-secondary">
-                            <span>Read Guide</span>
-                        </a>
-                    </div>
-
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <span class="stat-val">4.8</span>
-                            <span class="stat-lbl">Rating</span>
+                    <div>
+                        <span class="label md-label">PDF</span>
+                        <div class="pdf-page" lang="ar" dir="rtl">
+                            <h3>اُكْتُبْ بِالْعَرَبِيَّةِ</h3>
+                            <div class="pdf-rule"></div>
+                            <p lang="en" dir="ltr">Arabic and English in one document.</p>
+                            <div class="pdf-foot" lang="en" dir="ltr">OwlMD</div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-val">100%</span>
-                            <span class="stat-lbl">Offline</span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="hero-visual" data-aos="fade-left" data-aos-delay="100">
-                    <div class="phone-mockup floating">
-                        <img src="assets/mockups/hero-screen.png" alt="App Screenshot"
-                            style="width: 100%; height: 100%; border-radius: 40px; border: 8px solid #1e293b; object-fit: cover;">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Bento Grid Features Section -->
-    <section id="features" class="section-padding">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Everything you need</h2>
-                <p class="section-sub">Powerful tools to make your writing stand out, all in one place.</p>
-            </div>
-
-            <div class="bento-grid">
-                <!-- Large Item: Live Preview -->
-                <div class="bento-item span-2 glow-orange" data-aos="fade-up">
-                    <div class="bento-content">
-                        <div class="bento-icon-box">
-                            <i class="hgi-stroke hgi-eye" style="color: var(--accent-orange);"></i>
-                        </div>
-                        <h3 class="bento-title">Real-time Preview</h3>
-                        <p class="bento-desc">See your changes instantly with silky smooth 60fps rendering. Split view
-                            available for larger screens.</p>
-                    </div>
-                    <div class="bento-img-container" style="height: 300px;">
-                        <img src="assets/mockups/live-preview.png" alt="Live Preview interface"
-                            style="object-position: top; transform: scale(1.05);">
-                    </div>
+        <!-- b) PDF -->
+        <span id="showcase"></span><!-- keeps old #showcase links landing here -->
+        <section class="split" id="pdf">
+            <div class="container split-in rv">
+                <div>
+                    <h2>One tap to PDF.</h2>
+                    <p class="lead">Export with one tap, choose from 4 PDF themes, and read the result in the built-in viewer.</p>
                 </div>
-
-                <!-- Small Item: Themes -->
-                <div class="bento-item glow-purple" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bento-icon-box">
-                        <i class="hgi-stroke hgi-paint-board" style="color: var(--accent-purple);"></i>
+                <div class="stack">
+                    <div>
+                        <span class="label md-label">Markdown</span>
+<pre class="md" tabindex="0" dir="ltr"><span class="m-mark">#</span> Quarterly Notes
+<span class="m-mark">##</span> Results
+Revenue grew 18% with stable margins across all regions and segments.
+<span class="m-mark">-</span> Primary outcome exceeded plan
+<span class="m-mark">-</span> Risks retired this quarter</pre>
                     </div>
-                    <h3 class="bento-title">4 Pro Themes</h3>
-                    <p class="bento-desc">Professional, Modern, Minimalist, and Classic styles included.</p>
-                </div>
-
-                <!-- Small Item: Offline -->
-                <div class="bento-item glow-blue" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bento-icon-box">
-                        <i class="hgi-stroke hgi-wifi-off" style="color: var(--accent-blue);"></i>
-                    </div>
-                    <h3 class="bento-title">100% Offline</h3>
-                    <p class="bento-desc">Your data never leaves your device. Zero tracking, zero ads.</p>
-                </div>
-
-                <!-- Large Item: Formatting -->
-                <div class="bento-item span-2 glow-blue" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bento-content">
-                        <div class="bento-icon-box">
-                            <i class="hgi-stroke hgi-text-font" style="color: var(--accent-blue);"></i>
-                        </div>
-                        <h3 class="bento-title">Advanced Formatting</h3>
-                        <p class="bento-desc">Tables, code blocks, images, diagrams, and auto-generated Table of
-                            Contents support.</p>
-                    </div>
-                    <div class="bento-img-container" style="height: 250px;">
-                        <img src="assets/mockups/files.png" alt="Formatting options" style="object-position: top;">
+                    <div>
+                        <span class="label md-label">4 PDF themes, exported from the app</span>
+                        <ul class="theme-grid">
+                            <li><figure><img src="assets/pdf-samples/professional.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Professional theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Professional</figcaption></figure></li>
+                            <li><figure><img src="assets/pdf-samples/modern.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Modern theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Modern</figcaption></figure></li>
+                            <li><figure><img src="assets/pdf-samples/minimalist.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Minimalist theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Minimalist</figcaption></figure></li>
+                            <li><figure><img src="assets/pdf-samples/standard.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Standard theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Standard</figcaption></figure></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- NEW: Horizontal PDF Showcase -->
-    <section id="showcase" class="section-padding" style="overflow: hidden;">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Perfect PDF Output</h2>
-                <p class="section-sub">Swipe to see actual exported documents.</p>
-            </div>
-        </div>
-
-        <!-- Scroll Container -->
-        <div class="horizontal-scroll-container">
-            <div class="scroll-track">
-                <div class="pdf-card">
-                    <img src="assets/pdf-samples/professional-preview.png" alt="Professional Theme">
-                    <div class="pdf-meta">Professional Theme</div>
+        <!-- c) Find -->
+        <section class="split" id="find">
+            <div class="container split-in rv">
+                <div>
+                    <h2>Find it in seconds.</h2>
+                    <p class="lead">Search shows snippets of each match, and tags and folders keep notes in order.</p>
                 </div>
-                <div class="pdf-card">
-                    <img src="assets/pdf-samples/modern-preview.png" alt="Modern Theme">
-                    <div class="pdf-meta">Modern Theme</div>
-                </div>
-                <div class="pdf-card">
-                    <img src="assets/pdf-samples/minimalist-preview.png" alt="Minimalist Theme">
-                    <div class="pdf-meta">Minimalist Theme</div>
-                </div>
-                <div class="pdf-card">
-                    <img src="assets/pdf-samples/classic-preview.png" alt="Classic Theme">
-                    <div class="pdf-meta">Classic Theme</div>
-                </div>
+                <dl class="rows">
+                    <div><dt>Search</dt><dd>Results come with snippets.</dd></div>
+                    <div><dt>Tags</dt><dd>Label notes with tags.</dd></div>
+                    <div><dt>Folders</dt><dd>Keep notes in folders.</dd></div>
+                    <div><dt>Trash</dt><dd>Deleted notes stay in Trash for 7 days.</dd></div>
+                </dl>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- NEW: Testimonials (Wall of Love) -->
-    <section class="section-padding" style="background: var(--bg-darker);">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Loved by Writers</h2>
-                <p class="section-sub">Join 10,000+ users creating better documents.</p>
-            </div>
-
-            <div class="grid-3" style="grid-template-columns: repeat(2, 1fr);">
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Finally an app that respects privacy and works offline. The PDF output is gorgeous."</p>
-                    <div class="user">- Sarah M., Student</div>
+        <!-- d) Themes -->
+        <section class="split" id="themes">
+            <div class="container split-in rv">
+                <div>
+                    <h2>Your theme.</h2>
+                    <p class="lead">Five themes to pick from. This page uses Cairo and Cairo Night &mdash; try the toggle at the top.</p>
                 </div>
-                <!-- Removed 2nd testimonial -->
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Clean, fast, and no subscriptions. Exactly what I needed for my lecture notes."</p>
-                    <div class="user">- Dr. Ahmed, Professor</div>
+                <ul class="chips chips-lg" aria-label="Themes">
+                    <li class="chip">Light</li>
+                    <li class="chip">Dark</li>
+                    <li class="chip">Sepia</li>
+                    <li class="chip">Cairo</li>
+                    <li class="chip">Cairo Night</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- e) Locked -->
+        <section class="split" id="private">
+            <div class="container split-in rv">
+                <div>
+                    <h2>Locked when you leave.</h2>
+                    <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
                 </div>
+                <dl class="rows">
+                    <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                    <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                    <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                </dl>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Download CTA -->
-    <section id="download" class="download-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Start Writing Today</h2>
-                <p class="section-sub">Free forever. No ads. No tracking.</p>
+        <!-- v1 reassurance -->
+        <section class="v1-band" id="v1">
+            <div class="container rv">
+                <h2>Your v1 notes come with you.</h2>
+                <p>Already use OwlMD? Your notes carry over to OwlMD 2.</p>
             </div>
+        </section>
 
-            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-                <a href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" class="store-btn">
-                    <i class="hgi-stroke hgi-play-store" style="font-size: 24px;"></i>
-                    <div style="display: flex; flex-direction: column;">
-                        <span style="font-size: 10px; text-transform: uppercase; opacity: 0.7;">Get it on</span>
-                        <span style="font-weight: 600;">Google Play</span>
-                    </div>
-                </a>
-
-                <a href="#" class="store-btn disabled">
-                    <i class="hgi-stroke hgi-apple" style="font-size: 24px;"></i>
-                    <div style="display: flex; flex-direction: column;">
-                        <span style="font-size: 10px; text-transform: uppercase; opacity: 0.7;">Coming Soon</span>
-                        <span style="font-weight: 600;">App Store</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
+    </main>
+    <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <a href="#" class="logo" style="margin-bottom: 16px; display: inline-flex;">
-                        <img src="assets/images/logo.png" style="width: 24px;">
-                        Owl.md
-                    </a>
-                    <p style="opacity: 0.7;">Markdown to PDF converter for professionals.</p>
+                    <p class="footer-brand"><span class="dot" aria-hidden="true"></span> InjazApps</p>
+                    <p class="label">OwlMD</p>
                 </div>
-
+                <nav aria-label="Product">
+                    <h2>Product</h2>
+                    <ul>
+                        <li><a href="guide.html">User guide</a></li>
+                        <li><a href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" rel="noopener">Google Play</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="Legal">
+                    <h2>Legal</h2>
+                    <ul>
+                        <li><a href="privacy.html">Privacy policy</a></li>
+                    </ul>
+                </nav>
                 <div>
-                    <h4>Product</h4>
-                    <a href="guide.html">User Guide</a>
-                    <a href="#features">Features</a>
-                    <a href="#download">Download</a>
-                </div>
-
-                <div>
-                    <h4>Resources</h4>
-                    <a href="privacy.html">Privacy</a>
-                </div>
-
-                <div>
-                    <h4>Contact</h4>
-                    <a href="mailto:support@injazapps.com">Support</a>
-                    <a href="https://x.com/injazapps">@injazapps</a>
+                    <h2>Support</h2>
+                    <address>
+                        <span class="email-text">support@injazapps.com</span>
+                        <a href="mailto:support@injazapps.com">Write to us</a>
+                        <a href="https://x.com/injazapps" rel="noopener">@injazapps on X</a>
+                    </address>
                 </div>
             </div>
-
-            <div
-                style="text-align: center; padding-top: 32px; border-top: 1px solid var(--border-light); margin-top: 32px;">
-                <p>&copy; 2025 InjazApps. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 InjazApps</p>
             </div>
         </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-
-        // Mobile Toggle logic
-        const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    </script>
+    <script src="assets/js/site.js" defer></script>
 </body>
 
 </html>
