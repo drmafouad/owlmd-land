@@ -18,11 +18,12 @@
             d.className += ' js';
         })();
     </script>
-    <link rel="preload" href="assets/fonts/inter-400.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="assets/fonts/inter-700.woff" as="font" type="font/woff" crossorigin>
     <link rel="stylesheet" href="assets/css/tokens.css">
     <link rel="stylesheet" href="assets/css/site.css">
-    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>OwlMD: Markdown is easy. PDFs aren't.</title>
     <meta name="description" content="OwlMD 2 turns your notes into real documents, in Arabic and English. Markdown, one-tap PDF export, works offline. Android. Coming soon.">
     <link rel="canonical" href="https://owlmd.injazapps.com/">
@@ -30,7 +31,6 @@
     <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
     <meta property="og:description" content="OwlMD 2 turns your notes into real documents, in Arabic and English.">
     <meta property="og:url" content="https://owlmd.injazapps.com/">
-    <link rel="preload" href="assets/fonts/noto-sans-arabic-400.woff" as="font" type="font/woff" crossorigin>
 </head>
 
 <body>
@@ -72,22 +72,22 @@
             </div>
         </section>
 
-        <!-- Promo video slot -->
+        <!-- Promo video slot: removed from the rendered page until the video exists.
+             To restore, paste the block below back where this comment is.
+
         <section class="promo" id="video" aria-labelledby="video-h">
             <div class="container">
                 <h2 id="video-h" class="label" style="margin-bottom: 12px;">Video</h2>
                 <div class="promo-frame">
-                    <!--
-                        When the OwlMD 2 promo is ready: delete the <p> below and add
-                        <video controls preload="none" playsinline poster="assets/video/poster.jpg">
-                            <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
-                        </video>
-                        (the frame already reserves 16:9, so nothing shifts when it loads).
-                    -->
-                    <p>The OwlMD 2 promo video is coming soon.</p>
+                    <video controls preload="none" playsinline poster="assets/video/poster.jpg">
+                        <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </section>
+
+        (The .promo / .promo-frame styles are still in assets/css/site.css; the frame reserves 16:9.)
+        -->
 
         <!-- a) Arabic -->
         <span id="features"></span><!-- keeps old #features links landing here -->

@@ -313,3 +313,7 @@ a:hover { text-decoration-thickness: 2px; }
 .doc ul.check-list { list-style: none; padding-left: 0; margin-top: 16px; }
 .doc .check-list li { position: relative; padding-left: 28px; }
 .doc .check-list li::before { content: "\2713"; position: absolute; left: 0; font-weight: 700; color: var(--primary); }
+
+/* ---------- Notice band (guide) ---------- */
+.notice { background: var(--surface-container); border-bottom: 1px solid var(--outline-variant); }
+.notice p { margin: 0; padding-block: 14px; font-size: 0.9375rem; font-weight: 500; }
