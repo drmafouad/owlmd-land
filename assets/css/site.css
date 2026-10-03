@@ -3,14 +3,14 @@
 /* ---------- Fonts (self-hosted, same families the app bundles) ---------- */
 @font-face {
   font-family: "Inter";
-  src: url("../fonts/inter-400.woff") format("woff");
+  src: url("../fonts/inter-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../fonts/inter-700.woff") format("woff");
+  src: url("../fonts/inter-700.woff2") format("woff2");
   font-weight: 600 700;
   font-style: normal;
   font-display: swap;
@@ -27,21 +27,21 @@
 /* Arabic face with full diacritics. Only downloaded when Arabic text is on the page. */
 @font-face {
   font-family: "Noto Sans Arabic";
-  src: url("../fonts/noto-sans-arabic-400.woff") format("woff");
+  src: url("../fonts/noto-sans-arabic-400.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
   unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
 }
 @font-face {
   font-family: "Noto Sans Arabic";
-  src: url("../fonts/noto-sans-arabic-700.woff") format("woff");
+  src: url("../fonts/noto-sans-arabic-700.woff2") format("woff2");
   font-weight: 600 700;
   font-display: swap;
   unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
 }
 @font-face {
   font-family: "DejaVu Sans Mono";
-  src: url("../fonts/dejavu-sans-mono-400.woff") format("woff");
+  src: url("../fonts/dejavu-sans-mono-400.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
@@ -56,7 +56,7 @@
 
 :root {
   --font-ui: "Inter", "Inter Fallback", "Noto Sans Arabic", system-ui, sans-serif;
-  --font-mono: "DejaVu Sans Mono", "Mono Fallback", ui-monospace, monospace;
+  --font-mono: "DejaVu Sans Mono", "Mono Fallback", "Noto Sans Arabic", ui-monospace, monospace;
   --font-ar: "Noto Sans Arabic", "Inter", system-ui, sans-serif;
 }
 
