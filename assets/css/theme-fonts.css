@@ -1,12 +1,10 @@
 /*
  * Real PDF-theme fonts for the scene 05 specimens and the scene 03 sample page.
- * NOT LINKED YET: the five .woff2 subsets below have to be created first (see the WEB-06 report for the
- * exact pyftsubset commands). Once they are in assets/fonts/, add after motion.css in index.html:
- *     <link rel="stylesheet" href="assets/css/theme-fonts.css">
+ * Linked from index.html (after motion.css). The four subset .woff2 files live in assets/fonts/.
  * No preload: these sit below the fold. Licences: assets/fonts/LICENSES/.
  */
 @font-face { font-family: "Asap Specimen"; src: url("../fonts/asap-700-specimen.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Minimalist Specimen"; src: url("../fonts/ubuntu-400-specimen.woff2") format("woff2"); font-weight: 400; font-display: swap; } /* renamed Ubuntu subset (UFL) */
+@font-face { font-family: "Minimalist Specimen"; src: url("../fonts/minimalist-400-specimen.woff2") format("woff2"); font-weight: 400; font-display: swap; } /* Ubuntu subset, family renamed as the Ubuntu Font Licence requires */
 @font-face { font-family: "Noto Serif Specimen"; src: url("../fonts/noto-serif-700-specimen.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 @font-face { font-family: "Noto Serif Specimen"; src: url("../fonts/noto-serif-400-specimen.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
