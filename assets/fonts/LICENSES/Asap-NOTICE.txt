@@ -1,0 +1,4 @@
+Asap (Modern theme specimen)
+Copyright 2018 The Asap Project Authors (https://github.com/Omnibus-Type/Asap)
+Licensed under the SIL Open Font License, Version 1.1 (full text: OFL-1.1.txt in this folder, also https://openfontlicense.org).
+Source file: owlmd_v2/assets/fonts/Asap-Bold.ttf (font version 3.002). The site serves a subset of this font (the characters shown in the specimen only).

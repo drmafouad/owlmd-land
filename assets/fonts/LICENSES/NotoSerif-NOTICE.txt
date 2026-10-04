@@ -1,0 +1,4 @@
+Noto Serif (Standard theme specimen and typeset sample page)
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)
+Licensed under the SIL Open Font License, Version 1.1 (full text: OFL-1.1.txt in this folder, also https://openfontlicense.org).
+Source files: owlmd_v2/assets/fonts/NotoSerif-Bold.ttf and NotoSerif-Regular.ttf (font version 2.015). The site serves subsets of these fonts (only the characters shown on the page).

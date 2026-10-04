@@ -1,0 +1,11 @@
+Ubuntu (Minimalist theme specimen)
+Copyright 2011 Canonical Ltd. Licensed under the Ubuntu Font Licence 1.0.
+Source file: owlmd_v2/assets/fonts/Ubuntu-Regular.ttf (font version 0.83).
+
+The Ubuntu Font Licence permits use, embedding and redistribution, including on the web, but:
+  - a subset is a Modified Version and must NOT be distributed under the names "Ubuntu" or "Canonical"
+    (rename the family inside the font file before publishing);
+  - the licence text must accompany the font.
+
+TODO before this font is published: add the full text of the Ubuntu Font Licence 1.0
+(https://ubuntu.com/legal/font-licence) as UFL-1.0.txt in this folder. The text could not be fetched from this environment.

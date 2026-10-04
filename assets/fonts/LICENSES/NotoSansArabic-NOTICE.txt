@@ -1,0 +1,3 @@
+Noto Sans Arabic (site Arabic face)
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/arabic). Licensed under the SIL Open Font License, Version 1.1 (full text: OFL-1.1.txt in this folder).
+Source: owlmd_v2/assets/fonts/NotoSansArabic-Regular.ttf and -Bold.ttf (version 2.013). The site serves subsets.

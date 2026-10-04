@@ -1,0 +1,3 @@
+DejaVu Sans Mono (site monospace face)
+Copyright (c) 2003 by Bitstream, Inc. DejaVu changes are in the public domain. Licence text: DejaVuSansMono-LICENSE.txt in this folder.
+Source: owlmd_v2/assets/fonts/DejaVuSansMono.ttf (version 2.37). The site serves a subset.

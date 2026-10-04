@@ -1,0 +1,3 @@
+Inter (site UI font)
+Copyright (c) 2020 The Inter Project Authors. Licensed under the SIL Open Font License, Version 1.1 (full text: OFL-1.1.txt in this folder).
+Source: owlmd_v2/assets/fonts/Inter-Regular.ttf and Inter-Bold.ttf (version 3.019). The site serves subsets.
