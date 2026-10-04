@@ -16,6 +16,8 @@
             d.setAttribute('data-pref', p);
             if (p !== 'auto') d.setAttribute('data-theme', p);
             d.className += ' js';
+            // Motion on only when the visitor allows it and the browser can observe scroll position.
+            if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' mo';
         })();
     </script>
     <link rel="preload" href="assets/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -27,6 +29,7 @@
     <title>OwlMD: Markdown is easy. PDFs aren't.</title>
     <meta name="description" content="OwlMD 2 turns your notes into real documents, in Arabic and English. Markdown, one-tap PDF export, works offline. Android. Coming soon.">
     <link rel="canonical" href="https://owlmd.injazapps.com/">
+    <link rel="stylesheet" href="assets/css/motion.css">
     <meta property="og:type" content="website">
     <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
     <meta property="og:description" content="OwlMD 2 turns your notes into real documents, in Arabic and English.">
@@ -57,8 +60,8 @@
             <div class="container">
                 <p class="chip chip-brass">OwlMD 2 &middot; Coming soon</p>
                 <h1 class="hero-title">
-                    <span class="line">Markdown is easy.</span>
-                    <span class="line">PDFs aren&rsquo;t<span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></span>
+                    <span class="line"><span class="rise r1">Markdown is easy.</span></span>
+                    <span class="line"><span class="rise r2">PDFs aren&rsquo;t</span><span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></span>
                 </h1>
                 <p class="hero-sub">OwlMD 2 turns your notes into real documents &mdash; in Arabic and English.</p>
                 <div class="hero-actions" id="download">
@@ -72,25 +75,65 @@
             </div>
         </section>
 
-        <!-- Promo video slot: removed from the rendered page until the video exists.
-             To restore, paste the block below back where this comment is.
-
-        <section class="promo" id="video" aria-labelledby="video-h">
+        <!-- 02 Promo video slot: kept hidden until the MP4 exists. To enable: delete the word "hidden" on the <section> below. -->
+        <section class="promo" id="video" aria-labelledby="video-h" hidden>
             <div class="container">
                 <h2 id="video-h" class="label" style="margin-bottom: 12px;">Video</h2>
                 <div class="promo-frame">
-                    <video controls preload="none" playsinline poster="assets/video/poster.jpg">
-                        <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
-                    </video>
+                    <!-- The video lives in a template so nothing (not even the poster) is requested while this section is hidden. -->
+                    <template id="video-tpl">
+                        <video controls playsinline muted preload="none" poster="assets/video/poster.jpg">
+                            <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
+                            <track kind="captions" srclang="en" label="English" src="assets/video/captions.vtt" default>
+                        </video>
+                        <button class="promo-play" type="button" aria-label="Play the OwlMD 2 video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></button>
+                    </template>
+                    <noscript>
+                        <video controls playsinline muted preload="none" poster="assets/video/poster.jpg">
+                            <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
+                            <track kind="captions" srclang="en" label="English" src="assets/video/captions.vtt" default>
+                        </video>
+                    </noscript>
                 </div>
             </div>
         </section>
 
-        (The .promo / .promo-frame styles are still in assets/css/site.css; the frame reserves 16:9.)
-        -->
-
-        <!-- a) Arabic -->
+        <!-- 03 Markdown to PDF (pinned for one screen when motion is on) -->
         <span id="features"></span><!-- keeps old #features links landing here -->
+        <span id="showcase"></span><!-- keeps old #showcase links landing here -->
+        <section class="split pin3" id="pdf">
+            <div class="pin-wrap">
+                <div class="pin-stage">
+                    <div class="container split-in">
+                        <div>
+                            <h2>One tap to PDF.</h2>
+                            <p class="lead">Export with one tap, choose from 4 PDF themes, and read the result in the built-in viewer.</p>
+                        </div>
+                        <div class="stack3">
+                            <div class="s3-md">
+                                <span class="label md-label">Markdown</span>
+<pre class="md md3" dir="ltr"><span class="ln l1"><span class="m-mark">#</span> Ward round</span>
+<span class="ln l2"><span class="m-mark">&gt; [!note]</span> NPO after midnight</span>
+<span class="ln l3"><span class="m-mark">- [x]</span> consent signed</span></pre>
+                            </div>
+                            <div class="s3-page">
+                                <span class="label md-label">PDF</span>
+                                <div class="doc-page"><div class="doc-in">
+                                    <h3>Ward round</h3>
+                                    <div class="doc-callout">
+                                        <span class="doc-badge" aria-hidden="true">NO</span>
+                                        <span class="doc-ctitle"><span class="sr-only">Note: </span>NPO after midnight</span>
+                                    </div>
+                                    <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span>consent signed</li></ul>
+                                </div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 Arabic -->
         <section class="split" id="arabic">
             <div class="container split-in rv">
                 <div>
@@ -105,7 +148,7 @@
                     <div>
                         <span class="label md-label">PDF</span>
                         <div class="pdf-page" lang="ar" dir="rtl">
-                            <h3>اُكْتُبْ بِالْعَرَبِيَّةِ</h3>
+                            <h3 class="ar-wipe">اُكْتُبْ بِالْعَرَبِيَّةِ</h3>
                             <div class="pdf-rule"></div>
                             <p lang="en" dir="ltr">Arabic and English in one document.</p>
                             <div class="pdf-foot" lang="en" dir="ltr">OwlMD</div>
@@ -115,34 +158,25 @@
             </div>
         </section>
 
-        <!-- b) PDF -->
-        <span id="showcase"></span><!-- keeps old #showcase links landing here -->
-        <section class="split" id="pdf">
-            <div class="container split-in rv">
+        <!-- 05 PDF themes: type specimens that fan out -->
+        <section class="split fan" id="pdf-themes">
+            <div class="container split-in">
                 <div>
-                    <h2>One tap to PDF.</h2>
-                    <p class="lead">Export with one tap, choose from 4 PDF themes, and read the result in the built-in viewer.</p>
+                    <h2>4 PDF themes.</h2>
+                    <p class="lead">Choose Professional, Modern, Minimalist or Standard.</p>
+                    <p class="proof"><a href="assets/pdf-samples/standard.png" target="_blank" rel="noopener">See a real PDF export<span class="sr-only"> (opens in a new tab)</span></a></p>
                 </div>
-                <div class="stack">
-                    <div>
-                        <span class="label md-label">Markdown</span>
-<pre class="md" tabindex="0" dir="ltr"><span class="m-mark">#</span> Quarterly Notes
-<span class="m-mark">##</span> Results
-Revenue grew 18% with stable margins across all regions and segments.
-<span class="m-mark">-</span> Primary outcome exceeded plan
-<span class="m-mark">-</span> Risks retired this quarter</pre>
-                    </div>
-                    <div>
-                        <span class="label md-label">4 PDF themes, exported from the app</span>
-                        <ul class="theme-grid">
-                            <li><figure><img src="assets/pdf-samples/professional.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Professional theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Professional</figcaption></figure></li>
-                            <li><figure><img src="assets/pdf-samples/modern.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Modern theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Modern</figcaption></figure></li>
-                            <li><figure><img src="assets/pdf-samples/minimalist.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Minimalist theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Minimalist</figcaption></figure></li>
-                            <li><figure><img src="assets/pdf-samples/standard.png" width="1280" height="1201" loading="lazy" alt="PDF export in the Standard theme: a titled page with a heading, bullet list, table and callout."><figcaption class="label">Standard</figcaption></figure></li>
-                        </ul>
-                    </div>
+                <div class="fan-stage">
+                    <ul class="fan-cards">
+                        <li class="fcard t-pro"><div class="fcard-in" tabindex="0" role="group" aria-label="Professional"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span></div></li>
+                        <li class="fcard t-mod"><div class="fcard-in" tabindex="0" role="group" aria-label="Modern"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span></div></li>
+                        <li class="fcard t-min"><div class="fcard-in" tabindex="0" role="group" aria-label="Minimalist"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span></div></li>
+                        <li class="fcard t-std"><div class="fcard-in" tabindex="0" role="group" aria-label="Standard"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span></div></li>
+                    </ul>
+                    <ul class="fan-names" aria-hidden="true"><li class="label">Professional</li><li class="label">Modern</li><li class="label">Minimalist</li><li class="label">Standard</li></ul>
                 </div>
             </div>
+        </div>
         </section>
 
         <!-- c) Find -->
@@ -161,35 +195,49 @@ Revenue grew 18% with stable margins across all regions and segments.
             </div>
         </section>
 
-        <!-- d) Themes -->
+        <!-- d) Themes (app themes) -->
         <section class="split" id="themes">
             <div class="container split-in rv">
                 <div>
                     <h2>Your theme.</h2>
-                    <p class="lead">Five themes to pick from. This page uses Cairo and Cairo Night &mdash; try the toggle at the top.</p>
+                    <p class="lead">Cairo for daylight, Cairo Night after dark &mdash; or let your phone choose.</p>
                 </div>
                 <ul class="chips chips-lg" aria-label="Themes">
-                    <li class="chip">Light</li>
-                    <li class="chip">Dark</li>
-                    <li class="chip">Sepia</li>
                     <li class="chip">Cairo</li>
                     <li class="chip">Cairo Night</li>
                 </ul>
             </div>
         </section>
 
-        <!-- e) Locked -->
-        <section class="split" id="private">
-            <div class="container split-in rv">
-                <div>
-                    <h2>Locked when you leave.</h2>
-                    <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+        <!-- 06 Locked: night sweep. The real content is the swept (alternate-theme) layer; the base layer is a decorative copy in the page theme. -->
+        <section class="sweep" id="private">
+            <div class="sweep-base split" aria-hidden="true">
+                <div class="container split-in">
+                    <div>
+                        <span class="brand-tile sweep-logo"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"></span>
+                        <h2>Locked when you leave<span class="dot"></span></h2>
+                        <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+                    </div>
+                    <dl class="rows">
+                        <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                        <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                        <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                    </dl>
                 </div>
-                <dl class="rows">
-                    <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
-                    <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
-                    <div><dt>Offline</dt><dd>Works offline.</dd></div>
-                </dl>
+            </div>
+            <div class="sweep-main split alt-theme">
+                <div class="container split-in">
+                    <div>
+                        <span class="brand-tile sweep-logo"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"></span>
+                        <h2>Locked when you leave<span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></h2>
+                        <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+                    </div>
+                    <dl class="rows">
+                        <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                        <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                        <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                    </dl>
+                </div>
             </div>
         </section>
 
@@ -198,6 +246,14 @@ Revenue grew 18% with stable margins across all regions and segments.
             <div class="container rv">
                 <h2>Your v1 notes come with you.</h2>
                 <p>Already use OwlMD? Your notes carry over to OwlMD 2.</p>
+            </div>
+        </section>
+
+
+        <!-- 07 Payoff -->
+        <section class="payoff" id="payoff">
+            <div class="container">
+                <h2 class="payoff-title">Everything reads right<span class="sr-only">.</span><span class="stop"><span class="dot drop" aria-hidden="true"></span></span></h2>
             </div>
         </section>
 
@@ -237,6 +293,7 @@ Revenue grew 18% with stable margins across all regions and segments.
         </div>
     </footer>
     <script src="assets/js/site.js" defer></script>
+    <script src="assets/js/motion.js" defer></script>
 </body>
 
 </html>

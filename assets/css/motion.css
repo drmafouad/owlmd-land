@@ -1,0 +1,221 @@
+/*
+ * OwlMD website: scroll motion (scenes 01-07). Index page only.
+ * Rules: tokens from tokens.css only; animate transform, opacity, clip-path only
+ * (plus offset-distance for the scene-07 dot, which is a transform-type property).
+ * The DEFAULT markup is every scene's resting state, so the page reads fully with JS off.
+ * html.mo (set in <head>, off for prefers-reduced-motion): layout + native scroll-driven scenes.
+ * html.mj (added by motion.js itself): every state that starts hidden until an IntersectionObserver fires,
+ * so if motion.js never loads, nothing stays hidden.
+ * Native scroll-driven animations where `animation-timeline` exists, an
+ * IntersectionObserver-toggled `.in` class playing the same motion once where it doesn't.
+ */
+
+/* ---------- Resting layouts (no motion) ---------- */
+
+/* 03: markdown block, then the typeset page */
+.stack3 { display: grid; gap: 20px; }
+.stack3 > * { min-width: 0; }
+.md3 .ln { display: block; width: max-content; }
+.doc-page {
+  container-type: inline-size;
+  width: 100%; max-width: 440px; aspect-ratio: 1 / 1.1;
+  background: var(--paper); color: var(--paper-ink);
+  border: 1px solid var(--outline-variant); border-radius: 4px;
+  font-family: var(--font-ui);
+}
+.doc-in { padding: 11.8%; } /* 72pt margin on a 612pt page */
+.doc-page h3 { font-size: 8.3cqw; line-height: 1.15; letter-spacing: -0.01em; font-weight: 700; color: var(--paper-ink); margin: 0 0 6cqw; } /* Standard: bold, no rule, no band, no accent */
+.doc-callout {
+  position: relative; display: flex; align-items: center; gap: 3cqw;
+  padding: 3.2cqw 4cqw 3.2cqw 5cqw; margin: 0 0 5cqw;
+  background: color-mix(in srgb, var(--paper-accent) 6%, var(--paper)); /* tint = accent into the page, like the app */
+  border-radius: 4px; overflow: hidden;
+}
+.doc-callout::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1.4cqw; background: var(--paper-accent); }
+.doc-badge { flex: none; width: 5.2cqw; height: 5.2cqw; border-radius: 50%; background: var(--paper-accent); color: var(--paper); font-size: 2cqw; font-weight: 700; display: grid; place-items: center; line-height: 1; }
+.doc-ctitle { font-size: 3.4cqw; font-weight: 700; color: var(--paper-accent); line-height: 1.3; }
+.doc-tasks { list-style: none; margin: 0; padding: 0; font-size: 3.8cqw; line-height: 1.5; }
+.doc-tasks li { display: flex; align-items: center; gap: 2.4cqw; }
+.doc-cb { flex: none; width: 4.4cqw; height: 4.4cqw; border: 0.4cqw solid var(--paper-ink); border-radius: 0.8cqw; display: grid; place-items: center; font-size: 3cqw; line-height: 1; font-weight: 700; }
+
+/* 05: the four type specimens, resting = fanned open with names. --pitch = gap between neighbouring cards */
+.fan-stage { --cw: clamp(120px, 15vw, 210px); --pitch: clamp(48px, 8.3vw, 120px); display: grid; justify-items: center; padding-block: 8px 24px; }
+.fan-cards { position: relative; list-style: none; margin: 0; padding: 0; width: var(--cw); height: calc(var(--cw) * 1.3); }
+.fcard { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 100%; z-index: 1; }
+.fcard-in:focus-visible { outline-offset: 4px; }
+.fcard:nth-child(1) { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; }
+.fcard:nth-child(2) { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; }
+.fcard:nth-child(3) { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; }
+.fcard:nth-child(4) { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; }
+.fcard-in {
+  height: 100%; display: flex; flex-direction: column; justify-content: flex-start;
+  padding: calc(var(--cw) * 0.09); background: var(--surface);
+  border: 1px solid var(--outline-variant); border-radius: var(--r-card); /* resting cards: hairline, no shadow */
+}
+.aa { display: block; align-self: flex-start; font-size: calc(var(--cw) * 0.36); line-height: 1; letter-spacing: -0.03em; padding: 4px 8px; margin: -4px -8px 0; border-radius: var(--r-chip); }
+.frule { display: block; height: 0; }
+.fan-names { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; list-style: none; margin: 32px 0 0; padding: 0; }
+/* heading styles read from lib/features/pdf_export/domain/pdf_theme.dart */
+.t-pro .aa { font-weight: 700; color: var(--on-surface); }                       /* bold; H1 gets a 0.5pt grey rule */
+.t-pro .frule { height: 1px; background: var(--outline); margin: 12px 0; }
+.t-mod .aa { font-weight: 700; color: var(--on-surface); background: var(--surface-container); } /* bold; H1 on a light tint band */
+.t-min .aa { font-weight: 400; color: var(--muted); background: var(--surface-container); }       /* regular weight, tint band, no rules */
+.t-std .aa { font-weight: 700; color: var(--on-surface); }                       /* bold, no rule, no band, no accent */
+.fcard:hover, .fcard:focus-within { z-index: 5; }
+.fcard-in { transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
+.fcard:hover .fcard-in, .fcard-in:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); /* the only shadow on the page: a floating state */
+}
+.proof { margin: 24px 0 0; }
+.proof a { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--primary); }
+
+/* 06: the base (page-theme) copy exists only while motion is on */
+.sweep { position: relative; border-top: 1px solid var(--outline-variant); }
+.sweep .split { border-top: 0; }
+.sweep-base { display: none; }
+.sweep-main { background: var(--surface); color: var(--on-surface); position: relative; z-index: 1; border-top: 0; }
+.sweep-logo { display: block; width: 64px; height: 64px; padding: 6px; border-radius: var(--r-card); margin-bottom: 24px; } /* 12 − 6 = 6 inner */
+.sweep-logo img { border-radius: 6px; }
+.sweep h2 .dot { margin-left: 0.06em; }
+
+/* 07 */
+.payoff { padding-block: clamp(56px, 10vw, 128px) clamp(40px, 6vw, 80px); }
+.payoff-title { font-size: clamp(2.25rem, 7.5vw, 5.5rem); line-height: 1.02; letter-spacing: -0.04em; }
+.stop { position: relative; display: inline-block; width: var(--dot-d); height: var(--dot-d); margin-left: 0.06em; }
+.stop .dot { position: absolute; left: 0; top: 0; margin: 0; }
+
+/* 02 */
+.promo-play {
+  position: absolute; inset: 0; margin: auto; width: 72px; height: 72px; display: none;
+  place-items: center; border: 0; border-radius: var(--r-btn); cursor: pointer;
+  background: var(--primary); color: var(--on-primary);
+}
+.js .promo-play { display: grid; }
+.promo-play svg { width: 28px; height: 28px; fill: currentColor; }
+@media (max-width: 640px) { .promo-play { width: 56px; height: 56px; } }
+.promo-play.gone { display: none !important; }
+.promo-frame video { object-fit: cover; }
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* 01 HERO, on load, once (CSS only; --dx is measured by motion.js, 0 without it) */
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes dotland {
+    0%   { opacity: 0; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
+    23%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
+    69%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
+    100% { opacity: 1; transform: none; }
+  }
+  .hero .rise { display: inline-block; animation: rise 500ms var(--ease) both; }
+  .hero .r1 { animation-delay: 300ms; }
+  .hero .r2 { animation-delay: 600ms; }
+  .hero-title .dot { animation: dotland 1300ms var(--ease) both; }
+  .hero .chip-brass, .hero-sub, .hero-actions, .hero-note { animation: rise 400ms var(--ease) 1100ms both; }
+
+  /* 04 ARABIC: clip-path wipe right to left on the single heading element (never split into letters) */
+  html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 900ms var(--ease); }
+  html.mj .in .ar-wipe, html.mj .ar-wipe.in { clip-path: inset(-30% -10% -30% -10%); }
+
+  /* 06 NIGHT SWEEP: the swept layer grows from the dot; reverses on scroll back up */
+  html.mj .sweep-base { display: block; position: absolute; inset: 0; background: var(--surface); color: var(--on-surface); }
+  html.mj .sweep-main { clip-path: circle(0 at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 700ms var(--ease); }
+  html.mj .sweep.in .sweep-main { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); }
+
+  /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop; footer follows 200 ms later */
+  @keyframes drop { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
+  html.mj .stop .dot { offset-path: path("M -170 -190 C -170 -70, -70 -12, 0 0"); offset-rotate: 0deg; offset-distance: 0%; opacity: 0; }
+  html.mj .payoff.in .stop .dot { animation: drop 800ms var(--ease) both; }
+  html.mj .site-footer { opacity: 0; transform: translateY(12px); transition: opacity 400ms var(--ease) 200ms, transform 400ms var(--ease) 200ms; }
+  html.mj .site-footer.in { opacity: 1; transform: none; }
+  @media (max-width: 640px) { html.mj .stop .dot { offset-path: path("M -90 -120 C -90 -50, -40 -8, 0 0"); } }
+
+  /* ----- 02 PROMO, 03 PINNED PDF, 05 FAN: native scroll-driven ----- */
+  @supports (animation-timeline: view()) {
+    /* 02 */
+    @keyframes promo-in { from { transform: scale(0.92); opacity: 0.7; } to { transform: none; opacity: 1; } }
+    html.mo .promo-frame { animation: promo-in var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+
+    /* 03: 200vh wrapper, the stage is sticky for one screen; pinned part = cover 33.333% to 66.667% */
+    html.mo .pin-wrap { height: 200vh; view-timeline: --p3 block; }
+    html.mo .pin-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+    html.mo .pin-stage .container { width: 100%; }
+    @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes tilt { from { transform: perspective(1200px) rotateX(0deg); } to { transform: perspective(1200px) rotateX(8deg); } }
+    html.mo .md3 .ln { animation: type1 steps(var(--n), end) both; animation-timeline: --p3; }
+    html.mo .md3 .l1 { --n: 12; animation-range: cover 33.333% cover 37.333%; }
+    html.mo .md3 .l2 { --n: 28; animation-range: cover 37.333% cover 42.333%; }
+    html.mo .md3 .l3 { --n: 20; animation-range: cover 42.333% cover 46.667%; }
+    html.mo .md3 { animation: fade-out var(--ease) both; animation-timeline: --p3; animation-range: cover 46.667% cover 56.667%; }
+    html.mo .doc-page { animation: fade-in var(--ease) both, tilt var(--ease) both; animation-timeline: --p3, --p3; animation-range: cover 46.667% cover 56.667%, cover 56.667% cover 66.667%; }
+
+    /* 05 */
+    html.mo .fan { view-timeline: --fan block; }
+    @keyframes fan1 { from { rotate: 0deg; translate: 0 0; } to { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; } }
+    @keyframes fan2 { from { rotate: 0deg; translate: 0 0; } to { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; } }
+    @keyframes fan3 { from { rotate: 0deg; translate: 0 0; } to { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; } }
+    @keyframes fan4 { from { rotate: 0deg; translate: 0 0; } to { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; } }
+    html.mo .fcard { animation-timing-function: var(--ease); animation-fill-mode: both; animation-timeline: --fan; animation-range: cover 20% cover 50%; }
+    html.mo .fcard:nth-child(1) { animation-name: fan1; }
+    html.mo .fcard:nth-child(2) { animation-name: fan2; }
+    html.mo .fcard:nth-child(3) { animation-name: fan3; }
+    html.mo .fcard:nth-child(4) { animation-name: fan4; }
+    html.mo .fan-names { animation: fade-in var(--ease) both; animation-timeline: --fan; animation-range: cover 50% cover 62%; }
+  }
+
+  /* ----- Fallback where animation-timeline is missing: IO adds .in, same motion plays once ----- */
+  @supports not (animation-timeline: view()) {
+    /* 02 */
+    html.mj .promo-frame { transform: scale(0.92); opacity: 0.7; transition: transform 700ms var(--ease), opacity 700ms var(--ease); }
+    html.mj .promo-frame.in { transform: none; opacity: 1; }
+
+    /* 03: not pinned; same sequence on a timer once 40% of the stage is visible */
+    html.mj .stack3 { position: relative; }
+    @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes tilt { from { transform: perspective(1200px) rotateX(0deg); } to { transform: perspective(1200px) rotateX(8deg); } }
+    html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
+    html.mj .doc-page { opacity: 0; }
+    html.mj .stack3.in .l1 { animation: type1 400ms steps(12, end) 0ms both; }
+    html.mj .stack3.in .l2 { animation: type1 700ms steps(28, end) 400ms both; }
+    html.mj .stack3.in .l3 { animation: type1 500ms steps(20, end) 1100ms both; }
+    html.mj .stack3.in .md3 { animation: fade-out 800ms var(--ease) 1700ms both; }
+    html.mj .stack3.in .doc-page { animation: fade-in 800ms var(--ease) 1700ms both, tilt 800ms var(--ease) 2500ms both; }
+
+    /* 05 */
+    html.mj .fcard { rotate: 0deg; translate: 0 0; transition: rotate 700ms var(--ease), translate 700ms var(--ease); }
+    html.mj .fan-names { opacity: 0; transition: opacity 400ms var(--ease) 700ms; }
+    html.mj .fan.in .fcard:nth-child(1) { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; }
+    html.mj .fan.in .fcard:nth-child(2) { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; }
+    html.mj .fan.in .fcard:nth-child(3) { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; }
+    html.mj .fan.in .fcard:nth-child(4) { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; }
+    html.mj .fan.in .fan-names { opacity: 1; }
+  }
+}
+
+/* Scene 03 overlay layout while motion is on: markdown over the page in one fixed box.
+   Native browsers (html.mo) and the IO fallback (html.mj) share it. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+  html.mo .stack3 { display: block; position: relative; width: min(100%, 440px, calc(56vh / 1.1)); aspect-ratio: 1 / 1.1; }
+  html.mo .stack3 .md-label { display: none; }
+  html.mo .s3-md { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; pointer-events: none; }
+  html.mo .s3-page { position: absolute; inset: 0; }
+  html.mo .doc-page { height: 100%; }
+  html.mo .md3 { background: transparent; border: 0; padding: 0; overflow: visible; }
+  html.mo .pin3 { padding-block: 0; }
+  }
+  @supports not (animation-timeline: view()) {
+  html.mj .stack3 { display: block; position: relative; width: min(100%, 440px, calc(56vh / 1.1)); aspect-ratio: 1 / 1.1; }
+  html.mj .stack3 .md-label { display: none; }
+  html.mj .s3-md { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; pointer-events: none; }
+  html.mj .s3-page { position: absolute; inset: 0; }
+  html.mj .doc-page { height: 100%; }
+  html.mj .md3 { background: transparent; border: 0; padding: 0; overflow: visible; }
+  html.mj .pin3 { padding-block: 0; }
+  }
+}

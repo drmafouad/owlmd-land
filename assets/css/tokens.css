@@ -46,6 +46,7 @@
   --paper-ink: #1B1A17;
   --paper-muted: #45423D;
   --paper-rule: #BDB6A8;
+  --paper-accent: #14655E; /* = Cairo primary; the typeset page keeps Cairo colours in both themes */
   --tile-limestone: #EDE4D3; /* logo tile on Cairo Night */
 
   /* Radius scale: chips 4 · buttons/inputs 8 · cards 12 · overlays 16 */
@@ -53,6 +54,10 @@
   --r-btn: 8px;
   --r-card: 12px;
   --r-overlay: 16px;
+
+  /* Motion */
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --dot-d: clamp(5.1px, 1.35vw, 16.8px); /* one dot size per viewport, every scene */
 
   /* Layout */
   --gutter: 24px;
@@ -90,4 +95,29 @@
   --muted: #B9B2A4;
   --logo-tile: var(--tile-limestone);
   color-scheme: dark;
+}
+
+/*
+ * Alternate palette for one section (scene 06, night sweep). Same hex values as above:
+ * default = Cairo Night; flipped to Cairo when the visitor is already on Cairo Night.
+ */
+.alt-theme {
+  --surface: #1B1A17; --on-surface: #EDE4D3; --primary: #1E968C; --on-primary: #1B1A17;
+  --secondary: #8C877D; --surface-container: #272522; --outline: #8C867C;
+  --outline-variant: #3F3D38; --muted: #B9B2A4; --logo-tile: var(--tile-limestone);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .alt-theme {
+    --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #14655E; --on-primary: #EDE4D3;
+    --secondary: #5A574F; --surface-container: #E4DBCB; --outline: #55514B;
+    --outline-variant: #BDB6A8; --muted: #45423D; --logo-tile: transparent;
+    color-scheme: light;
+  }
+}
+:root[data-theme="dark"] .alt-theme {
+  --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #14655E; --on-primary: #EDE4D3;
+  --secondary: #5A574F; --surface-container: #E4DBCB; --outline: #55514B;
+  --outline-variant: #BDB6A8; --muted: #45423D; --logo-tile: transparent;
+  color-scheme: light;
 }

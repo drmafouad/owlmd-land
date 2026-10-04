@@ -159,7 +159,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .hero-title .line { display: block; }
 .dot { /* decorative full stop: a circle, never text */
-  display: inline-block; width: 0.15em; height: 0.15em; margin-left: 0.06em;
+  display: inline-block; width: var(--dot-d); height: var(--dot-d); margin-left: 0.06em;
   border-radius: 50%; background: var(--dot);
 }
 .hero-sub { max-width: 34ch; font-size: clamp(1.1875rem, 2.4vw, 1.5rem); line-height: 1.45; color: var(--muted); margin-bottom: 32px; }
@@ -238,7 +238,7 @@ a:hover { text-decoration-thickness: 2px; }
 .footer-grid { display: grid; gap: 32px; }
 @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
 .footer-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.125rem; margin: 0 0 8px; }
-.site-footer .dot { width: 10px; height: 10px; margin: 0; }
+.site-footer .dot { margin: 0; }
 .site-footer h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px; }
 .site-footer ul { margin: 0; padding: 0; list-style: none; }
 .site-footer li a, .site-footer address a { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--on-surface); }
