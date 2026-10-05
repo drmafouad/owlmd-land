@@ -15,21 +15,25 @@
   if (!/\bmo\b/.test(R.className)) return; // motion off: the default markup is the resting state
   R.className += ' mj'; // from here on, scenes may start in their pre-animation state
 
-  /* Add .in once when `sel` is `th` visible. */
-  function once(sel, th) {
+  /* A scene starts when its centre reaches the middle of the screen, so the reader's eyes are already on it
+     (the CSS then adds a short beat before anything moves). The observer's viewport is shrunk to the top 66%
+     of the screen, so "half of the element is inside it" happens exactly when the element's centre crosses
+     that line, however tall the element is. */
+  var MID = '0px 0px -34% 0px';
+  function once(sel) {
     var el = $(sel);
     if (!el) return;
     new IntersectionObserver(function (es, ob) {
       es.forEach(function (e) {
-        if (e.isIntersecting && e.intersectionRatio >= th) { e.target.classList.add('in'); ob.unobserve(e.target); }
+        if (e.isIntersecting) { e.target.classList.add('in'); ob.unobserve(e.target); }
       });
-    }, { threshold: th }).observe(el);
+    }, { threshold: 0.5, rootMargin: MID }).observe(el);
   }
-  once('.stack3', 0.6);            // 03
-  once('#arabic .pdf-page', 0.4);  // 04
-  once('.payoff', 0.6);            // 07
+  once('.stack3');            // 03
+  once('#arabic .pdf-page');  // 04
+  once('.payoff');            // 07
 
-  /* 06: on at 50% visible; off again only below 15% visible AND below the screen, so it can't flicker */
+  /* 06: on when the section is centred; off again only when it is almost gone AND below the screen (no flicker) */
   var s = $('.sweep');
   if (s) new IntersectionObserver(function (es) {
     es.forEach(function (e) {
@@ -42,5 +46,5 @@
         s.classList.remove('in');
       }
     });
-  }, { threshold: [0, 0.15, 0.5] }).observe(s);
+  }, { threshold: [0.15, 0.5], rootMargin: MID }).observe(s);
 })();

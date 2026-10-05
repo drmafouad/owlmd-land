@@ -91,13 +91,12 @@
 .sweep-main { background: var(--surface); color: var(--on-surface); position: relative; z-index: 1; border-top: 0; }
 .sweep-logo { display: block; width: 64px; height: 64px; padding: 6px; border-radius: var(--r-card); margin-bottom: 24px; } /* 12 − 6 = 6 inner */
 .sweep-logo img { border-radius: 6px; }
-.sweep h2 .dot { margin-left: 0.06em; }
 
 /* 07 */
 .payoff { padding-block: clamp(56px, 10vw, 128px) clamp(40px, 6vw, 80px); }
 .payoff-title { font-size: clamp(2.25rem, 7.5vw, 5.5rem); line-height: 1.02; letter-spacing: -0.04em; }
-.stop { position: relative; display: inline-block; width: var(--dot-d); height: var(--dot-d); margin-left: 0.06em; }
-.stop .dot { position: absolute; left: 0; top: 0; margin: 0; }
+.stop { position: relative; display: inline-block; width: 0.172em; height: 0.172em; margin-left: 0.0625em; vertical-align: -0.0156em; }
+.stop .dot { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; vertical-align: baseline; }
 
 /* 02 */
 .promo-play {
@@ -143,10 +142,10 @@
   @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
   @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
   html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
-  html.mj .stack3.in .l1 { animation: type1 200ms steps(12, end) 0ms both; }
-  html.mj .stack3.in .l2 { animation: type1 350ms steps(28, end) 200ms both; }
-  html.mj .stack3.in .l3 { animation: type1 250ms steps(20, end) 550ms both; }
-  html.mj .stack3.in .s3-md { animation: fade-out 450ms var(--ease) 900ms both; }
+  html.mj .stack3.in .l1 { animation: type1 400ms steps(12, end) 500ms both; }   /* starts 0.5 s after it is in view */
+  html.mj .stack3.in .l2 { animation: type1 900ms steps(28, end) 900ms both; }
+  html.mj .stack3.in .l3 { animation: type1 600ms steps(20, end) 1800ms both; }
+  html.mj .stack3.in .s3-md { animation: fade-out 800ms var(--ease) 2800ms both; } /* hold ~0.4 s, then dissolve */
   /* Pinned for half a screen on screens big enough to hold it; phones just scroll past */
   @media (min-width: 641px) and (min-height: 620px) {
     html.mo .pin-wrap { height: 150vh; }
@@ -155,17 +154,17 @@
   }
 
   /* 04 ARABIC: clip-path wipe right to left on the single heading element (never split into letters) */
-  html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 900ms var(--ease); }
+  html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 1300ms var(--ease) 400ms; }
   html.mj .in .ar-wipe, html.mj .ar-wipe.in { clip-path: inset(-30% -10% -30% -10%); }
 
-  /* 06 NIGHT SWEEP: grows from the dot; reverses only once the section is mostly back below the screen */
+  /* 06 NIGHT SWEEP: starts 0.4 s after the section is in the middle of the screen, takes 2.2 s; reverses only once the section is mostly back below the screen */
   html.mj .sweep-base { display: block; position: absolute; inset: 0; background: var(--surface); color: var(--on-surface); }
-  html.mj .sweep-main { clip-path: circle(0 at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 700ms var(--ease); }
+  html.mj .sweep-main { clip-path: circle(0 at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 2200ms cubic-bezier(.4, 0, .2, 1) 400ms; } /* slow, even pace for the biggest change on the page */
   html.mj .sweep.in .sweep-main { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); }
 
   /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop. The footer is never hidden. */
   @keyframes drop { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
-  html.mj .stop .dot { offset-path: path("M -170 -190 C -170 -70, -70 -12, 0 0"); offset-rotate: 0deg; offset-distance: 0%; opacity: 0; }
-  html.mj .payoff.in .stop .dot { animation: drop 700ms var(--ease) both; }
+  html.mj .stop .dot { offset-path: path("M -170 -190 C -170 -70, -70 -12, 0 0"); offset-rotate: 0deg; offset-anchor: 0 0; offset-distance: 0%; opacity: 0; }
+  html.mj .payoff.in .stop .dot { animation: drop 1100ms var(--ease) 400ms both; }
   @media (max-width: 640px) { html.mj .stop .dot { offset-path: path("M -90 -120 C -90 -50, -40 -8, 0 0"); } }
 }

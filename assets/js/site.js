@@ -33,7 +33,7 @@
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.removeAttribute('data-rv'); io.unobserve(en.target); }
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
+    }, { rootMargin: '0px 0px -22% 0px', threshold: 0.1 });
     items.forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.top > window.innerHeight) { el.setAttribute('data-rv', 'pending'); io.observe(el); }
