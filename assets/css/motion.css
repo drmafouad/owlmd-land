@@ -103,21 +103,22 @@
 /* ---------- Motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
 
-  /* 01 HERO, on load, once (CSS only; --dx is measured by motion.js, 0 without it) */
+  /* 01 HERO, on load, once: finished 750 ms after first paint (was 1500 ms).
+     Line 1 is visible on the first frame so it can be the LCP element; it only moves.
+     --dx (the dot's travel) is set by a tiny inline script after the headline. */
   @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes rise-move { from { transform: translateY(8px); } to { transform: none; } }
   @keyframes dotland {
     0%   { opacity: 0; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
-    23%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
-    69%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
-    100% { opacity: 1; transform: none; }
+    23%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }   /* fade in 0-150 ms */
+    46%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
+    100% { opacity: 1; transform: none; }                                           /* slide and land 300-650 ms */
   }
-  /* Line 1 is visible (opacity 1) on the very first frame so it can be the LCP element; it only moves. */
-  @keyframes rise-move { from { transform: translateY(8px); } to { transform: none; } }
   .hero .rise { display: inline-block; }
-  .hero .r1 { animation: rise-move 300ms var(--ease) both; }
-  .hero .r2 { animation: rise 500ms var(--ease) 600ms both; }
-  .hero-title .dot { animation: dotland 1300ms var(--ease) both; }
-  .hero .chip-brass, .hero-sub, .hero-actions, .hero-note { animation: rise 400ms var(--ease) 1100ms both; }
+  .hero .r1 { animation: rise-move 250ms var(--ease) both; }            /* 0-250 ms */
+  .hero .r2 { animation: rise 300ms var(--ease) 150ms both; }           /* 150-450 ms */
+  .hero-title .dot { animation: dotland 650ms var(--ease) both; }
+  .hero .chip-brass, .hero-sub, .hero-actions, .hero-note { animation: rise 300ms var(--ease) 450ms both; } /* 450-750 ms */
 
   /* 04 ARABIC: clip-path wipe right to left on the single heading element (never split into letters) */
   html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 900ms var(--ease); }
