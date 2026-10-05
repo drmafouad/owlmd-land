@@ -31,10 +31,13 @@
   var POP = 'cubic-bezier(.3,1.5,.5,1)';  /* a small overshoot, for things that land */
 
   /* ---------- Engine ---------- */
-  function Scene(el, build) { this.el = el; this.build = build; this.anims = []; this.armed = false; this.fired = false; }
+  /* Scenes below the hero play 1.3x faster than in the motion lab: in the lab you stop and watch,
+     on the page you keep scrolling, so each scene has to finish while it is still on screen. */
+  var RATE = 1.3;
+  function Scene(el, build, rate) { this.el = el; this.build = build; this.rate = rate || RATE; this.anims = []; this.armed = false; this.fired = false; }
   Scene.prototype.a = function (target, kf, o) {
     o = Object.assign({ duration: 400, easing: EASE, fill: 'both' }, o);
-    var an = target.animate(kf, o); this.anims.push(an); return an;
+    var an = target.animate(kf, o); an.playbackRate = this.rate; this.anims.push(an); return an;
   };
   Scene.prototype.clear = function () { this.anims.forEach(function (a) { a.cancel(); }); this.anims = []; this.armed = false; };
   Scene.prototype.arm = function () {
@@ -47,10 +50,11 @@
     this.anims.forEach(function (a) { a.play(); });
   };
 
-  /* due when the scene's middle reaches 80% of the screen height (or it is on screen at the very end of the page) */
+  /* due as soon as the scene's top is 15% of the screen into view (or it is on screen at the very end of the page):
+     it starts while the reader is arriving, not when they are about to leave */
   function due(r, vh) {
-    var line = vh * 0.8, end = window.scrollY + vh >= R.scrollHeight - 2;
-    return r.bottom > 0 && r.top < vh && (r.top <= line - Math.min(r.height, line) / 2 || end);
+    var end = window.scrollY + vh >= R.scrollHeight - 2;
+    return r.bottom > 0 && (r.top < vh * 0.85 || (end && r.top < vh));
   }
 
   /* ---------- Shared moves ---------- */
@@ -245,10 +249,11 @@
   var builders = { print: buildPrint, arabic: buildArabic, cards: buildCards, ai: buildAI, find: buildFind, sunset: buildSunset, lock: buildLock, payoff: buildPayoff };
   var scenes = $$('.scene').map(function (el) {
     var S = new Scene(el, builders[el.getAttribute('data-scene')]);
-    if (el.getAttribute('data-scene') === 'payoff') S.fresh = S.again = true; /* it follows the moving rail dot, so it is measured as it plays and plays again on the way back */
+    S.fresh = true; /* measured again the moment it plays: late web fonts (the serif page, Arabic) can shift the letters after arming */
+    if (el.getAttribute('data-scene') === 'payoff') S.again = true; /* it follows the moving rail dot and plays again on the way back */
     return S;
   });
-  var heroScene = hero && new Scene(hero, buildHero);
+  var heroScene = hero && new Scene(hero, buildHero, 1);
 
   var queued = false;
   function check() {
@@ -257,7 +262,7 @@
       var r = rect(S.el);
       if (S.fired) { if (S.again && r.top > vh) { S.fired = false; S.arm(); } return; }
       if (r.bottom <= 0) { S.clear(); S.fired = true; return; } /* jumped past: show it finished */
-      if (!S.armed && r.top < vh * 1.6) S.arm();
+      if (!S.armed && r.top < vh * 1.25) S.arm(); /* set its first frame just before it scrolls in */
       if (due(r, vh)) S.fire();
     });
     railMove();
