@@ -41,6 +41,7 @@
         var o = s.querySelector('.sweep-main .dot').getBoundingClientRect(), r = s.getBoundingClientRect();
         s.style.setProperty('--cx', (o.left - r.left + o.width / 2) + 'px');
         s.style.setProperty('--cy', (o.top - r.top + o.height / 2) + 'px');
+        s.style.setProperty('--r0', (o.width / 2) + 'px');
         s.classList.add('in');
       } else if (e.intersectionRatio < 0.15 && e.boundingClientRect.top > 0) {
         s.classList.remove('in');

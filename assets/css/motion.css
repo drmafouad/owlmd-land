@@ -157,10 +157,10 @@
   html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 1300ms var(--ease) 400ms; }
   html.mj .in .ar-wipe, html.mj .ar-wipe.in { clip-path: inset(-30% -10% -30% -10%); }
 
-  /* 06 NIGHT SWEEP: starts 0.4 s after the section is in the middle of the screen, takes 2.2 s; reverses only once the section is mostly back below the screen */
+  /* 06 NIGHT SWEEP: the orange dot is the mask: opens from the dot 0.15 s after the section is mid-screen, takes 1.5 s; closes in 0.6 s once the section is mostly back below the screen */
   html.mj .sweep-base { display: block; position: absolute; inset: 0; background: var(--surface); color: var(--on-surface); }
-  html.mj .sweep-main { clip-path: circle(0 at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 2200ms cubic-bezier(.4, 0, .2, 1) 400ms; } /* slow, even pace for the biggest change on the page */
-  html.mj .sweep.in .sweep-main { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); }
+  html.mj .sweep-main { clip-path: circle(var(--r0, 0px) at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 600ms cubic-bezier(.4, 0, .2, 1); } /* the orange dot is the mask: the new theme starts exactly inside the dot, then grows from it; leaving closes quickly */
+  html.mj .sweep.in .sweep-main { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 1500ms cubic-bezier(.5, 0, .2, 1) 150ms; }
 
   /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop. The footer is never hidden. */
   @keyframes drop { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
