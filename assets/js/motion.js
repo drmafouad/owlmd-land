@@ -15,37 +15,51 @@
   if (!/\bmo\b/.test(R.className)) return; // motion off: the default markup is the resting state
   R.className += ' mj'; // from here on, scenes may start in their pre-animation state
 
-  /* A scene starts when its centre reaches the middle of the screen, so the reader's eyes are already on it
-     (the CSS then adds a short beat before anything moves). The observer's viewport is shrunk to the top 66%
-     of the screen, so "half of the element is inside it" happens exactly when the element's centre crosses
-     that line, however tall the element is. */
-  var MID = '0px 0px -34% 0px';
-  function once(sel) {
-    var el = $(sel);
-    if (!el) return;
-    new IntersectionObserver(function (es, ob) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); ob.unobserve(e.target); }
-      });
-    }, { threshold: 0.5, rootMargin: MID }).observe(el);
-  }
-  once('.stack3');            // 03
-  once('#arabic .pdf-page');  // 04
-  once('.payoff');            // 07
+  /* Scene timing. One passive scroll/resize check (throttled to one per frame) covers every case:
+     - a scene starts when its centre reaches 66% of the screen height (eyes are on it); for scenes taller than
+       that, when their top reaches the upper third;
+     - at the very end of the page (the scene can never reach that line) it starts once it is on screen;
+     - a scene the reader has already passed (jump link, End key, reload half-way down) is shown finished at once
+       ("now" = no animation), so nothing is ever left hidden above the reader. */
+  var scenes = [d.querySelector('.stack3'), d.querySelector('#arabic .pdf-page'), d.querySelector('.payoff')].filter(Boolean);
+  var s = $('.sweep'), sDot = s && s.querySelector('.sweep-main .dot');
+  var queued = false;
 
-  /* 06: on when the section is centred; off again only when it is almost gone AND below the screen (no flicker) */
-  var s = $('.sweep');
-  if (s) new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (e.intersectionRatio >= 0.5 && !s.classList.contains('in')) {
-        var o = s.querySelector('.sweep-main .dot').getBoundingClientRect(), r = s.getBoundingClientRect();
+  function due(r, vh) {
+    var line = vh * 0.66;
+    var end = window.scrollY + vh >= d.documentElement.scrollHeight - 2;
+    return r.bottom > 0 && r.top < vh && (r.top <= line - Math.min(r.height, line) / 2 || end);
+  }
+  function start(el, now) {
+    if (now) el.classList.add('now');
+    el.classList.add('in');
+  }
+  function check() {
+    queued = false;
+    var vh = window.innerHeight;
+    scenes = scenes.filter(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom <= 0) { start(el, true); return false; }   // already passed
+      if (due(r, vh)) { start(el, false); return false; }
+      return true;
+    });
+    if (s) {
+      var r = s.getBoundingClientRect(), on = s.classList.contains('in');
+      if (!on && (r.bottom <= 0 || due(r, vh))) {
+        var o = sDot.getBoundingClientRect();
         s.style.setProperty('--cx', (o.left - r.left + o.width / 2) + 'px');
         s.style.setProperty('--cy', (o.top - r.top + o.height / 2) + 'px');
         s.style.setProperty('--r0', (o.width / 2) + 'px');
+        s.classList.toggle('now', r.bottom <= 0);
         s.classList.add('in');
-      } else if (e.intersectionRatio < 0.15 && e.boundingClientRect.top > 0) {
-        s.classList.remove('in');
+      } else if (on && r.top > vh - Math.min(r.height, vh) * 0.15) {
+        s.classList.remove('in', 'now');   // back below the screen: close again (never flickers mid-screen)
       }
-    });
-  }, { threshold: [0.15, 0.5], rootMargin: MID }).observe(s);
+    }
+  }
+  function queue() { if (!queued) { queued = true; requestAnimationFrame(check); } }
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  window.addEventListener('load', queue);
+  queue();
 })();
