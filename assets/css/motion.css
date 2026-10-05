@@ -1,13 +1,13 @@
 /*
- * OwlMD website: scroll motion (scenes 01-07). Index page only.
- * Rules: tokens from tokens.css only; animate transform, opacity, clip-path only
- * (plus offset-distance for the scene-07 dot, which is a transform-type property).
+ * OwlMD website: motion. Index page only.
+ * Three signature moves: the orange dot (hero, night sweep, payoff), the Markdown-to-PDF morph, the Arabic wipe.
+ * Everything else uses the one quiet fade-up (.rv in site.js).
+ * Every scene plays once on its own clock when it comes into view (IntersectionObserver), so motion is the
+ * same in every browser and never freezes half-way when the reader stops scrolling.
+ * Rules: tokens only; animate transform, opacity, clip-path (+ offset-distance for the payoff dot).
  * The DEFAULT markup is every scene's resting state, so the page reads fully with JS off.
- * html.mo (set in <head>, off for prefers-reduced-motion): layout + native scroll-driven scenes.
- * html.mj (added by motion.js itself): every state that starts hidden until an IntersectionObserver fires,
- * so if motion.js never loads, nothing stays hidden.
- * Native scroll-driven animations where `animation-timeline` exists, an
- * IntersectionObserver-toggled `.in` class playing the same motion once where it doesn't.
+ * html.mo (set in <head>, off for prefers-reduced-motion): layout for the motion version.
+ * html.mj (added by motion.js itself): states that start hidden, so nothing stays hidden if motion.js never loads.
  */
 
 /* ---------- Resting layouts (no motion) ---------- */
@@ -54,6 +54,8 @@
 }
 .aa { display: block; align-self: flex-start; font-size: calc(var(--cw) * 0.36); line-height: 1; letter-spacing: -0.03em; padding: 4px 8px; margin: -4px -8px 0; border-radius: var(--r-chip); }
 .frule { display: block; height: 0; }
+.fcard-name { display: none; margin-top: auto; font-size: 1.0625rem; line-height: 1.2; color: var(--on-surface); }
+.t-pro .fcard-name, .t-mod .fcard-name, .t-std .fcard-name { font-weight: 700; }
 .fan-names { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; list-style: none; margin: 32px 0 0; padding: 0; }
 .fan-names li { font-size: 1.125rem; line-height: 1.3; letter-spacing: 0; color: var(--on-surface); } /* each name is set in its own theme's heading style */
 .fan-names .t-pro, .fan-names .t-mod, .fan-names .t-std { font-weight: 700; }
@@ -64,11 +66,20 @@
 .t-mod .aa { font-weight: 700; color: var(--on-surface); background: var(--surface-container); } /* bold; H1 on a light tint band */
 .t-min .aa { font-weight: 400; color: var(--muted); background: var(--surface-container); }       /* regular weight, tint band, no rules */
 .t-std .aa { font-weight: 700; color: var(--on-surface); }                       /* bold, no rule, no band, no accent */
-.fcard:hover, .fcard:focus-within { z-index: 5; }
 .fcard-in { transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
 .fcard:hover .fcard-in, .fcard-in:focus-visible {
   transform: translateY(-8px);
   box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); /* the only shadow on the page: a floating state */
+}
+.fcard:hover, .fcard:focus-within { z-index: 5; }
+@media (max-width: 600px) {
+  .fan-stage { --cw: 150px; }
+  .fan-cards { position: static; width: 100%; height: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .fcard, .fcard:nth-child(n) { position: relative; inset: auto; height: auto; rotate: none; translate: none; }
+  .fcard-in { aspect-ratio: 1 / 1; }
+  .aa { font-size: 3rem; }
+  .fcard-name { display: block; } /* on phones each card carries its own name */
+  .fan-names { display: none; }
 }
 .proof { margin: 24px 0 0; }
 .proof a { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--primary); }
@@ -103,125 +114,58 @@
 /* ---------- Motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
 
-  /* 01 HERO, on load, once: finished 750 ms after first paint (was 1500 ms).
-     Line 1 is visible on the first frame so it can be the LCP element; it only moves.
-     --dx (the dot's travel) is set by a tiny inline script after the headline. */
+  /* 01 HERO, on load: done 650 ms after first paint.
+     Line 1 and the chip are visible on the first frame (they only move); line 2 rises; the dot fades in
+     at its full stop from just to the right; sub-line and buttons are the last beat. */
   @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   @keyframes rise-move { from { transform: translateY(8px); } to { transform: none; } }
-  @keyframes dotland {
-    0%   { opacity: 0; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
-    23%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }   /* fade in 0-150 ms */
-    46%  { opacity: 1; transform: translate(calc(-1 * var(--dx, 0px)), 0.22em); }
-    100% { opacity: 1; transform: none; }                                           /* slide and land 300-650 ms */
-  }
+  @keyframes dot-in { from { opacity: 0; transform: translateX(0.6em); } to { opacity: 1; transform: none; } }
   .hero .rise { display: inline-block; }
-  .hero .r1 { animation: rise-move 250ms var(--ease) both; }            /* 0-250 ms */
-  .hero .r2 { animation: rise 300ms var(--ease) 150ms both; }           /* 150-450 ms */
-  .hero-title .dot { animation: dotland 650ms var(--ease) both; }
-  .hero .chip-brass, .hero-sub, .hero-actions, .hero-note { animation: rise 300ms var(--ease) 450ms both; } /* 450-750 ms */
+  .hero .r1, .hero .chip-brass { animation: rise-move 250ms var(--ease) both; }   /* 0-250 ms */
+  .hero .r2 { animation: rise 300ms var(--ease) 100ms both; }                      /* 100-400 ms */
+  .hero-title .dot { animation: dot-in 300ms var(--ease) 300ms both; }             /* 300-600 ms */
+  .hero-sub, .hero-actions, .hero-note { animation: rise 300ms var(--ease) 350ms both; } /* 350-650 ms */
+
+  /* 03 MARKDOWN -> PDF: raw Markdown is typed onto the page, then dissolves into the typeset version.
+     The page is visible from the start, so the stage is never blank. Plays once, ~1.3 s. */
+  html.mo .pin3 { padding-block: 0; }
+  html.mo .stack3 { display: block; position: relative; width: min(100%, 440px, calc(60vh / 1.1)); aspect-ratio: 1 / 1.1; }
+  html.mo .stack3 .md-label { display: none; }
+  html.mo .s3-page { position: absolute; inset: 0; }
+  html.mo .doc-page { height: 100%; max-width: none; }
+  html.mo .s3-md {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none; padding: 11.8%;
+    background: var(--paper); border: 1px solid var(--outline-variant); border-radius: 4px;
+  }
+  html.mo .md3 { background: transparent; border: 0; padding: 0; overflow: visible; color: var(--paper-ink); font-size: 0.9rem; }
+  html.mo .md3 .m-mark { color: var(--paper-accent); }
+  html.mo:not(.mj) .s3-md { opacity: 0; } /* motion.js missing: show the finished page */
+  @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+  html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
+  html.mj .stack3.in .l1 { animation: type1 200ms steps(12, end) 0ms both; }
+  html.mj .stack3.in .l2 { animation: type1 350ms steps(28, end) 200ms both; }
+  html.mj .stack3.in .l3 { animation: type1 250ms steps(20, end) 550ms both; }
+  html.mj .stack3.in .s3-md { animation: fade-out 450ms var(--ease) 900ms both; }
+  /* Pinned for half a screen on screens big enough to hold it; phones just scroll past */
+  @media (min-width: 641px) and (min-height: 620px) {
+    html.mo .pin-wrap { height: 150vh; }
+    html.mo .pin-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+    html.mo .pin-stage .container { width: 100%; }
+  }
 
   /* 04 ARABIC: clip-path wipe right to left on the single heading element (never split into letters) */
   html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 900ms var(--ease); }
   html.mj .in .ar-wipe, html.mj .ar-wipe.in { clip-path: inset(-30% -10% -30% -10%); }
 
-  /* 06 NIGHT SWEEP: the swept layer grows from the dot; reverses on scroll back up */
+  /* 06 NIGHT SWEEP: grows from the dot; reverses only once the section is mostly back below the screen */
   html.mj .sweep-base { display: block; position: absolute; inset: 0; background: var(--surface); color: var(--on-surface); }
   html.mj .sweep-main { clip-path: circle(0 at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 700ms var(--ease); }
   html.mj .sweep.in .sweep-main { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); }
 
-  /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop; footer follows 200 ms later */
+  /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop. The footer is never hidden. */
   @keyframes drop { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
   html.mj .stop .dot { offset-path: path("M -170 -190 C -170 -70, -70 -12, 0 0"); offset-rotate: 0deg; offset-distance: 0%; opacity: 0; }
-  html.mj .payoff.in .stop .dot { animation: drop 800ms var(--ease) both; }
-  html.mj .site-footer { opacity: 0; transform: translateY(12px); transition: opacity 400ms var(--ease) 200ms, transform 400ms var(--ease) 200ms; }
-  html.mj .site-footer.in { opacity: 1; transform: none; }
+  html.mj .payoff.in .stop .dot { animation: drop 700ms var(--ease) both; }
   @media (max-width: 640px) { html.mj .stop .dot { offset-path: path("M -90 -120 C -90 -50, -40 -8, 0 0"); } }
-
-  /* ----- 02 PROMO, 03 PINNED PDF, 05 FAN: native scroll-driven ----- */
-  @supports (animation-timeline: view()) {
-    /* 02 */
-    @keyframes promo-in { from { transform: scale(0.92); opacity: 0.7; } to { transform: none; opacity: 1; } }
-    html.mo .promo-frame { animation: promo-in var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
-
-    /* 03: 200vh wrapper, the stage is sticky for one screen; pinned part = cover 33.333% to 66.667% */
-    html.mo .pin-wrap { height: 200vh; view-timeline: --p3 block; }
-    html.mo .pin-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
-    html.mo .pin-stage .container { width: 100%; }
-    @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
-    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes tilt { from { transform: perspective(1200px) rotateX(0deg); } to { transform: perspective(1200px) rotateX(8deg); } }
-    html.mo .md3 .ln { animation: type1 steps(var(--n), end) both; animation-timeline: --p3; }
-    html.mo .md3 .l1 { --n: 12; animation-range: cover 33.333% cover 37.333%; }
-    html.mo .md3 .l2 { --n: 28; animation-range: cover 37.333% cover 42.333%; }
-    html.mo .md3 .l3 { --n: 20; animation-range: cover 42.333% cover 46.667%; }
-    html.mo .md3 { animation: fade-out var(--ease) both; animation-timeline: --p3; animation-range: cover 46.667% cover 56.667%; }
-    html.mo .doc-page { animation: fade-in var(--ease) both, tilt var(--ease) both; animation-timeline: --p3, --p3; animation-range: cover 46.667% cover 56.667%, cover 56.667% cover 66.667%; }
-
-    /* 05 */
-    html.mo .fan { view-timeline: --fan block; }
-    @keyframes fan1 { from { rotate: 0deg; translate: 0 0; } to { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; } }
-    @keyframes fan2 { from { rotate: 0deg; translate: 0 0; } to { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; } }
-    @keyframes fan3 { from { rotate: 0deg; translate: 0 0; } to { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; } }
-    @keyframes fan4 { from { rotate: 0deg; translate: 0 0; } to { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; } }
-    html.mo .fcard { animation-timing-function: var(--ease); animation-fill-mode: both; animation-timeline: --fan; animation-range: cover 20% cover 50%; }
-    html.mo .fcard:nth-child(1) { animation-name: fan1; }
-    html.mo .fcard:nth-child(2) { animation-name: fan2; }
-    html.mo .fcard:nth-child(3) { animation-name: fan3; }
-    html.mo .fcard:nth-child(4) { animation-name: fan4; }
-    html.mo .fan-names { animation: fade-in var(--ease) both; animation-timeline: --fan; animation-range: cover 50% cover 62%; }
-  }
-
-  /* ----- Fallback where animation-timeline is missing: IO adds .in, same motion plays once ----- */
-  @supports not (animation-timeline: view()) {
-    /* 02 */
-    html.mj .promo-frame { transform: scale(0.92); opacity: 0.7; transition: transform 700ms var(--ease), opacity 700ms var(--ease); }
-    html.mj .promo-frame.in { transform: none; opacity: 1; }
-
-    /* 03: not pinned; same sequence on a timer once 40% of the stage is visible */
-    html.mj .stack3 { position: relative; }
-    @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
-    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes tilt { from { transform: perspective(1200px) rotateX(0deg); } to { transform: perspective(1200px) rotateX(8deg); } }
-    html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
-    html.mj .doc-page { opacity: 0; }
-    html.mj .stack3.in .l1 { animation: type1 400ms steps(12, end) 0ms both; }
-    html.mj .stack3.in .l2 { animation: type1 700ms steps(28, end) 400ms both; }
-    html.mj .stack3.in .l3 { animation: type1 500ms steps(20, end) 1100ms both; }
-    html.mj .stack3.in .md3 { animation: fade-out 800ms var(--ease) 1700ms both; }
-    html.mj .stack3.in .doc-page { animation: fade-in 800ms var(--ease) 1700ms both, tilt 800ms var(--ease) 2500ms both; }
-
-    /* 05 */
-    html.mj .fcard { rotate: 0deg; translate: 0 0; transition: rotate 700ms var(--ease), translate 700ms var(--ease); }
-    html.mj .fan-names { opacity: 0; transition: opacity 400ms var(--ease) 700ms; }
-    html.mj .fan.in .fcard:nth-child(1) { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; }
-    html.mj .fan.in .fcard:nth-child(2) { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; }
-    html.mj .fan.in .fcard:nth-child(3) { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; }
-    html.mj .fan.in .fcard:nth-child(4) { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; }
-    html.mj .fan.in .fan-names { opacity: 1; }
-  }
-}
-
-/* Scene 03 overlay layout while motion is on: markdown over the page in one fixed box.
-   Native browsers (html.mo) and the IO fallback (html.mj) share it. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-  html.mo .stack3 { display: block; position: relative; width: min(100%, 440px, calc(56vh / 1.1)); aspect-ratio: 1 / 1.1; }
-  html.mo .stack3 .md-label { display: none; }
-  html.mo .s3-md { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; pointer-events: none; }
-  html.mo .s3-page { position: absolute; inset: 0; }
-  html.mo .doc-page { height: 100%; }
-  html.mo .md3 { background: transparent; border: 0; padding: 0; overflow: visible; }
-  html.mo .pin3 { padding-block: 0; }
-  }
-  @supports not (animation-timeline: view()) {
-  html.mj .stack3 { display: block; position: relative; width: min(100%, 440px, calc(56vh / 1.1)); aspect-ratio: 1 / 1.1; }
-  html.mj .stack3 .md-label { display: none; }
-  html.mj .s3-md { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; pointer-events: none; }
-  html.mj .s3-page { position: absolute; inset: 0; }
-  html.mj .doc-page { height: 100%; }
-  html.mj .md3 { background: transparent; border: 0; padding: 0; overflow: visible; }
-  html.mj .pin3 { padding-block: 0; }
-  }
 }

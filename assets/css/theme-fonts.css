@@ -8,6 +8,6 @@
 @font-face { font-family: "Noto Serif Specimen"; src: url("../fonts/noto-serif-700-specimen.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 @font-face { font-family: "Noto Serif Specimen"; src: url("../fonts/noto-serif-400-specimen.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
-.t-mod .aa, .fan-names .t-mod { font-family: "Asap Specimen", var(--font-ui); }
-.t-std .aa, .fan-names .t-std { font-family: "Noto Serif Specimen", var(--font-ui); }
+.t-mod .aa, .fan-names .t-mod, .t-mod .fcard-name { font-family: "Asap Specimen", var(--font-ui); }
+.t-std .aa, .fan-names .t-std, .t-std .fcard-name { font-family: "Noto Serif Specimen", var(--font-ui); }
 :root { --font-page: "Noto Serif Specimen", var(--font-ui); }
