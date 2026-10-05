@@ -1,46 +1,21 @@
 /*
  * OwlMD website: motion. Index page only.
- * One character carries the story: the orange dot (the cursor in the hero, the pen in Arabic, the sun,
- * the night sweep's mask and keyhole, and the last full stop).
- * Every scene is built in motion.js with the Web Animations API (element.animate), so it can wait paused on
- * its first frame until it is due, then play once. CSS here holds the RESTING layouts: the default markup is
- * every scene's finished state, so the page reads fully with JS off or with reduced motion.
- * html.mo (set in <head>, off for prefers-reduced-motion): layout for the motion version.
- * html.mj (added by motion.js itself): layouts that only make sense while motion.js is running.
+ * Three signature moves: the orange dot (hero, night sweep, payoff), the Markdown-to-PDF morph, the Arabic wipe.
+ * Everything else uses the one quiet fade-up (.rv in site.js).
+ * Every scene plays once on its own clock when it comes into view (IntersectionObserver), so motion is the
+ * same in every browser and never freezes half-way when the reader stops scrolling.
  * Rules: tokens only; animate transform, opacity, clip-path (+ offset-distance for the payoff dot).
+ * The DEFAULT markup is every scene's resting state, so the page reads fully with JS off.
+ * html.mo (set in <head>, off for prefers-reduced-motion): layout for the motion version.
+ * html.mj (added by motion.js itself): states that start hidden, so nothing stays hidden if motion.js never loads.
  */
 
-/* ---------- The owl: logo + two eyelids (open unless .sleep) ---------- */
-.owl { position: relative; display: block; width: 100%; height: 100%; }
-.owl img { width: 100%; height: 100%; }
-.lid {
-  position: absolute; top: 31.8%; width: 19%; height: 19%; border-radius: 50%;
-  background: #EDE4D3; /* = the limestone behind the logo in both themes */
-  transform: scaleY(0); transform-origin: 50% 0;
-}
-.lid.l { left: 27.3%; }
-.lid.r { left: 54.3%; }
-.lid::after { /* the closed eye */
-  content: ""; position: absolute; left: 16%; right: 16%; top: 30%; height: 34%;
-  border-bottom: 2px solid #2E3A5A; border-radius: 0 0 50% 50%;
-}
-.site-header .lid::after { border-bottom-width: 1px; }
-.sleep .lid { transform: none; }
+/* ---------- Resting layouts (no motion) ---------- */
 
-/* ---------- 01 Hero: the full stop is a dot that can also be a text cursor ---------- */
-.hero .rise { display: inline-block; }
-.hero .tch { display: inline-block; white-space: pre; }
-.cd { position: relative; display: inline-block; width: 0.172em; height: 0.172em; margin-left: 0.0625em; vertical-align: -0.0156em; }
-.cd .dc { position: absolute; inset: 0; border-radius: 50%; background: var(--dot); }
-.cd .bar {
-  position: absolute; left: 50%; bottom: 0; width: 0.06em; height: 0.74em; margin-left: -0.03em;
-  border-radius: 0.02em; background: var(--dot); transform-origin: 50% 100%; opacity: 0;
-}
-
-/* ---------- 03 Markdown -> PDF ---------- */
-.pstage { display: grid; gap: 20px; }
-.pstage > * { min-width: 0; }
-.pmd .ln { display: inline-block; }
+/* 03: markdown block, then the typeset page */
+.stack3 { display: grid; gap: 20px; }
+.stack3 > * { min-width: 0; }
+.md3 .ln { display: block; width: max-content; }
 .doc-page {
   container-type: inline-size;
   width: 100%; max-width: 440px; aspect-ratio: 1 / 1.1;
@@ -49,11 +24,11 @@
   font-family: var(--font-page, var(--font-ui)); /* Noto Serif once theme-fonts.css is linked, like the real Standard export */
 }
 .doc-in { padding: 11.8%; } /* 72pt margin on a 612pt page */
-.doc-page h3 { font-size: 8.3cqw; line-height: 1.15; letter-spacing: -0.01em; font-weight: 700; color: var(--paper-ink); margin: 0 0 6cqw; }
+.doc-page h3 { font-size: 8.3cqw; line-height: 1.15; letter-spacing: -0.01em; font-weight: 700; color: var(--paper-ink); margin: 0 0 6cqw; } /* Standard: bold, no rule, no band, no accent */
 .doc-callout {
   position: relative; display: flex; align-items: center; gap: 3cqw;
   padding: 3.2cqw 4cqw 3.2cqw 5cqw; margin: 0 0 5cqw;
-  background: color-mix(in srgb, var(--paper-accent) 6%, var(--paper));
+  background: color-mix(in srgb, var(--paper-accent) 6%, var(--paper)); /* tint = accent into the page, like the app */
   border-radius: 4px; overflow: hidden;
 }
 .doc-callout::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1.4cqw; background: var(--paper-accent); }
@@ -63,23 +38,15 @@
 .doc-tasks li { display: flex; align-items: center; gap: 2.4cqw; }
 .doc-cb { font-family: var(--font-ui); flex: none; width: 4.4cqw; height: 4.4cqw; border: 0.4cqw solid var(--paper-ink); border-radius: 0.8cqw; display: grid; place-items: center; font-size: 3cqw; line-height: 1; font-weight: 700; }
 
-/* ---------- 04 Arabic: base letters + full text with vowel marks, stacked ---------- */
-.ar-ink { position: relative; display: inline-block; }
-.ar-base { position: absolute; inset: 0; white-space: nowrap; opacity: 0; } /* only shown while the pen writes */
-.nib { position: absolute; right: -0.1em; top: 58%; width: 0.172em; height: 0.172em; border-radius: 50%; background: var(--dot); opacity: 0; }
-
-/* ---------- 05 PDF themes: fanned cards, each flips to a close-up page ---------- */
+/* 05: the four type specimens, resting = fanned open with names. --pitch = gap between neighbouring cards */
 .fan-stage { --cw: clamp(120px, 15vw, 210px); --pitch: clamp(48px, 8.3vw, 120px); display: grid; justify-items: center; padding-block: 8px 24px; }
 .fan-cards { position: relative; list-style: none; margin: 0; padding: 0; width: var(--cw); height: calc(var(--cw) * 1.3); }
-.fcard { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 100%; z-index: 1; perspective: 1000px; }
+.fcard { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 100%; z-index: 1; }
+.fcard-in:focus-visible { outline-offset: 4px; }
 .fcard:nth-child(1) { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; }
 .fcard:nth-child(2) { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; }
 .fcard:nth-child(3) { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; }
 .fcard:nth-child(4) { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; }
-.fcard:hover, .fcard:focus-within { z-index: 5; }
-.flip { position: relative; height: 100%; transform-style: preserve-3d; transition: transform 550ms var(--ease); cursor: pointer; border-radius: var(--r-card); }
-.flip:focus-visible { outline-offset: 4px; }
-.ff, .fb { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 .fcard-in {
   height: 100%; display: flex; flex-direction: column; justify-content: flex-start;
   padding: calc(var(--cw) * 0.09); background: var(--surface);
@@ -93,130 +60,45 @@
 .fan-names li { font-size: 1.125rem; line-height: 1.3; letter-spacing: 0; color: var(--on-surface); } /* each name is set in its own theme's heading style */
 .fan-names .t-pro, .fan-names .t-mod, .fan-names .t-std { font-weight: 700; }
 .fan-names .t-min { font-weight: 400; }
-.fan-hint { margin: 12px 0 0; text-align: center; color: var(--muted); font-size: 0.9375rem; }
 /* heading styles read from lib/features/pdf_export/domain/pdf_theme.dart */
 .t-pro .aa { font-weight: 700; color: var(--on-surface); }                       /* bold; H1 gets a 0.5pt grey rule */
 .t-pro .frule { height: 1px; background: var(--outline); margin: 12px 0; }
 .t-mod .aa { font-weight: 700; color: var(--on-surface); background: var(--surface-container); } /* bold; H1 on a light tint band */
 .t-min .aa { font-weight: 400; color: var(--muted); background: var(--surface-container); }       /* regular weight, tint band, no rules */
 .t-std .aa { font-weight: 700; color: var(--on-surface); }                       /* bold, no rule, no band, no accent */
-
-/* The back: a close-up of a page in that theme. Text only, on the page colour (Limestone, or Basalt in Cairo Night). */
-.fb {
-  position: absolute; inset: 0; transform: rotateY(180deg); overflow: hidden;
-  background: var(--surface); color: var(--on-surface);
-  border: 1px solid var(--outline-variant); border-radius: var(--r-card);
+.fcard-in { transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
+.fcard:hover .fcard-in, .fcard-in:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); /* the only shadow on the page: a floating state */
 }
-.fb-in {
-  position: absolute; inset: 0; padding: calc(var(--cw) * 0.11);
-  transform: scale(0.8); transform-origin: 0 0; transition: transform 700ms var(--ease) 150ms; /* zooms in to read once it has turned */
-}
-.fb-h { display: block; font-size: calc(var(--cw) * 0.105); overflow-wrap: anywhere; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; margin-bottom: calc(var(--cw) * 0.06); }
-.fb-rule { display: block; height: 0; }
-.fb-in p { margin: 0 0 0.6em; font-size: calc(var(--cw) * 0.075); line-height: 1.5; color: var(--muted); }
-.fb-task { display: flex; align-items: center; gap: 0.5em; }
-.fb-task i { display: grid; place-items: center; width: 1.2em; height: 1.2em; border: 1.5px solid var(--on-surface); border-radius: 3px; font-style: normal; font-size: 0.85em; font-weight: 700; color: var(--on-surface); }
-.t-pro .fb-rule { height: 1px; background: var(--outline); margin: 0 0 calc(var(--cw) * 0.06); }
-.t-mod .fb-h { font-family: "Asap Specimen", var(--font-ui); background: var(--surface-container); padding: 0.15em 0.3em; margin-inline: -0.3em; border-radius: var(--r-chip); }
-.t-min .fb-h { font-weight: 400; color: var(--muted); background: var(--surface-container); padding: 0.15em 0.3em; margin-inline: -0.3em; border-radius: var(--r-chip); }
-.t-std .fb-h { font-family: "Noto Serif Specimen", var(--font-ui); }
-.t-std .fb-in p { font-family: "Noto Serif Specimen", var(--font-ui); }
-.flipped { z-index: 5; }
-.flipped .flip { transform: rotateY(180deg); }
-.flipped .fb-in { transform: none; }
-@media (hover: hover) {
-  .fcard:hover .flip, .flip:focus-visible { transform: translateY(-8px) rotateY(180deg); }
-  .fcard:hover .fb-in, .flip:focus-visible .fb-in { transform: none; }
-  .fcard:hover .ff, .fcard:hover .fb { box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); } /* the only shadow on the page: a floating state */
-  .fan-hint { display: none; }
-}
-@media (max-width: 600px) { /* phones: a swipe row; each card carries its own name */
-  .fan-stage { --cw: 220px; justify-items: stretch; }
-  .fan-cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; width: auto; height: auto; margin-inline: calc(var(--gutter) * -1); padding: 12px var(--gutter) 20px; scrollbar-width: none; }
-  .fcard, .fcard:nth-child(n) { position: relative; inset: auto; flex: 0 0 66%; height: auto; rotate: none; translate: none; scroll-snap-align: center; }
-  .flip { height: auto; }
-  .ff { aspect-ratio: 1 / 1.3; }
+.fcard:hover, .fcard:focus-within { z-index: 5; }
+@media (max-width: 600px) {
+  .fan-stage { --cw: 150px; }
+  .fan-cards { position: static; width: 100%; height: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .fcard, .fcard:nth-child(n) { position: relative; inset: auto; height: auto; rotate: none; translate: none; }
+  .fcard-in { aspect-ratio: 1 / 1; }
   .aa { font-size: 3rem; }
-  .fcard-name { display: block; }
+  .fcard-name { display: block; } /* on phones each card carries its own name */
   .fan-names { display: none; }
 }
 .proof { margin: 24px 0 0; }
 .proof a { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--primary); }
 
-/* ---------- AI answers: chat bubble, copied snippet, page ---------- */
-.lead-gap { margin-bottom: 24px !important; }
-.ai-stage { position: relative; display: grid; padding: 8px 0; }
-.bubble {
-  position: relative; width: 82%; padding: 16px 20px 18px;
-  border-radius: var(--r-card) var(--r-card) var(--r-card) 4px;
-  background: var(--surface); border: 1px solid var(--outline-variant);
-}
-.bubble .label { display: block; margin-bottom: 8px; }
-.ai-md { position: relative; margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.75; white-space: pre; overflow: hidden; }
-.ai-md .m-mark, .ghost .m-mark { color: var(--primary); }
-.aim { position: relative; display: inline-block; isolation: isolate; }
-.sel { position: absolute; inset: -2px -6px; z-index: -1; border-radius: 4px; background: color-mix(in srgb, var(--primary) 20%, var(--surface)); transform-origin: 0 50%; opacity: 0; }
-.copied { position: absolute; right: 12px; top: 12px; min-height: 28px; font-size: 0.8125rem; font-weight: 600; background: var(--surface); opacity: 0; }
-.ai-page { container-type: inline-size; position: relative; justify-self: end; width: 58%; margin-top: -8px; aspect-ratio: 1 / 1.1; background: var(--paper); color: var(--paper-ink); border: 1px solid var(--outline-variant); border-radius: 4px; }
-.ai-page .doc-in { padding: 11%; }
-.ai-page h3 { font-size: 9cqw; line-height: 1.2; margin: 0 0 5cqw; color: var(--paper-ink); }
-.ai-page ul { margin: 0; padding-left: 1.1em; font-size: 5.6cqw; line-height: 1.6; }
-.ai-page .tag { position: absolute; right: 8%; bottom: 7%; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; color: var(--paper-muted); }
-.ghost {
-  position: absolute; z-index: 4; margin: 0; padding: 8px 10px; pointer-events: none; opacity: 0;
-  font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.75; white-space: pre; color: var(--on-surface);
-  background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-btn); transform-origin: 0 0;
-}
-
-/* ---------- Find: search box and results ---------- */
-.find-stage { display: grid; gap: 16px; }
-.search { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border: 1px solid var(--outline); border-radius: var(--r-btn); background: var(--surface); }
-.search svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
-.search .q { font-size: 1.0625rem; white-space: pre; }
-.search .tch { display: inline-block; white-space: pre; }
-.qcaret { display: inline-block; width: 2px; height: 1.2em; margin-left: 1px; vertical-align: -0.25em; background: var(--primary); opacity: 0; }
-.results { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--outline-variant); }
-.results li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--outline-variant); }
-.r-title { font-weight: 600; }
-.r-snip { color: var(--muted); font-size: 0.9375rem; }
-.results mark { position: relative; isolation: isolate; background: transparent; color: var(--on-surface); padding: 0 2px; }
-.results .mk { position: absolute; inset: 0; z-index: -1; border-radius: 3px; background: color-mix(in srgb, var(--primary) 24%, var(--surface)); transform-origin: 0 50%; }
-
-/* ---------- Your theme: a small window from daylight to night (fixed Cairo / Cairo Night colours in any page theme) ---------- */
-.pal-day { --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #14655E; --on-primary: #EDE4D3; --outline: #55514B; --outline-variant: #BDB6A8; --muted: #45423D; }
-.pal-night { --surface: #1B1A17; --on-surface: #EDE4D3; --primary: #1E968C; --on-primary: #1B1A17; --outline: #8C867C; --outline-variant: #3F3D38; --muted: #B9B2A4; }
-.sunset { position: relative; width: 100%; aspect-ratio: 16 / 11; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--outline-variant); }
-.ss-layer { position: absolute; inset: 0; display: grid; grid-template-rows: 64% 1fr; background: var(--surface); color: var(--on-surface); }
-.ss-sky { position: relative; }
-.ss-ground { display: flex; align-items: center; padding: 0 6%; border-top: 1px solid var(--outline); }
-.ss-ground .chip { min-height: 40px; padding: 0 16px; border-radius: 999px; color: var(--on-surface); border-color: var(--outline); }
-.ss-ground .chip.on { background: var(--primary); color: var(--on-primary); border-color: transparent; }
-.ss-word { position: absolute; left: 6%; top: 10%; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-.ss-sunbox { position: absolute; left: 0; right: 0; top: 0; height: 64%; overflow: hidden; z-index: 3; pointer-events: none; }
-.sun { position: absolute; left: 0; top: 0; width: 9%; aspect-ratio: 1; border-radius: 50%; background: var(--dot); opacity: 0; }
-.star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
-
-/* ---------- 06 Locked: the base (page-theme) copy exists only while motion is on ---------- */
+/* 06: the base (page-theme) copy exists only while motion is on */
 .sweep { position: relative; border-top: 1px solid var(--outline-variant); }
 .sweep .split { border-top: 0; }
 .sweep-base { display: none; }
 .sweep-main { background: var(--surface); color: var(--on-surface); position: relative; z-index: 1; border-top: 0; }
-.lockrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-.sweep-logo { display: block; width: 64px; height: 64px; padding: 6px; border-radius: var(--r-card); } /* 12 − 6 = 6 inner */
+.sweep-logo { display: block; width: 64px; height: 64px; padding: 6px; border-radius: var(--r-card); margin-bottom: 24px; } /* 12 − 6 = 6 inner */
 .sweep-logo img { border-radius: 6px; }
-.padlock { width: 44px; height: 44px; flex: none; }
-.padlock path, .padlock rect { fill: none; stroke: var(--on-surface); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.padlock .kh { fill: var(--dot); stroke: none; transform-box: fill-box; transform-origin: 50% 50%; }
-.padlock .sh { transform-box: fill-box; }
 
-/* ---------- 07 Payoff + the margin rail ---------- */
+/* 07 */
 .payoff { padding-block: clamp(56px, 10vw, 128px) clamp(40px, 6vw, 80px); }
 .payoff-title { font-size: clamp(2.25rem, 7.5vw, 5.5rem); line-height: 1.02; letter-spacing: -0.04em; }
 .stop { position: relative; display: inline-block; width: 0.172em; height: 0.172em; margin-left: 0.0625em; vertical-align: -0.0156em; }
 .stop .dot { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; vertical-align: baseline; }
-.rail { display: none; }
 
-/* ---------- 02 Video ---------- */
+/* 02 */
 .promo-play {
   position: absolute; inset: 0; margin: auto; width: 72px; height: 72px; display: none;
   place-items: center; border: 0; border-radius: var(--r-btn); cursor: pointer;
@@ -228,44 +110,64 @@
 .promo-play.gone { display: none !important; }
 .promo-frame video { object-fit: cover; }
 
-@media (prefers-reduced-motion: reduce) {
-  .flip, .fb-in { transition: none; }
-}
-
-/* ---------- Motion layouts ---------- */
+/* ---------- Motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  /* Hero: line 2, the sub-line and buttons wait (max 3 s) for motion.js to take over, so they never flash.
-     If motion.js never arrives they simply appear after 3 s. */
-  @keyframes hold { from, to { opacity: 0; } }
-  html.mo .hero .hold { animation: hold 1ms 3s backwards; }
-  html.mo .hero.armed .hold { animation: none; }
 
-  /* 03: the Markdown sits on the page itself, then turns into the print */
-  html.mj .pin3 { padding-block: 0; }
-  html.mj .pstage { display: block; position: relative; container-type: inline-size; width: min(100%, 440px, calc(60vh / 1.1)); aspect-ratio: 1 / 1.1; }
-  html.mj .pstage .md-label { display: none; }
-  html.mj .ppage { position: absolute; inset: 0; }
-  html.mj .ppage .doc-page { height: 100%; max-width: none; }
-  html.mj .pmd { position: absolute; inset: 0; z-index: 2; padding: 11.8%; pointer-events: none; opacity: 0; }
-  html.mj .pmd .md { background: transparent; border: 0; padding: 0; overflow: visible; font-size: 3.4cqw; line-height: 1.8; color: var(--paper-ink); }
-  html.mj .pmd .m-mark { color: var(--paper-accent); }
-  html.mj .pmd .ln { display: block; width: max-content; }
-  html.mj .pmd .mk, html.mj .pmd .tx { display: inline-block; transform-origin: 0 50%; }
-  html.mj .pstage h3 { width: max-content; }
-  html.mj .pstage h3, html.mj .pstage .doc-ctitle, html.mj .pstage .dt3 { display: inline-block; transform-origin: 0 0; }
-  html.mj .pstage h3 { display: block; }
-  @media (min-width: 641px) and (min-height: 620px) { /* pinned for half a screen on screens big enough to hold it */
-    html.mj .pin-wrap { height: 150vh; }
-    html.mj .pin-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
-    html.mj .pin-stage .container { width: 100%; }
+  /* 01 HERO, on load: done 650 ms after first paint.
+     Line 1 and the chip are visible on the first frame (they only move); line 2 rises; the dot fades in
+     at its full stop from just to the right; sub-line and buttons are the last beat. */
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes rise-move { from { transform: translateY(8px); } to { transform: none; } }
+  @keyframes dot-in { from { opacity: 0; transform: translateX(0.6em); } to { opacity: 1; transform: none; } }
+  .hero .rise { display: inline-block; }
+  .hero .r1, .hero .chip-brass { animation: rise-move 250ms var(--ease) both; }   /* 0-250 ms */
+  .hero .r2 { animation: rise 300ms var(--ease) 100ms both; }                      /* 100-400 ms */
+  .hero-title .dot { animation: dot-in 300ms var(--ease) 300ms both; }             /* 300-600 ms */
+  .hero-sub, .hero-actions, .hero-note { animation: rise 300ms var(--ease) 350ms both; } /* 350-650 ms */
+
+  /* 03 MARKDOWN -> PDF: raw Markdown is typed onto the page, then dissolves into the typeset version.
+     The page is visible from the start, so the stage is never blank. Plays once, ~1.3 s. */
+  html.mo .pin3 { padding-block: 0; }
+  html.mo .stack3 { display: block; position: relative; width: min(100%, 440px, calc(60vh / 1.1)); aspect-ratio: 1 / 1.1; }
+  html.mo .stack3 .md-label { display: none; }
+  html.mo .s3-page { position: absolute; inset: 0; }
+  html.mo .doc-page { height: 100%; max-width: none; }
+  html.mo .s3-md {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none; padding: 11.8%;
+    background: var(--paper); border: 1px solid var(--outline-variant); border-radius: 4px;
+  }
+  html.mo .md3 { background: transparent; border: 0; padding: 0; overflow: visible; color: var(--paper-ink); font-size: 0.9rem; }
+  html.mo .md3 .m-mark { color: var(--paper-accent); }
+  html.mo:not(.mj) .s3-md { opacity: 0; } /* motion.js missing: show the finished page */
+  @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+  html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
+  html.mj .stack3.in .l1 { animation: type1 300ms steps(15, end) 200ms both; }   /* starts 0.2 s after it is in view */
+  html.mj .stack3.in .l2 { animation: type1 650ms steps(34, end) 500ms both; }
+  html.mj .stack3.in .l3 { animation: type1 450ms steps(21, end) 1150ms both; }
+  html.mj .stack3.in .s3-md { animation: fade-out 600ms var(--ease) 1900ms both; } /* hold ~0.4 s, then dissolve */
+  /* Pinned for half a screen on screens big enough to hold it; phones just scroll past */
+  @media (min-width: 641px) and (min-height: 620px) {
+    html.mo .pin-wrap { height: 150vh; }
+    html.mo .pin-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+    html.mo .pin-stage .container { width: 100%; }
   }
 
-  /* 06: two layers; the alternate-theme layer grows out of the dot */
+  /* 04 ARABIC: clip-path wipe right to left on the single heading element (never split into letters) */
+  html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 1300ms var(--ease) 200ms; }
+  html.mj .in .ar-wipe, html.mj .ar-wipe.in { clip-path: inset(-30% -10% -30% -10%); }
+
+  /* 06 NIGHT SWEEP: the orange dot is the mask: opens from the dot 0.15 s after the section is mid-screen, takes 1.5 s; closes in 0.6 s once the section is mostly back below the screen */
   html.mj .sweep-base { display: block; position: absolute; inset: 0; background: var(--surface); color: var(--on-surface); }
+  html.mj .sweep-main { clip-path: circle(var(--r0, 0px) at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 600ms cubic-bezier(.4, 0, .2, 1); } /* the orange dot is the mask: the new theme starts exactly inside the dot, then grows from it; leaving closes quickly */
+  html.mj .sweep.in .sweep-main { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); transition: clip-path 1500ms cubic-bezier(.5, 0, .2, 1) 150ms; }
 
-  /* the margin rail: wide screens only */
-  @media (min-width: 1260px) {
-    html.mj .rail { display: block; position: fixed; z-index: 5; top: 20vh; bottom: 20vh; left: max(20px, calc((100vw - var(--max)) / 2 - 40px)); width: 1px; background: var(--outline-variant); pointer-events: none; }
-    html.mj .rail-dot { position: absolute; left: -6px; top: -6px; width: 13px; height: 13px; border-radius: 50%; background: var(--dot); }
-  }
+  /* A scene the reader already scrolled past is shown finished, without playing */
+  html.mj .now, html.mj .now * { animation-duration: 0s !important; animation-delay: 0s !important; transition: none !important; }
+
+  /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop. The footer is never hidden. */
+  @keyframes drop { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
+  html.mj .stop .dot { offset-path: path("M -170 -190 C -170 -70, -70 -12, 0 0"); offset-rotate: 0deg; offset-anchor: 0 0; offset-distance: 0%; opacity: 0; }
+  html.mj .payoff.in .stop .dot { animation: drop 1100ms var(--ease) 200ms both; }
+  @media (max-width: 640px) { html.mj .stop .dot { offset-path: path("M -90 -120 C -90 -50, -40 -8, 0 0"); } }
 }

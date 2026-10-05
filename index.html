@@ -17,21 +17,20 @@
             if (p !== 'auto') d.setAttribute('data-theme', p);
             d.className += ' js';
             // Motion on only when the visitor allows it and the browser has the Web Animations API.
-            if ('animate' in d && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' mo';
+            if ('animate' in d && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' lab-motion lab-wait';
         })();
     </script>
-    <link rel="stylesheet" href="assets/css/tokens.css">
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/tokens.css?v=6">
+    <link rel="stylesheet" href="assets/css/site.css?v=6">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>OwlMD: Markdown is easy. PDFs aren't.</title>
     <meta name="description" content="OwlMD 2 turns your notes into real documents, in Arabic and English. Markdown, one-tap PDF export, works offline. Android. Coming soon.">
     <link rel="canonical" href="https://owlmd.injazapps.com/">
-    <link rel="stylesheet" href="assets/css/motion.css">
+    <link rel="stylesheet" href="assets/css/home.css?v=6">
     <link rel="preload" as="image" href="assets/video/poster.jpg" fetchpriority="low">
-    <link rel="stylesheet" href="assets/css/theme-fonts.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="assets/css/theme-fonts.css"></noscript>
+    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=6">
     <meta property="og:type" content="website">
     <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
     <meta property="og:description" content="OwlMD 2 turns your notes into real documents, in Arabic and English.">
@@ -57,25 +56,28 @@
     </header>
     <main id="main">
 
-        <!-- Hero: an orange cursor types line 2, then becomes the full stop -->
-        <section class="hero">
+        <!-- 01 Hero: an orange cursor types line 2, then becomes the full stop -->
+        <section class="home-hero" id="d-hero" data-demo="hero">
             <div class="container">
-                <p class="chip chip-brass">OwlMD 2 &middot; Coming soon</p>
-                <h1 class="hero-title">
-                    <span class="line"><span class="rise r1">Markdown is easy.</span></span>
-                    <span class="line"><span class="sr-only">PDFs aren&rsquo;t.</span><span aria-hidden="true"><span class="type hold">PDFs aren&rsquo;t</span><span class="cd hold"><i class="bar"></i><i class="dc"></i></span></span></span>
-                </h1>
-                <p class="hero-sub hold">OwlMD 2 turns your notes into real documents &mdash; in Arabic and English.</p>
-                <div class="hero-actions hold" id="download">
-                    <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" rel="noopener">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l14-8.5z"/></svg>
-                        <span>Get it on Google Play</span>
-                    </a>
-                    <a class="btn btn-secondary" href="guide.html">Read the user guide</a>
+                <div class="lab-stage lab-hero">
+                    <p class="chip chip-brass">OwlMD 2 &middot; Coming soon</p>
+                    <h1 class="hero-title" aria-label="Markdown is easy. PDFs aren&rsquo;t.">
+                        <span class="line" aria-hidden="true"><span class="l1">Markdown is easy.</span></span>
+                        <span class="line" aria-hidden="true"><span class="type">PDFs aren&rsquo;t</span><span class="cd"><i class="bar"></i><i class="dc"></i></span></span>
+                    </h1>
+                    <p class="hero-sub">OwlMD 2 turns your notes into real documents &mdash; in Arabic and English.</p>
+                    <div class="hero-actions" id="download">
+                        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" rel="noopener">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l14-8.5z"/></svg>
+                            <span>Get it on Google Play</span>
+                        </a>
+                        <a class="btn btn-secondary" href="guide.html">Read the user guide</a>
+                    </div>
+                    <p class="hero-note">Android. OwlMD 2 is coming soon.</p>
                 </div>
-                <p class="hero-note hold">Android. OwlMD 2 is coming soon.</p>
             </div>
         </section>
+
 
         <!-- 02 Promo video slot (live). To hide it again, add the word "hidden" to the <section> below. -->
         <section class="promo" id="video" aria-labelledby="video-h">
@@ -100,56 +102,43 @@
             </div>
         </section>
 
-        <!-- 03 Markdown to PDF: each Markdown line morphs into its printed form (pinned for one screen when motion is on) -->
-        <span id="features"></span><!-- keeps old #features links landing here -->
-        <span id="showcase"></span><!-- keeps old #showcase links landing here -->
-        <section class="split pin3" id="pdf">
-            <div class="pin-wrap">
-                <div class="pin-stage">
-                    <div class="container split-in">
+        <!-- 02 PRINT -->
+        <span id="features"></span><span id="showcase"></span><span id="pdf"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-print" data-demo="print">
+            <div class="container">
+                <div class="lab-stage">
+                    <div class="split-in">
                         <div>
-                            <h2>One tap to PDF.</h2>
+                            <h2 class="big">One tap to PDF.</h2>
                             <p class="lead">Export with one tap, choose from 4 PDF themes, and read the result in the built-in viewer.</p>
                         </div>
-                        <div class="pstage scene" data-scene="print">
-                            <div class="pmd">
-                                <span class="label md-label">Markdown</span>
-<pre class="md" dir="ltr"><span class="ln"><span class="m-mark mk">#</span> <span class="tx">Meeting notes</span></span>
-<span class="ln"><span class="m-mark mk">&gt; [!note]</span> <span class="tx">Send the draft by Friday</span></span>
-<span class="ln"><span class="m-mark mk">-</span> <span class="m-mark mk cbx">[x]</span> <span class="tx">slides reviewed</span></span></pre>
-                            </div>
-                            <div class="ppage">
-                                <span class="label md-label">PDF</span>
-                                <div class="doc-page"><div class="doc-in">
-                                    <h3>Meeting notes</h3>
-                                    <div class="doc-callout">
-                                        <span class="doc-badge" aria-hidden="true">NO</span>
-                                        <span class="doc-ctitle"><span class="sr-only">Note: </span>Send the draft by Friday</span>
-                                    </div>
-                                    <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span><span class="dt3">slides reviewed</span></li></ul>
-                                </div></div>
-                            </div>
+                        <div class="pstage">
+                            <div class="doc-page"><div class="doc-in">
+                                <h3>Meeting notes</h3>
+                                <div class="doc-callout">
+                                    <span class="doc-badge" aria-hidden="true">NO</span>
+                                    <span class="doc-ctitle"><span class="sr-only">Note: </span>Send the draft by Friday</span>
+                                </div>
+                                <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span><span class="dt3">slides reviewed</span></li></ul>
+                            </div></div>
+                            <div class="pmd" aria-hidden="true"><pre><span class="ln l1"><span class="mk">#</span> <span class="tx">Meeting notes</span></span><span class="ln l2"><span class="mk">&gt; [!note]</span> <span class="tx">Send the draft by Friday</span></span><span class="ln l3"><span class="mk">-</span> <span class="cbx mk">[x]</span> <span class="tx">slides reviewed</span></span></pre></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 04 Arabic: the orange dot writes the line like a pen, then the vowel marks drop in -->
-        <section class="split" id="arabic">
-            <div class="container split-in">
-                <div>
-                    <h2>Arabic stays Arabic.</h2>
-                    <p class="lead">Right-to-left order, diacritics and joined letters are kept in the PDF.</p>
-                </div>
-                <div class="stack">
-                    <div>
-                        <span class="label md-label">Markdown</span>
-<pre class="md" tabindex="0" dir="ltr"><span class="m-mark">#</span> اُكْتُبْ بِالْعَرَبِيَّةِ</pre>
-                    </div>
-                    <div>
-                        <span class="label md-label">PDF</span>
-                        <div class="pdf-page scene" data-scene="arabic" lang="ar" dir="rtl">
+        <!-- 03 ARABIC -->
+        <span id="arabic"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-arabic" data-demo="arabic">
+            <div class="container">
+                <div class="lab-stage lab-ar">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">Arabic stays Arabic.</h2>
+                            <p class="lead">Right-to-left order, diacritics and joined letters are kept in the PDF.</p>
+                        </div>
+                        <div class="pdf-page" lang="ar" dir="rtl">
                             <h3><span class="ar-ink"><span class="ar-full">اُكْتُبْ بِالْعَرَبِيَّةِ</span><span class="ar-base" aria-hidden="true">اكتب بالعربية</span><i class="nib" aria-hidden="true"></i></span></h3>
                             <div class="pdf-rule"></div>
                             <p lang="en" dir="ltr">Arabic and English in one document.</p>
@@ -160,141 +149,159 @@
             </div>
         </section>
 
-        <!-- 05 PDF themes: four cards dealt from one stack; each flips to a close-up of a page in that theme -->
-        <section class="split fan" id="pdf-themes">
-            <div class="container split-in">
-                <div>
-                    <h2>4 PDF themes.</h2>
-                    <p class="lead">Choose Professional, Modern, Minimalist or Standard.</p>
-                    <p class="proof"><a href="assets/pdf-samples/standard.png" target="_blank" rel="noopener">See a real PDF export<span class="sr-only"> (opens in a new tab)</span></a></p>
-                </div>
-                <div class="fan-stage scene" data-scene="cards">
-                    <ul class="fan-cards">
-                        <li class="fcard t-pro"><div class="flip" tabindex="0" role="button" aria-label="Professional: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Professional</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Professional</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
-                        <li class="fcard t-mod"><div class="flip" tabindex="0" role="button" aria-label="Modern: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Modern</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Modern</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
-                        <li class="fcard t-min"><div class="flip" tabindex="0" role="button" aria-label="Minimalist: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Minimalist</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Minimalist</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
-                        <li class="fcard t-std"><div class="flip" tabindex="0" role="button" aria-label="Standard: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Standard</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Standard</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
-                    </ul>
-                    <ul class="fan-names" aria-hidden="true"><li class="t-pro">Professional</li><li class="t-mod">Modern</li><li class="t-min">Minimalist</li><li class="t-std">Standard</li></ul>
-                    <p class="fan-hint">Tap a card to see a page</p>
+        <!-- 04 CARDS -->
+        <span id="pdf-themes"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-cards" data-demo="cards">
+            <div class="container">
+                <div class="lab-stage lab-fan">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">4 PDF themes.</h2>
+                            <p class="lead">Choose Professional, Modern, Minimalist or Standard.</p>
+                        </div>
+                        <div class="fan-stage">
+                            <ul class="fan-cards">
+                                <li class="fcard t-pro"><div class="flip" tabindex="0" role="button" aria-label="Professional: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Professional</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Professional</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
+                                <li class="fcard t-mod"><div class="flip" tabindex="0" role="button" aria-label="Modern: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Modern</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Modern</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
+                                <li class="fcard t-min"><div class="flip" tabindex="0" role="button" aria-label="Minimalist: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Minimalist</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Minimalist</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
+                                <li class="fcard t-std"><div class="flip" tabindex="0" role="button" aria-label="Standard: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Standard</span></div><div class="fb" aria-hidden="true"><div class="fb-in"><span class="fb-h">Standard</span><span class="fb-rule"></span><p>Send the draft by Friday. Slides are reviewed.</p><p class="fb-task"><i>&#10003;</i>Agenda shared</p></div></div></div></li>
+                            </ul>
+                            <ul class="fan-names" aria-hidden="true"><li class="t-pro">Professional</li><li class="t-mod">Modern</li><li class="t-min">Minimalist</li><li class="t-std">Standard</li></ul>
+                            <p class="hint">Tap a card to see a page</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- AI answers: copy, paste, PDF in three beats; each row lights up in step -->
-        <section class="split" id="ai">
-            <div class="container split-in">
-                <div>
-                    <h2>AI answers, straight to PDF.</h2>
-                    <p class="lead lead-gap">Use OwlMD to turn the answers your AI assistant gives you into PDFs.</p>
-                    <dl class="rows">
-                        <div><dt>Copy</dt><dd>Copy an answer from your AI assistant.</dd></div>
-                        <div><dt>Paste</dt><dd>Paste it as Markdown, directly into OwlMD.</dd></div>
-                        <div><dt>PDF</dt><dd>Create a PDF with one tap.</dd></div>
-                    </dl>
-                </div>
-                <div class="ai-stage scene" data-scene="ai" aria-hidden="true">
-                    <div class="bubble">
-                        <span class="label">AI assistant</span>
-<pre class="ai-md"><span class="aim"><span class="sel"></span><span class="m-mark">##</span> Trip plan
+        <!-- 05 AI -->
+        <span id="ai"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-ai" data-demo="ai">
+            <div class="container">
+                <div class="lab-stage lab-rows">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">AI answers, straight to PDF.</h2>
+                            <p class="lead" style="margin-bottom: 24px;">Use OwlMD to turn the answers your AI assistant gives you into PDFs.</p>
+                            <dl class="rows">
+                                <div><dt>Copy</dt><dd>Copy an answer from your AI assistant.</dd></div>
+                                <div><dt>Paste</dt><dd>Paste it as Markdown, directly into OwlMD.</dd></div>
+                                <div><dt>PDF</dt><dd>Create a PDF with one tap.</dd></div>
+                            </dl>
+                        </div>
+                        <div class="ai-stage">
+                            <div class="bubble">
+                                <span class="label">AI assistant</span>
+<pre class="ai-md"><span class="aim"><span class="sel" aria-hidden="true"></span><span class="m-mark">##</span> Trip plan
 <span class="m-mark">-</span> Day 1: Old Cairo
 <span class="m-mark">-</span> Day 2: Giza</span></pre>
-                        <span class="chip copied">Copied</span>
-                    </div>
-                    <div class="ai-page">
-                        <div class="doc-in">
-                            <h3>Trip plan</h3>
-                            <ul><li>Day 1: Old Cairo</li><li>Day 2: Giza</li></ul>
-                        </div>
-                        <span class="tag">PDF</span>
-                    </div>
-<pre class="ghost"><span class="m-mark">##</span> Trip plan
+                                <span class="chip copied" aria-hidden="true">Copied</span>
+                            </div>
+                            <div class="ai-page">
+                                <div class="doc-in">
+                                    <h3>Trip plan</h3>
+                                    <ul><li>Day 1: Old Cairo</li><li>Day 2: Giza</li></ul>
+                                </div>
+                                <span class="tag" aria-hidden="true">PDF</span>
+                            </div>
+                            <pre class="ghost" aria-hidden="true"><span class="m-mark">##</span> Trip plan
 <span class="m-mark">-</span> Day 1: Old Cairo
 <span class="m-mark">-</span> Day 2: Giza</pre>
-                </div>
-            </div>
-        </section>
-
-        <!-- c) Find: the search box types, results arrive, a marker sweeps over each match -->
-        <section class="split" id="find">
-            <div class="container split-in">
-                <div>
-                    <h2>Find it in seconds.</h2>
-                    <p class="lead lead-gap">Search shows snippets of each match, and tags and folders keep notes in order.</p>
-                    <dl class="rows">
-                        <div><dt>Search</dt><dd>Results come with snippets.</dd></div>
-                        <div><dt>Tags</dt><dd>Label notes with tags.</dd></div>
-                        <div><dt>Folders</dt><dd>Keep notes in folders.</dd></div>
-                        <div><dt>Trash</dt><dd>Deleted notes stay in Trash for 7 days.</dd></div>
-                    </dl>
-                </div>
-                <div class="find-stage scene" data-scene="find" aria-hidden="true">
-                    <div class="search">
-                        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
-                        <span class="q"><span class="qt">meeting</span><i class="qcaret"></i></span>
-                    </div>
-                    <ul class="results">
-                        <li><span class="r-title">Meeting notes</span><span class="r-snip">Send the draft before the <mark><i class="mk"></i>meeting</mark> on Friday.</span></li>
-                        <li><span class="r-title">Team sync</span><span class="r-snip">Agenda for the weekly <mark><i class="mk"></i>meeting</mark>: budget, launch.</span></li>
-                        <li><span class="r-title">Client call</span><span class="r-snip">Follow-up <mark><i class="mk"></i>meeting</mark> booked for Monday.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- d) Themes: the orange dot sets like a sun, night falls, the chip switches to Cairo Night -->
-        <section class="split" id="themes">
-            <div class="container split-in">
-                <div>
-                    <h2>Your theme.</h2>
-                    <p class="lead">Cairo for daylight, Cairo Night after dark &mdash; or let your phone choose.</p>
-                </div>
-                <div class="sunset scene" data-scene="sunset" role="img" aria-label="Themes: Cairo and Cairo Night">
-                    <div class="ss-layer pal-day" aria-hidden="true">
-                        <div class="ss-sky"><span class="ss-word">Daylight</span></div>
-                        <div class="ss-ground"><ul class="chips"><li class="chip on">Cairo</li><li class="chip">Cairo Night</li></ul></div>
-                    </div>
-                    <div class="ss-layer pal-night ss-night" aria-hidden="true">
-                        <div class="ss-sky"><span class="ss-word">After dark</span><i class="star" style="left:22%;top:30%"></i><i class="star" style="left:41%;top:18%"></i><i class="star" style="left:58%;top:40%"></i><i class="star" style="left:74%;top:22%"></i><i class="star" style="left:86%;top:46%"></i></div>
-                        <div class="ss-ground"><ul class="chips"><li class="chip">Cairo</li><li class="chip on">Cairo Night</li></ul></div>
-                    </div>
-                    <div class="ss-sunbox" aria-hidden="true"><i class="sun"></i></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 06 Locked: night grows out of the orange dot, the owl closes its eyes, the padlock clicks shut.
-             The real content is the swept (alternate-theme) layer; the base layer is a decorative copy in the page theme. -->
-        <section class="sweep scene" data-scene="lock" id="private">
-            <div class="sweep-base split" aria-hidden="true">
-                <div class="container split-in">
-                    <div>
-                        <div class="lockrow"><span class="brand-tile sweep-logo"><span class="owl"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"><i class="lid l"></i><i class="lid r"></i></span></span></div>
-                        <h2>Locked when you leave<span class="dot"></span></h2>
-                        <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
-                    </div>
-                    <dl class="rows">
-                        <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
-                        <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
-                        <div><dt>Offline</dt><dd>Works offline.</dd></div>
-                    </dl>
-                </div>
-            </div>
-            <div class="sweep-main split alt-theme">
-                <div class="container split-in">
-                    <div>
-                        <div class="lockrow">
-                            <span class="brand-tile sweep-logo"><span class="owl sleep"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"><i class="lid l"></i><i class="lid r"></i></span></span>
-                            <svg class="padlock" viewBox="0 0 44 44" aria-hidden="true"><path class="sh" d="M14 20v-6a8 8 0 0 1 16 0v6"/><rect x="8" y="20" width="28" height="19" rx="4"/><circle class="kh" cx="22" cy="29.5" r="3"/></svg>
                         </div>
-                        <h2>Locked when you leave<span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></h2>
-                        <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
                     </div>
-                    <dl class="rows">
-                        <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
-                        <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
-                        <div><dt>Offline</dt><dd>Works offline.</dd></div>
-                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 FIND -->
+        <span id="find"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-find" data-demo="find">
+            <div class="container">
+                <div class="lab-stage">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">Find it in seconds.</h2>
+                            <p class="lead">Search shows snippets of each match, and tags and folders keep notes in order.</p>
+                        </div>
+                        <div class="find-stage">
+                            <div class="search" role="img" aria-label="Search box with the word meeting">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+                                <span class="q" aria-hidden="true"><span class="qt">meeting</span><i class="qcaret"></i></span>
+                            </div>
+                            <ul class="results">
+                                <li><span class="r-title">Meeting notes</span><span class="r-snip">Send the draft before the <mark><i class="mk"></i>meeting</mark> on Friday.</span></li>
+                                <li><span class="r-title">Team sync</span><span class="r-snip">Agenda for the weekly <mark><i class="mk"></i>meeting</mark>: budget, launch.</span></li>
+                                <li><span class="r-title">Client call</span><span class="r-snip">Follow-up <mark><i class="mk"></i>meeting</mark> booked for Monday.</span></li>
+                            </ul>
+                            <ul class="chips" aria-label="Tags"><li class="chip">#work</li><li class="chip">#weekly</li><li class="chip">Folder: Projects</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 SUNSET -->
+        <span id="themes"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-sunset" data-demo="sunset">
+            <div class="container">
+                <div class="lab-stage">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">Your theme.</h2>
+                            <p class="lead">Cairo for daylight, Cairo Night after dark &mdash; or let your phone choose.</p>
+                        </div>
+                        <div class="sunset" role="img" aria-label="The Cairo theme turning into Cairo Night as the sun sets">
+                            <div class="ss-layer pal-day ss-day">
+                                <div class="ss-sky"><span class="ss-word">Daylight</span></div>
+                                <div class="ss-ground"><ul class="chips chips-lg"><li class="chip on">Cairo</li><li class="chip">Cairo Night</li></ul></div>
+                            </div>
+                            <div class="ss-layer pal-night ss-night">
+                                <div class="ss-sky"><span class="ss-word">After dark</span><i class="star" style="left:22%;top:30%"></i><i class="star" style="left:41%;top:18%"></i><i class="star" style="left:58%;top:40%"></i><i class="star" style="left:74%;top:22%"></i><i class="star" style="left:86%;top:46%"></i></div>
+                                <div class="ss-ground"><ul class="chips chips-lg"><li class="chip">Cairo</li><li class="chip on">Cairo Night</li></ul></div>
+                            </div>
+                            <div class="ss-sunbox"><i class="sun"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 08 LOCK -->
+        <span id="private"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-lock" data-demo="lock">
+            <div class="lab-stage">
+                <div class="sweep lab-lock">
+                    <div class="sweep-base split" aria-hidden="true">
+                        <div class="container split-in">
+                            <div>
+                                <div class="lockrow"><span class="brand-tile sweep-logo"><span class="owl"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"><i class="lid l"></i><i class="lid r"></i></span></span></div>
+                                <h2>Locked when you leave<span class="dot"></span></h2>
+                                <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+                            </div>
+                            <dl class="rows">
+                                <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                                <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                                <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="sweep-main split alt-theme">
+                        <div class="container split-in">
+                            <div>
+                                <div class="lockrow">
+                                    <span class="brand-tile sweep-logo"><span class="owl sleep"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"><i class="lid l"></i><i class="lid r"></i></span></span>
+                                    <svg class="padlock" viewBox="0 0 44 44" aria-hidden="true"><path class="sh" d="M14 20v-6a8 8 0 0 1 16 0v6"/><rect class="bd" x="8" y="20" width="28" height="19" rx="4"/><circle class="kh" cx="22" cy="29.5" r="3"/></svg>
+                                </div>
+                                <h2>Locked when you leave<span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></h2>
+                                <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+                            </div>
+                            <dl class="rows">
+                                <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                                <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                                <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                            </dl>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -307,14 +314,20 @@
             </div>
         </section>
 
-        <!-- 07 Payoff: on wide screens the margin dot flies in and lands as the full stop; elsewhere it drops in -->
-        <section class="payoff scene" data-scene="payoff" id="payoff">
+        <!-- 09 JOURNEY + PAYOFF -->
+        <span id="payoff"></span><!-- keeps #links landing here -->
+        <section class="lab-demo" id="d-payoff" data-demo="payoff">
             <div class="container">
-                <h2 class="payoff-title">Everything reads right<span class="sr-only">.</span><span class="stop"><span class="dot" aria-hidden="true"></span></span></h2>
+                <div class="lab-stage">
+                    <div class="payoff" style="padding-block: 24px 48px;">
+                        <h2 class="payoff-title">Everything reads right<span class="sr-only">.</span><span class="stop"><span class="dot" aria-hidden="true"></span></span></h2>
+                    </div>
+                </div>
             </div>
         </section>
 
     </main>
+
     <div class="rail" aria-hidden="true"><i class="rail-dot"></i></div>
     <footer class="site-footer">
         <div class="container">
@@ -350,8 +363,8 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/site.js" defer></script>
-    <script src="assets/js/motion.js" defer></script>
+    <script src="assets/js/site.js?v=6" defer></script>
+    <script src="assets/js/home.js?v=6" defer></script>
 </body>
 
 </html>
