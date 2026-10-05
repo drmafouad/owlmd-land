@@ -25,19 +25,30 @@
     });
   }
 
-  /* ---- Reveal on scroll: below-the-fold blocks start slightly dimmed (never hidden) ---- */
+  /* ---- Reveal on scroll: below-the-fold blocks fade up as their top passes 88% of the screen.
+     One passive scroll check per frame; blocks the reader jumped past are shown at once. ---- */
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = document.querySelectorAll('.rv');
-  if (!reduce && 'IntersectionObserver' in window && items.length) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.removeAttribute('data-rv'); io.unobserve(en.target); }
-      });
-    }, { rootMargin: '0px 0px -22% 0px', threshold: 0.1 });
-    items.forEach(function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.top > window.innerHeight) { el.setAttribute('data-rv', 'pending'); io.observe(el); }
+  var items = [].slice.call(document.querySelectorAll('.rv'));
+  if (!reduce && items.length) {
+    var vh0 = window.innerHeight;
+    items = items.filter(function (el) {
+      if (el.getBoundingClientRect().top > vh0) { el.setAttribute('data-rv', 'pending'); return true; }
+      return false;
     });
+    var queued = false;
+    var reveal = function () {
+      queued = false;
+      var vh = window.innerHeight;
+      items = items.filter(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < vh * 0.88 || r.bottom <= 0) { el.removeAttribute('data-rv'); return false; }
+        return true;
+      });
+      if (!items.length) { window.removeEventListener('scroll', queue); window.removeEventListener('resize', queue); }
+    };
+    var queue = function () { if (!queued) { queued = true; requestAnimationFrame(reveal); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
   }
 
   /* ---- Guide: highlight the current section in the contents ---- */

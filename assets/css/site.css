@@ -249,8 +249,8 @@ a:hover { text-decoration-thickness: 2px; }
 .footer-bottom p { margin: 0; }
 
 /* ---------- Reveal on scroll (resting state is always visible) ---------- */
-.js .rv { transition: opacity 0.5s ease, transform 0.5s ease; }
-.js .rv[data-rv="pending"] { transform: translateY(12px); }
+.js .rv { transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
+.js .rv[data-rv="pending"] { opacity: 0; transform: translateY(24px); } /* fully transparent, never half-dimmed: no low-contrast in-between state for checkers to read */
 @media (prefers-reduced-motion: reduce) {
   .js .rv, .js .rv[data-rv="pending"] { opacity: 1; transform: none; transition: none; }
   .btn:active { transform: none; }

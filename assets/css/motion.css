@@ -142,10 +142,10 @@
   @keyframes type1 { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
   @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
   html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
-  html.mj .stack3.in .l1 { animation: type1 400ms steps(15, end) 500ms both; }   /* starts 0.5 s after it is in view */
-  html.mj .stack3.in .l2 { animation: type1 1000ms steps(34, end) 900ms both; }
-  html.mj .stack3.in .l3 { animation: type1 650ms steps(21, end) 1950ms both; }
-  html.mj .stack3.in .s3-md { animation: fade-out 800ms var(--ease) 2800ms both; } /* hold ~0.4 s, then dissolve */
+  html.mj .stack3.in .l1 { animation: type1 300ms steps(15, end) 200ms both; }   /* starts 0.2 s after it is in view */
+  html.mj .stack3.in .l2 { animation: type1 650ms steps(34, end) 500ms both; }
+  html.mj .stack3.in .l3 { animation: type1 450ms steps(21, end) 1150ms both; }
+  html.mj .stack3.in .s3-md { animation: fade-out 600ms var(--ease) 1900ms both; } /* hold ~0.4 s, then dissolve */
   /* Pinned for half a screen on screens big enough to hold it; phones just scroll past */
   @media (min-width: 641px) and (min-height: 620px) {
     html.mo .pin-wrap { height: 150vh; }
@@ -154,7 +154,7 @@
   }
 
   /* 04 ARABIC: clip-path wipe right to left on the single heading element (never split into letters) */
-  html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 1300ms var(--ease) 400ms; }
+  html.mj .ar-wipe { clip-path: inset(-30% -10% -30% 110%); transition: clip-path 1300ms var(--ease) 200ms; }
   html.mj .in .ar-wipe, html.mj .ar-wipe.in { clip-path: inset(-30% -10% -30% -10%); }
 
   /* 06 NIGHT SWEEP: the orange dot is the mask: opens from the dot 0.15 s after the section is mid-screen, takes 1.5 s; closes in 0.6 s once the section is mostly back below the screen */
@@ -168,6 +168,6 @@
   /* 07 PAYOFF: the dot drops along a soft curve and lands as the full stop. The footer is never hidden. */
   @keyframes drop { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
   html.mj .stop .dot { offset-path: path("M -170 -190 C -170 -70, -70 -12, 0 0"); offset-rotate: 0deg; offset-anchor: 0 0; offset-distance: 0%; opacity: 0; }
-  html.mj .payoff.in .stop .dot { animation: drop 1100ms var(--ease) 400ms both; }
+  html.mj .payoff.in .stop .dot { animation: drop 1100ms var(--ease) 200ms both; }
   @media (max-width: 640px) { html.mj .stop .dot { offset-path: path("M -90 -120 C -90 -50, -40 -8, 0 0"); } }
 }

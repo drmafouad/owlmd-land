@@ -16,7 +16,7 @@
   R.className += ' mj'; // from here on, scenes may start in their pre-animation state
 
   /* Scene timing. One passive scroll/resize check (throttled to one per frame) covers every case:
-     - a scene starts when its centre reaches 66% of the screen height (eyes are on it); for scenes taller than
+     - a scene starts when its centre reaches 80% of the screen height (eyes are on it); for scenes taller than
        that, when their top reaches the upper third;
      - at the very end of the page (the scene can never reach that line) it starts once it is on screen;
      - a scene the reader has already passed (jump link, End key, reload half-way down) is shown finished at once
@@ -26,7 +26,7 @@
   var queued = false;
 
   function due(r, vh) {
-    var line = vh * 0.66;
+    var line = vh * 0.8;
     var end = window.scrollY + vh >= d.documentElement.scrollHeight - 2;
     return r.bottom > 0 && r.top < vh && (r.top <= line - Math.min(r.height, line) / 2 || end);
   }
