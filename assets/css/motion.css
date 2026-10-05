@@ -144,7 +144,7 @@
   html.mj .md3 .ln { clip-path: inset(0 100% 0 0); }
   html.mj .stack3.in .l1 { animation: type1 400ms steps(15, end) 500ms both; }   /* starts 0.5 s after it is in view */
   html.mj .stack3.in .l2 { animation: type1 1000ms steps(34, end) 900ms both; }
-  html.mj .stack3.in .l3 { animation: type1 650ms steps(21, end) 1800ms both; }
+  html.mj .stack3.in .l3 { animation: type1 650ms steps(21, end) 1950ms both; }
   html.mj .stack3.in .s3-md { animation: fade-out 800ms var(--ease) 2800ms both; } /* hold ~0.4 s, then dissolve */
   /* Pinned for half a screen on screens big enough to hold it; phones just scroll past */
   @media (min-width: 641px) and (min-height: 620px) {
