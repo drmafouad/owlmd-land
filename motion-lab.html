@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="robots" content="noindex, nofollow">
+    <script>
+        (function () {
+            var d = document.documentElement, p = 'auto';
+            try { p = localStorage.getItem('owlmd-theme') || 'auto'; } catch (e) { }
+            if (p !== 'light' && p !== 'dark') p = 'auto';
+            d.setAttribute('data-pref', p);
+            if (p !== 'auto') d.setAttribute('data-theme', p);
+            d.className += ' js';
+            if ('animate' in d && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' lab-motion lab-wait';
+        })();
+    </script>
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/motion.css">
+    <link rel="stylesheet" href="assets/css/theme-fonts.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>OwlMD Motion Lab</title>
+    <style>
+        /*
+         * Motion lab: a private test page for the next motion system. Not linked from the site.
+         * Every demo is built with the Web Animations API (element.animate), so each one can be
+         * armed (paused at its first frame), played, replayed and slowed down. The markup is each
+         * demo's FINISHED state, so with reduced motion or no JS the page simply reads complete.
+         */
+        body { padding-bottom: 88px; }
+        .hero-title .dot, .hero-sub, .hero-actions { animation: none; } /* the site's hero keyframes are not used here */
+
+        /* ---------- Lab chrome ---------- */
+        .lab-intro { padding-block: clamp(40px, 6vw, 72px) 32px; }
+        .lab-intro h1 { font-size: clamp(2.25rem, 6vw, 3.5rem); line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 16px; }
+        .lab-intro p { color: var(--muted); max-width: 60ch; }
+        .lab-intro ol { margin: 16px 0 0; padding-left: 1.4em; color: var(--muted); }
+        .lab-demo { border-top: 1px solid var(--outline-variant); padding-block: clamp(40px, 6vw, 80px); }
+        .lab-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; margin-bottom: clamp(28px, 4vw, 48px); }
+        .lab-head h2 { font-size: clamp(1.375rem, 3vw, 1.75rem); line-height: 1.15; letter-spacing: -0.02em; margin: 4px 0 6px; }
+        .lab-idea { color: var(--muted); max-width: 58ch; margin: 0; font-size: 0.9375rem; }
+        .lab-ctl { display: flex; flex-wrap: wrap; gap: 8px; }
+        .lab-ctl .btn { min-height: var(--hit); padding: 0 16px; font-size: 0.9375rem; }
+        .seg { display: inline-flex; padding: 3px; border: 1px solid var(--outline); border-radius: var(--r-btn); }
+        .seg button {
+            min-height: 36px; min-width: 64px; padding: 0 12px; border: 0; border-radius: 4px;
+            background: transparent; color: var(--on-surface); font: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer;
+        }
+        .seg button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
+        .seg button:hover:not([aria-pressed="true"]) { background: var(--surface-container); }
+        .lab-bar {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+            background: var(--surface); border-top: 1px solid var(--outline-variant);
+        }
+        .lab-bar .container { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; min-height: 64px; padding-block: 8px; }
+        .lab-bar .label { margin-right: auto; }
+        .lab-bar a { display: inline-flex; align-items: center; min-height: var(--hit); font-weight: 600; }
+        html.lab-wait.lab-motion .lab-stage { visibility: hidden; } /* until fonts are in, so measured motion lands right */
+        .lab-stage .split-in { align-items: center; }
+        .lab-stage .split h2, .lab-stage h2.big { font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.03em; margin-bottom: 20px; }
+        .lab-stage .lead { color: var(--muted); max-width: 38ch; margin: 0; }
+
+        /* ---------- The owl (logo + two eyelids) ---------- */
+        .owl { position: relative; display: block; width: 100%; height: 100%; }
+        .owl img { width: 100%; height: 100%; }
+        .lid {
+            position: absolute; top: 31.8%; width: 19%; height: 19%; border-radius: 50%;
+            background: #EDE4D3; transform: scaleY(0); transform-origin: 50% 0; /* open by default */
+        }
+        .lid.l { left: 27.3%; }
+        .lid.r { left: 54.3%; }
+        .lid::after { /* the closed eye: a small smile-shaped line */
+            content: ""; position: absolute; left: 16%; right: 16%; top: 30%; height: 34%;
+            border-bottom: 2px solid #2E3A5A; border-radius: 0 0 50% 50%;
+        }
+        .brand-tile .lid::after { border-bottom-width: 1px; }
+        .sleep .lid { transform: none; } /* closed by default */
+
+        /* ---------- 01 Hero ---------- */
+        .lab-hero .brand { display: flex; width: max-content; margin-bottom: clamp(28px, 4vw, 48px); }
+        .lab-hero .chip-brass { margin-bottom: 28px; }
+        .lab-hero .hero-title .line { display: block; }
+        .lab-hero .tch, .lab-hero .l1 { display: inline-block; white-space: pre; }
+        .cd { position: relative; display: inline-block; width: 0.172em; height: 0.172em; margin-left: 0.0625em; vertical-align: -0.0156em; }
+        .cd .dc { position: absolute; inset: 0; border-radius: 50%; background: var(--dot); }
+        .cd .bar {
+            position: absolute; left: 50%; bottom: 0; width: 0.06em; height: 0.74em; margin-left: -0.03em;
+            border-radius: 0.02em; background: var(--dot); transform-origin: 50% 100%; opacity: 0;
+        }
+
+        /* ---------- 02 Print ---------- */
+        .pstage { container-type: inline-size; position: relative; width: min(100%, 440px); aspect-ratio: 1 / 1.1; justify-self: center; }
+        .pstage .doc-page { position: absolute; inset: 0; height: 100%; max-width: none; }
+        .pstage h3, .pstage .doc-ctitle, .pstage .dt3 { display: inline-block; transform-origin: 0 0; }
+        .pstage h3 { display: block; width: max-content; }
+        .pmd { position: absolute; inset: 0; z-index: 2; padding: 11.8%; pointer-events: none; opacity: 0; border-radius: 4px; }
+        .pmd pre { margin: 0; font-family: var(--font-mono); font-size: 3.4cqw; line-height: 1.8; color: var(--paper-ink); white-space: pre; }
+        .pmd .ln { display: block; width: max-content; }
+        .pmd .mk, .pmd .tx, .pmd .cbx { display: inline-block; transform-origin: 0 50%; }
+        .pmd .mk { color: var(--paper-accent); }
+        .pv-b .pmd { background: var(--surface); border: 1px solid var(--outline-variant); }
+        .pv-b .pmd pre { color: var(--on-surface); }
+        .pv-b .pmd .mk { color: var(--primary); }
+        .slot { position: absolute; z-index: 3; left: -5%; right: -5%; top: -3px; height: 6px; border-radius: 3px; background: var(--outline); opacity: 0; }
+
+        /* ---------- 03 Arabic ---------- */
+        .ar-ink { position: relative; display: inline-block; }
+        .ar-base { position: absolute; inset: 0; white-space: nowrap; }
+        .nib { position: absolute; right: -0.1em; top: 58%; width: 0.172em; height: 0.172em; border-radius: 50%; background: var(--dot); opacity: 0; }
+        .lab-ar .pdf-page { justify-self: center; }
+
+        /* ---------- 04 Card deal + flip ---------- */
+        .lab-fan .fcard { perspective: 1000px; }
+        .lab-fan .flip { position: relative; height: 100%; transform-style: preserve-3d; transition: transform 550ms var(--ease); cursor: pointer; border-radius: var(--r-card); }
+        .lab-fan .ff, .lab-fan .fb { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+        .lab-fan .fcard:hover .fcard-in { transform: none; box-shadow: none; } /* the lift moves to the whole card */
+        .lab-fan .fb {
+            position: absolute; inset: 0; transform: rotateY(180deg); overflow: hidden;
+            border: 1px solid var(--outline-variant); border-radius: var(--r-card); background: var(--paper);
+        }
+        .lab-fan .fb img { width: 100%; height: 100%; object-fit: cover; object-position: 0 0; }
+        @media (hover: hover) {
+            .lab-fan .fcard:hover .flip, .lab-fan .flip:focus-visible { transform: translateY(-8px) rotateY(180deg); }
+            .lab-fan .fcard:hover .ff, .lab-fan .fcard:hover .fb { box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); }
+        }
+        .lab-fan .flipped .flip { transform: rotateY(180deg); }
+        .lab-fan .hint { margin: 16px 0 0; text-align: center; color: var(--muted); font-size: 0.9375rem; }
+        @media (max-width: 600px) { /* phones: a swipe row instead of the 2x2 grid */
+            .lab-fan .fan-stage { justify-items: stretch; }
+            .lab-fan .fan-cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding: 12px var(--gutter) 20px; width: auto; scrollbar-width: none; }
+            .lab-fan .fcard, .lab-fan .fcard:nth-child(n) { flex: 0 0 66%; scroll-snap-align: center; }
+            .lab-fan .ff { aspect-ratio: 1 / 1.3; }
+            .lab-fan .flip { height: auto; }
+        }
+
+        /* ---------- 05 AI: copy, paste, PDF ---------- */
+        .ai-stage { position: relative; display: grid; gap: 0; padding: 8px 0; }
+        .bubble {
+            position: relative; width: 82%; padding: 16px 20px 18px; border-radius: var(--r-card) var(--r-card) var(--r-card) 4px;
+            background: var(--surface); border: 1px solid var(--outline-variant);
+        }
+        .bubble .label { display: block; margin-bottom: 8px; }
+        .ai-md { position: relative; margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.75; white-space: pre; overflow: hidden; }
+        .ai-md .m-mark { color: var(--primary); }
+        .aim { position: relative; display: inline-block; isolation: isolate; }
+        .sel { position: absolute; inset: -2px -6px; border-radius: 4px; background: color-mix(in srgb, var(--primary) 20%, var(--surface)); transform-origin: 0 50%; opacity: 0; z-index: -1; }
+        .copied { position: absolute; right: 12px; top: 12px; min-height: 28px; font-size: 0.8125rem; font-weight: 600; background: var(--surface); opacity: 0; }
+        .ai-page { container-type: inline-size; justify-self: end; width: 58%; margin-top: -8px; aspect-ratio: 1 / 1.1; position: relative; background: var(--paper); color: var(--paper-ink); border: 1px solid var(--outline-variant); border-radius: 4px; }
+        .ai-page .doc-in { padding: 11%; }
+        .ai-page h3 { font-size: 9cqw; line-height: 1.2; margin: 0 0 5cqw; color: var(--paper-ink); }
+        .ai-page ul { margin: 0; padding-left: 1.1em; font-size: 5.6cqw; line-height: 1.6; }
+        .ai-page h3, .ai-page li { font-family: var(--font-ui); }
+        .ai-page .tag { position: absolute; right: 8%; bottom: 7%; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; color: var(--paper-muted); }
+        .ghost {
+            position: absolute; z-index: 4; margin: 0; padding: 8px 10px; pointer-events: none; opacity: 0;
+            font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.75; white-space: pre;
+            background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-btn); transform-origin: 0 0;
+        }
+        .ghost .m-mark { color: var(--primary); }
+        .lab-rows .rows dt { transition: none; }
+
+        /* ---------- 06 Find ---------- */
+        .find-stage { display: grid; gap: 16px; }
+        .search {
+            display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px;
+            border: 1px solid var(--outline); border-radius: var(--r-btn); background: var(--surface);
+        }
+        .search svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+        .search .q { font-size: 1.0625rem; white-space: pre; }
+        .search .tch { display: inline-block; white-space: pre; }
+        .qcaret { display: inline-block; width: 2px; height: 1.2em; margin-left: 1px; vertical-align: -0.25em; background: var(--primary); opacity: 0; }
+        .results { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--outline-variant); }
+        .results li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--outline-variant); }
+        .r-title { font-weight: 600; }
+        .r-snip { color: var(--muted); font-size: 0.9375rem; }
+        .results mark { position: relative; background: transparent; color: var(--on-surface); padding: 0 2px; }
+        .results .mk { position: absolute; inset: 0; z-index: -1; border-radius: 3px; background: color-mix(in srgb, var(--primary) 24%, var(--surface)); transform-origin: 0 50%; }
+        .results mark { isolation: isolate; }
+        .find-stage .chips { margin-top: 4px; }
+
+        /* ---------- 07 Cairo sunset ---------- */
+        .pal-day { --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #14655E; --on-primary: #EDE4D3; --surface-container: #E4DBCB; --outline: #55514B; --outline-variant: #BDB6A8; --muted: #45423D; }
+        .pal-night { --surface: #1B1A17; --on-surface: #EDE4D3; --primary: #1E968C; --on-primary: #1B1A17; --surface-container: #272522; --outline: #8C867C; --outline-variant: #3F3D38; --muted: #B9B2A4; }
+        .sunset { position: relative; width: 100%; aspect-ratio: 16 / 11; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--outline-variant); }
+        .ss-layer { position: absolute; inset: 0; display: grid; grid-template-rows: 64% 1fr; background: var(--surface); color: var(--on-surface); }
+        .ss-sky { position: relative; }
+        .ss-ground { border-top: 1px solid var(--outline); padding: 0 6%; display: flex; align-items: center; }
+        .ss-ground .chip { color: var(--on-surface); border-color: var(--outline); }
+        .ss-ground .chip.on { background: var(--primary); color: var(--on-primary); border-color: transparent; }
+        .ss-ground .chips-lg .chip { min-height: 40px; font-size: 0.9375rem; padding: 0 16px; }
+        .ss-sunbox { position: absolute; left: 0; right: 0; top: 0; height: 64%; overflow: hidden; z-index: 3; pointer-events: none; }
+        .sun { position: absolute; left: 0; top: 0; width: 9%; aspect-ratio: 1; border-radius: 50%; background: var(--dot); opacity: 0; }
+        .star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+        .ss-word { position: absolute; left: 6%; top: 10%; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+        /* ---------- 08 Lock (night sweep + sleeping owl + padlock) ---------- */
+        .lab-lock .lockrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .lab-lock .sweep-logo { margin: 0; }
+        .padlock { width: 44px; height: 44px; flex: none; }
+        .padlock path, .padlock rect { fill: none; stroke: var(--on-surface); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+        .padlock .kh { fill: var(--dot); stroke: none; }
+        .padlock .sh { transform-box: fill-box; }
+        .padlock .kh { transform-box: fill-box; transform-origin: 50% 50%; }
+        html.lab-motion .lab-lock .sweep-base { display: block; position: absolute; inset: 0; background: var(--surface); color: var(--on-surface); }
+
+        /* ---------- 09 Journey: margin rail + payoff ---------- */
+        .rail { position: fixed; z-index: 5; top: 20vh; bottom: 20vh; left: max(20px, calc((100vw - var(--max)) / 2 - 40px)); width: 1px; background: var(--outline-variant); display: none; pointer-events: none; }
+        .rail-dot { position: absolute; left: -6px; top: -6px; width: 13px; height: 13px; border-radius: 50%; background: var(--dot); }
+        @media (min-width: 1260px) { html.lab-motion .rail { display: block; } }
+
+        /* ---------- Picks ---------- */
+        .picks textarea {
+            width: 100%; min-height: 220px; padding: 16px; resize: vertical;
+            font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7;
+            color: var(--on-surface); background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-btn);
+        }
+        .picks .lab-ctl { margin-top: 12px; }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-tile"><img src="assets/images/logo-light.svg" alt="" width="32" height="32"></span>
+                <span>OwlMD</span>
+            </a>
+            <span class="header-spacer"></span>
+            <a class="nav-guide" href="index.html">Back to the site</a>
+            <div class="theme-toggle" role="group" aria-label="Theme">
+                <button type="button" data-theme-set="light" aria-pressed="false" aria-label="Light" title="Light"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+                <button type="button" data-theme-set="dark" aria-pressed="false" aria-label="Dark" title="Dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.6 6.6 0 0 0 10.7 10.7z"/></svg></button>
+                <button type="button" data-theme-set="auto" aria-pressed="true" aria-label="Auto (follow my device)" title="Auto (follow my device)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" class="half"/></svg></button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="lab-intro">
+            <div class="container">
+                <p class="label">Private test page</p>
+                <h1>Motion lab</h1>
+                <p>Nine new motion ideas for the OwlMD site, each built for real. Every idea plays once when you scroll to it. Nothing here is on the live home page yet.</p>
+                <ol>
+                    <li><strong>Replay</strong> plays a demo again.</li>
+                    <li><strong>Keep</strong> or <strong>Skip</strong> records your pick. Your picks are listed at the end, ready to copy.</li>
+                    <li><strong>Slow</strong> (bottom bar) plays everything at one third speed, so you can study each move.</li>
+                    <li><strong>Still</strong> shows what visitors who turn off animations see.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 01 HERO -->
+        <section class="lab-demo" id="d-hero" data-demo="hero" data-name="Hero: cursor becomes the full stop">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">01 &middot; Hero</p>
+                        <h2>The cursor becomes the full stop</h2>
+                        <p class="lab-idea">An orange text cursor types &ldquo;PDFs aren&rsquo;t&rdquo;, blinks once, then shrinks into the orange full stop. The owl in the corner blinks.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage lab-hero">
+                    <span class="brand"><span class="brand-tile"><span class="owl"><img src="assets/images/logo-light.svg" alt="" width="32" height="32"><i class="lid l"></i><i class="lid r"></i></span></span><span>OwlMD</span></span>
+                    <p class="chip chip-brass">OwlMD 2 &middot; Coming soon</p>
+                    <h1 class="hero-title" aria-label="Markdown is easy. PDFs aren&rsquo;t.">
+                        <span class="line" aria-hidden="true"><span class="l1">Markdown is easy.</span></span>
+                        <span class="line" aria-hidden="true"><span class="type">PDFs aren&rsquo;t</span><span class="cd"><i class="bar"></i><i class="dc"></i></span></span>
+                    </h1>
+                    <p class="hero-sub">OwlMD 2 turns your notes into real documents &mdash; in Arabic and English.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#d-hero">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l14-8.5z"/></svg>
+                            <span>Get it on Google Play</span>
+                        </a>
+                        <a class="btn btn-secondary" href="#d-hero">Read the user guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 PRINT -->
+        <section class="lab-demo" id="d-print" data-demo="print" data-name="Markdown to PDF: print morph" data-variants="Morph,Printer">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">02 &middot; Markdown to PDF</p>
+                        <h2>Each mark turns into print</h2>
+                        <p class="lab-idea"><strong>Morph:</strong> the Markdown is typed, then every line slides and grows into its printed form: <code>#</code> becomes the heading, <code>&gt; [!note]</code> the teal callout, <code>[x]</code> the checkbox. <strong>Printer:</strong> the page feeds out of a printer slot instead.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">One tap to PDF.</h2>
+                            <p class="lead">Export with one tap, choose from 4 PDF themes, and read the result in the built-in viewer.</p>
+                        </div>
+                        <div class="pstage">
+                            <div class="doc-page"><div class="doc-in">
+                                <h3>Meeting notes</h3>
+                                <div class="doc-callout">
+                                    <span class="doc-badge" aria-hidden="true">NO</span>
+                                    <span class="doc-ctitle"><span class="sr-only">Note: </span>Send the draft by Friday</span>
+                                </div>
+                                <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span><span class="dt3">slides reviewed</span></li></ul>
+                            </div></div>
+                            <div class="pmd" aria-hidden="true"><pre><span class="ln l1"><span class="mk">#</span> <span class="tx">Meeting notes</span></span><span class="ln l2"><span class="mk">&gt; [!note]</span> <span class="tx">Send the draft by Friday</span></span><span class="ln l3"><span class="mk">-</span> <span class="cbx mk">[x]</span> <span class="tx">slides reviewed</span></span></pre></div>
+                            <i class="slot" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 ARABIC -->
+        <section class="lab-demo" id="d-arabic" data-demo="arabic" data-name="Arabic: the dot writes like a pen">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">03 &middot; Arabic</p>
+                        <h2>The dot writes like a pen</h2>
+                        <p class="lab-idea">The orange dot is the pen tip. It writes the letters from right to left, lifts off, then the vowel marks (diacritics) drop into place.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage lab-ar">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">Arabic stays Arabic.</h2>
+                            <p class="lead">Right-to-left order, diacritics and joined letters are kept in the PDF.</p>
+                        </div>
+                        <div class="pdf-page" lang="ar" dir="rtl">
+                            <h3><span class="ar-ink"><span class="ar-full">اُكْتُبْ بِالْعَرَبِيَّةِ</span><span class="ar-base" aria-hidden="true">اكتب بالعربية</span><i class="nib" aria-hidden="true"></i></span></h3>
+                            <div class="pdf-rule"></div>
+                            <p lang="en" dir="ltr">Arabic and English in one document.</p>
+                            <div class="pdf-foot" lang="en" dir="ltr">OwlMD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 CARDS -->
+        <section class="lab-demo" id="d-cards" data-demo="cards" data-name="4 PDF themes: dealt cards that flip">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">04 &middot; 4 PDF themes</p>
+                        <h2>Dealt like cards, flip to see a real page</h2>
+                        <p class="lab-idea">The four theme cards are dealt from one stack into a fan. Hover a card (computer) or tap it (phone) and it flips to show a real PDF page in that theme. On phones the cards become a swipe row.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage lab-fan">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">4 PDF themes.</h2>
+                            <p class="lead">Choose Professional, Modern, Minimalist or Standard.</p>
+                        </div>
+                        <div class="fan-stage">
+                            <ul class="fan-cards">
+                                <li class="fcard t-pro"><div class="flip" tabindex="0" role="button" aria-label="Professional: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Professional</span></div><div class="fb"><img src="assets/pdf-samples/professional.png" alt="" loading="lazy" width="1280" height="1201"></div></div></li>
+                                <li class="fcard t-mod"><div class="flip" tabindex="0" role="button" aria-label="Modern: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Modern</span></div><div class="fb"><img src="assets/pdf-samples/modern.png" alt="" loading="lazy" width="1280" height="1201"></div></div></li>
+                                <li class="fcard t-min"><div class="flip" tabindex="0" role="button" aria-label="Minimalist: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Minimalist</span></div><div class="fb"><img src="assets/pdf-samples/minimalist.png" alt="" loading="lazy" width="1280" height="1201"></div></div></li>
+                                <li class="fcard t-std"><div class="flip" tabindex="0" role="button" aria-label="Standard: show a sample page"><div class="fcard-in ff"><span class="aa" aria-hidden="true">Aa</span><span class="frule" aria-hidden="true"></span><span class="fcard-name" aria-hidden="true">Standard</span></div><div class="fb"><img src="assets/pdf-samples/standard.png" alt="" loading="lazy" width="1280" height="1201"></div></div></li>
+                            </ul>
+                            <ul class="fan-names" aria-hidden="true"><li class="t-pro">Professional</li><li class="t-mod">Modern</li><li class="t-min">Minimalist</li><li class="t-std">Standard</li></ul>
+                            <p class="hint">Hover or tap a card</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 AI -->
+        <section class="lab-demo" id="d-ai" data-demo="ai" data-name="AI answers: copy, paste, PDF story">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">05 &middot; AI answers</p>
+                        <h2>Copy, paste, PDF in three beats</h2>
+                        <p class="lab-idea">An AI answer appears, a selection sweeps over it, &ldquo;Copied&rdquo; pops, the text flies onto a page and becomes a PDF. The three rows light up in step.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage lab-rows">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">AI answers, straight to PDF.</h2>
+                            <p class="lead" style="margin-bottom: 24px;">Use OwlMD to turn the answers your AI assistant gives you into PDFs.</p>
+                            <dl class="rows">
+                                <div><dt>Copy</dt><dd>Copy an answer from your AI assistant.</dd></div>
+                                <div><dt>Paste</dt><dd>Paste it as Markdown, directly into OwlMD.</dd></div>
+                                <div><dt>PDF</dt><dd>Create a PDF with one tap.</dd></div>
+                            </dl>
+                        </div>
+                        <div class="ai-stage">
+                            <div class="bubble">
+                                <span class="label">AI assistant</span>
+<pre class="ai-md"><span class="aim"><span class="sel" aria-hidden="true"></span><span class="m-mark">##</span> Trip plan
+<span class="m-mark">-</span> Day 1: Old Cairo
+<span class="m-mark">-</span> Day 2: Giza</span></pre>
+                                <span class="chip copied" aria-hidden="true">Copied</span>
+                            </div>
+                            <div class="ai-page">
+                                <div class="doc-in">
+                                    <h3>Trip plan</h3>
+                                    <ul><li>Day 1: Old Cairo</li><li>Day 2: Giza</li></ul>
+                                </div>
+                                <span class="tag" aria-hidden="true">PDF</span>
+                            </div>
+                            <pre class="ghost" aria-hidden="true"><span class="m-mark">##</span> Trip plan
+<span class="m-mark">-</span> Day 1: Old Cairo
+<span class="m-mark">-</span> Day 2: Giza</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 FIND -->
+        <section class="lab-demo" id="d-find" data-demo="find" data-name="Find: live search with a marker">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">06 &middot; Find</p>
+                        <h2>A live search with a marker pen</h2>
+                        <p class="lab-idea">The search box types &ldquo;meeting&rdquo;, the results arrive one after another, and a marker sweeps over each match.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">Find it in seconds.</h2>
+                            <p class="lead">Search shows snippets of each match, and tags and folders keep notes in order.</p>
+                        </div>
+                        <div class="find-stage">
+                            <div class="search" role="img" aria-label="Search box with the word meeting">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+                                <span class="q" aria-hidden="true"><span class="qt">meeting</span><i class="qcaret"></i></span>
+                            </div>
+                            <ul class="results">
+                                <li><span class="r-title">Meeting notes</span><span class="r-snip">Send the draft before the <mark><i class="mk"></i>meeting</mark> on Friday.</span></li>
+                                <li><span class="r-title">Team sync</span><span class="r-snip">Agenda for the weekly <mark><i class="mk"></i>meeting</mark>: budget, launch.</span></li>
+                                <li><span class="r-title">Client call</span><span class="r-snip">Follow-up <mark><i class="mk"></i>meeting</mark> booked for Monday.</span></li>
+                            </ul>
+                            <ul class="chips" aria-label="Tags"><li class="chip">#work</li><li class="chip">#weekly</li><li class="chip">Folder: Projects</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 SUNSET -->
+        <section class="lab-demo" id="d-sunset" data-demo="sunset" data-name="Your theme: Cairo sunset">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">07 &middot; Your theme</p>
+                        <h2>Cairo sunset</h2>
+                        <p class="lab-idea">The orange dot is the sun. It sets below the horizon, night falls from the top, the stars come out, and the chip switches from Cairo to Cairo Night.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage">
+                    <div class="split-in">
+                        <div>
+                            <h2 class="big">Your theme.</h2>
+                            <p class="lead">Cairo for daylight, Cairo Night after dark &mdash; or let your phone choose.</p>
+                        </div>
+                        <div class="sunset" role="img" aria-label="The Cairo theme turning into Cairo Night as the sun sets">
+                            <div class="ss-layer pal-day ss-day">
+                                <div class="ss-sky"><span class="ss-word">Daylight</span></div>
+                                <div class="ss-ground"><ul class="chips chips-lg"><li class="chip on">Cairo</li><li class="chip">Cairo Night</li></ul></div>
+                            </div>
+                            <div class="ss-layer pal-night ss-night">
+                                <div class="ss-sky"><span class="ss-word">After dark</span><i class="star" style="left:22%;top:30%"></i><i class="star" style="left:41%;top:18%"></i><i class="star" style="left:58%;top:40%"></i><i class="star" style="left:74%;top:22%"></i><i class="star" style="left:86%;top:46%"></i></div>
+                                <div class="ss-ground"><ul class="chips chips-lg"><li class="chip">Cairo</li><li class="chip on">Cairo Night</li></ul></div>
+                            </div>
+                            <div class="ss-sunbox"><i class="sun"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 08 LOCK -->
+        <section class="lab-demo" id="d-lock" data-demo="lock" data-name="Locked: night sweep, owl sleeps, padlock">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">08 &middot; Locked when you leave</p>
+                        <h2>Night sweep, the owl sleeps, the lock clicks</h2>
+                        <p class="lab-idea">The night colours grow out of the orange dot (as now). Then the owl closes its eyes and a padlock clicks shut, with the orange dot as its keyhole.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+            </div>
+            <div class="lab-stage">
+                <div class="sweep lab-lock">
+                    <div class="sweep-base split" aria-hidden="true">
+                        <div class="container split-in">
+                            <div>
+                                <div class="lockrow"><span class="brand-tile sweep-logo"><span class="owl"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"><i class="lid l"></i><i class="lid r"></i></span></span></div>
+                                <h2>Locked when you leave<span class="dot"></span></h2>
+                                <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+                            </div>
+                            <dl class="rows">
+                                <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                                <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                                <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="sweep-main split alt-theme">
+                        <div class="container split-in">
+                            <div>
+                                <div class="lockrow">
+                                    <span class="brand-tile sweep-logo"><span class="owl sleep"><img src="assets/images/logo-light.svg" alt="" width="52" height="52"><i class="lid l"></i><i class="lid r"></i></span></span>
+                                    <svg class="padlock" viewBox="0 0 44 44" aria-hidden="true"><path class="sh" d="M14 20v-6a8 8 0 0 1 16 0v6"/><rect class="bd" x="8" y="20" width="28" height="19" rx="4"/><circle class="kh" cx="22" cy="29.5" r="3"/></svg>
+                                </div>
+                                <h2>Locked when you leave<span class="sr-only">.</span><span class="dot" aria-hidden="true"></span></h2>
+                                <p class="lead">Lock the app, back up your notes, and keep working without a connection.</p>
+                            </div>
+                            <dl class="rows">
+                                <div><dt>App lock</dt><dd>Fingerprint or PIN.</dd></div>
+                                <div><dt>Backup &amp; restore</dt><dd>Back up your notes and restore them when you need them.</dd></div>
+                                <div><dt>Offline</dt><dd>Works offline.</dd></div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 09 JOURNEY + PAYOFF -->
+        <section class="lab-demo" id="d-payoff" data-demo="payoff" data-name="Journey: margin dot lands as the last full stop">
+            <div class="container">
+                <div class="lab-head">
+                    <div>
+                        <p class="label">09 &middot; The journey ends</p>
+                        <h2>The margin dot lands as the last full stop</h2>
+                        <p class="lab-idea">On wide screens an orange dot rides down a thin line in the left margin as you scroll (a reading-progress marker). Here it flies off the line and lands as the final full stop. On phones it drops in from above, as now.</p>
+                    </div>
+                    <div class="lab-ctl"></div>
+                </div>
+                <div class="lab-stage">
+                    <div class="payoff" style="padding-block: 24px 48px;">
+                        <h2 class="payoff-title">Everything reads right<span class="sr-only">.</span><span class="stop"><span class="dot" aria-hidden="true"></span></span></h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Picks -->
+        <section class="lab-demo picks" id="picks">
+            <div class="container">
+                <p class="label">Your picks</p>
+                <h2 style="font-size: clamp(1.5rem, 3.4vw, 2rem); margin: 4px 0 12px;">Send me this list</h2>
+                <p style="color: var(--muted); max-width: 60ch;">It fills in as you press Keep or Skip. Copy it and paste it into our chat. Add notes after any line.</p>
+                <label class="sr-only" for="picks-out">Your picks</label>
+                <textarea id="picks-out" readonly></textarea>
+                <div class="lab-ctl"><button type="button" class="btn btn-primary" id="picks-copy">Copy list</button><button type="button" class="btn btn-secondary" id="picks-clear">Clear picks</button></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="rail" aria-hidden="true"><i class="rail-dot"></i></div>
+
+    <div class="lab-bar">
+        <div class="container">
+            <span class="label">Motion lab</span>
+            <div class="seg" role="group" aria-label="Playback">
+                <button type="button" id="opt-slow" aria-pressed="false">Slow</button>
+                <button type="button" id="opt-still" aria-pressed="false">Still</button>
+            </div>
+            <a href="#picks" id="picks-link">Picks 0/9</a>
+        </div>
+    </div>
+
+    <script src="assets/js/site.js" defer></script>
+    <script>
+    (function () {
+        'use strict';
+        var d = document, R = d.documentElement;
+        var EASE = 'cubic-bezier(.2,.8,.2,1)';      /* the site's one easing curve */
+        var POP = 'cubic-bezier(.3,1.5,.5,1)';      /* small overshoot, for things that land */
+        var motionOK = /\blab-motion\b/.test(R.className);
+        var opt = { slow: false, still: !motionOK };
+        var demos = [], byName = {};
+        function $(s, el) { return (el || d).querySelector(s); }
+        function $$(s, el) { return [].slice.call((el || d).querySelectorAll(s)); }
+        function rect(el) { return el.getBoundingClientRect(); }
+
+        /* ---------- Engine: each demo builds its animations; arm = paused on frame 0, fire = play ---------- */
+        function Demo(el, build) {
+            this.el = el; this.stage = $('.lab-stage', el); this.build = build;
+            this.anims = []; this.armed = false; this.fired = false; this.variant = 0;
+        }
+        Demo.prototype.a = function (target, kf, o) {
+            o = Object.assign({ duration: 400, easing: EASE, fill: 'both' }, o);
+            var an = target.animate(kf, o);
+            if (opt.slow) an.playbackRate = 1 / 3;
+            this.anims.push(an); return an;
+        };
+        Demo.prototype.clear = function () {
+            this.anims.forEach(function (a) { a.cancel(); }); this.anims = []; this.armed = false;
+        };
+        Demo.prototype.arm = function () {
+            this.clear(); if (opt.still) return;
+            this.build(this); this.anims.forEach(function (a) { a.pause(); }); this.armed = true;
+        };
+        Demo.prototype.fire = function () {
+            this.fired = true;
+            if (opt.still) { this.clear(); return; }
+            if (!this.armed || this.fresh) { this.firing = true; this.arm(); this.firing = false; }
+            this.anims.forEach(function (a) { a.play(); });
+        };
+        Demo.prototype.replay = function () { this.armed = false; this.fire(); };
+
+        /* the scene is due when its middle passes 80% of the screen (same rule as the live site) */
+        function due(r, vh) {
+            var line = vh * 0.8, end = window.scrollY + vh >= R.scrollHeight - 2;
+            return r.bottom > 0 && r.top < vh && (r.top <= line - Math.min(r.height, line) / 2 || end);
+        }
+        var queued = false;
+        function check() {
+            queued = false; var vh = window.innerHeight;
+            demos.forEach(function (D) {
+                var r = rect(D.stage);
+                if (D.fired) { if (r.top > vh) { D.fired = false; D.arm(); } return; } /* below the screen again: ready to replay */
+                if (r.bottom <= 0) { D.clear(); D.fired = true; return; }            /* jumped past: show it finished */
+                if (!D.armed && r.top < vh * 1.6) D.arm();
+                if (due(r, vh)) D.fire();
+            });
+            railMove();
+        }
+        function queue() { if (!queued) { queued = true; requestAnimationFrame(check); } }
+
+        /* ---------- Shared: typing with a caret that follows the text ---------- */
+        function splitChars(el) {
+            var t = el.textContent; el.textContent = '';
+            return t.split('').map(function (ch) { var s = d.createElement('span'); s.className = 'tch'; s.textContent = ch; el.appendChild(s); return s; });
+        }
+        function typeIn(D, chars, caret, t0, per) {
+            var last = rect(chars[chars.length - 1]).right;
+            var xs = [rect(chars[0]).left - last].concat(chars.map(function (c) { return rect(c).right - last; }));
+            chars.forEach(function (c, i) { D.a(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 1, delay: t0 + i * per, easing: 'linear' }); });
+            var T = t0 + chars.length * per + 1;
+            var kf = [{ offset: 0, transform: 'translateX(' + xs[0] + 'px)', easing: 'steps(1, end)' }];
+            chars.forEach(function (c, i) { kf.push({ offset: (t0 + i * per) / T, transform: 'translateX(' + xs[i + 1] + 'px)', easing: 'steps(1, end)' }); });
+            kf.push({ offset: 1, transform: 'translateX(0px)' });
+            D.a(caret, kf, { duration: T, easing: 'linear' });
+            return T;
+        }
+        function rise(D, el, delay, dist, dur) {
+            return D.a(el, [{ opacity: 0, transform: 'translateY(' + (dist || 12) + 'px)' }, { opacity: 1, transform: 'none' }], { duration: dur || 320, delay: delay || 0 });
+        }
+        function blink(D, owl, at) { /* both eyelids close and open once */
+            $$('.lid', owl).forEach(function (lid) {
+                D.a(lid, [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)', offset: 0.4 }, { transform: 'scaleY(1)', offset: 0.55 }, { transform: 'scaleY(0)' }], { duration: 300, delay: at, easing: 'ease-in-out' });
+            });
+        }
+        /* shared-element move: `to` starts on top of `from` at from's size, then settles; `from` fades as it travels */
+        function flip(D, from, to, at, dur) {
+            var f = rect(from), g = rect(to), s = f.height / g.height;
+            var dx = f.left - g.left, dy = f.top - g.top + (f.height - g.height * s) / 2;
+            D.a(to, [{ transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')', opacity: 0 }, { opacity: 1, offset: 0.45 }, { transform: 'none', opacity: 1 }], { duration: dur, delay: at });
+            D.a(from, [{ transform: 'none', opacity: 1 }, { opacity: 0, offset: 0.45 }, { transform: 'translate(' + (-dx) + 'px,' + (-dy) + 'px) scale(' + (1 / s) + ')', opacity: 0 }], { duration: dur, delay: at });
+        }
+
+        /* ---------- 01 Hero ---------- */
+        var heroChars = splitChars($('#d-hero .type'));
+        function hero(D) {
+            var e = D.el, cd = $('.cd', e), bar = $('.bar', cd), dc = $('.dc', cd);
+            D.a($('.chip-brass', e), [{ transform: 'translateY(8px)' }, { transform: 'none' }], { duration: 260 });
+            rise(D, $('.l1', e), 40, 14, 340);
+            var T = typeIn(D, heroChars, cd, 420, 55);                     /* typing ends ~1.03 s */
+            /* the caret: on at 0.25 s, one blink after typing, then hands over to the dot */
+            D.a(bar, [{ opacity: 0, offset: 0, easing: 'steps(1,end)' }, { opacity: 1, offset: 0.15, easing: 'steps(1,end)' }, { opacity: 0, offset: 0.72, easing: 'steps(1,end)' }, { opacity: 1, offset: 0.82, easing: 'steps(1,end)' }, { opacity: 1, offset: 0.9 }, { opacity: 0, offset: 1 }], { duration: 1650, easing: 'linear' });
+            D.a(bar, [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.23)' }], { duration: 200, delay: 1460, easing: 'cubic-bezier(.5,0,.75,0)' });
+            D.a(dc, [{ transform: 'scale(0)' }, { transform: 'scale(1.35)', offset: 0.6 }, { transform: 'scale(1)' }], { duration: 360, delay: 1560, easing: 'ease-out' });
+            $$('.hero-sub, .hero-actions', e).forEach(function (el, i) { rise(D, el, T - 40 + i * 60, 12, 340); });
+            blink(D, $('.owl', e), 1950);
+        }
+
+        /* ---------- 02 Print ---------- */
+        function print(D) {
+            var e = D.el, st = $('.pstage', e), pmd = $('.pmd', e), lines = $$('.ln', pmd);
+            var M = 1850, B = D.variant === 1;
+            st.classList.toggle('pv-b', B);
+            /* the overlay is visible for the whole demo, then gone */
+            D.a(pmd, [{ opacity: 1 }, { opacity: 1, offset: 0.999 }, { opacity: 0 }], { duration: B ? M + 260 : M + 900, easing: 'linear' });
+            var marks = [[200, 300, 15], [560, 640, 34], [1260, 430, 21]];
+            lines.forEach(function (ln, i) {
+                D.a(ln, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: marks[i][1], delay: marks[i][0], easing: 'steps(' + marks[i][2] + ', end)' });
+            });
+            if (B) { /* PRINTER: the editor fades, the page feeds down out of a slot */
+                D.a(pmd, [{ transform: 'none' }, { transform: 'translateY(-12px) scale(.97)' }], { duration: 260, delay: M, easing: 'ease-in' });
+                var slot = $('.slot', e);
+                D.a(slot, [{ opacity: 0, transform: 'scaleX(.4)' }, { opacity: 1, transform: 'none', offset: 0.12 }, { opacity: 1, transform: 'none', offset: 0.85 }, { opacity: 0, transform: 'none' }], { duration: 1500, delay: M + 120 });
+                D.a($('.doc-page', e), [{ clipPath: 'inset(100% 0 0 0)', transform: 'translateY(-100%)' }, { clipPath: 'inset(0 0 0 0)', transform: 'none' }], { duration: 1050, delay: M + 300, easing: 'cubic-bezier(.35,.1,.25,1)' });
+                return;
+            }
+            /* MORPH: each Markdown line becomes its printed form */
+            var tx = $$('.tx', pmd), mk = $$('.mk', pmd);
+            D.a(mk[0], [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(-0.6em) scale(1.6)' }], { duration: 260, delay: M, easing: 'ease-in' });
+            flip(D, tx[0], $('h3', e), M + 40, 620);
+            var co = $('.doc-callout', e);
+            D.a(mk[1], [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scaleX(.15)' }], { duration: 280, delay: M + 120, easing: 'ease-in' });
+            D.a(co, [{ clipPath: 'inset(0 100% 0 0 round 4px)' }, { clipPath: 'inset(0 0 0 0 round 4px)' }], { duration: 520, delay: M + 160 });
+            flip(D, tx[1], $('.doc-ctitle', e), M + 160, 620);
+            D.a($('.doc-badge', e), [{ transform: 'scale(0)' }, { transform: 'scale(1)' }], { duration: 320, delay: M + 560, easing: POP });
+            D.a(mk[2], [{ opacity: 1 }, { opacity: 0 }], { duration: 200, delay: M + 240 });
+            flip(D, mk[3], $('.doc-cb', e), M + 240, 560);
+            flip(D, tx[2], $('.dt3', e), M + 280, 620);
+            var cb = $('.doc-cb', e), ink = getComputedStyle(cb).color;
+            D.a(cb, [{ color: 'transparent' }, { color: 'transparent', offset: 0.6 }, { color: ink }], { duration: 900, delay: M + 240, easing: 'steps(1,end)' });
+        }
+
+        /* ---------- 03 Arabic ---------- */
+        function arabic(D) {
+            var e = D.el, ink = $('.ar-ink', e), base = $('.ar-base', e), full = $('.ar-full', e), nib = $('.nib', e);
+            var W = rect(ink).width, P = 250, DUR = 1500, PEN = 'cubic-bezier(.45,.05,.4,1)';
+            D.a(base, [{ clipPath: 'inset(-40% -5% -40% 100%)' }, { clipPath: 'inset(-40% -5% -40% -5%)' }], { duration: DUR, delay: P, easing: PEN });
+            var kf = [], n = 12;
+            for (var i = 0; i <= n; i++) { /* a slight up-and-down, like a hand writing */
+                var y = (i === 0 || i === n) ? 0 : (i % 2 ? -0.07 : 0.05);
+                kf.push({ transform: 'translate(' + (-W * i / n).toFixed(1) + 'px,' + y + 'em)' });
+            }
+            D.a(nib, kf, { duration: DUR, delay: P, easing: PEN });
+            D.a(nib, [{ opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, offset: 0.08 }, { opacity: 1, scale: 1, offset: 0.86 }, { opacity: 0, scale: 0 }], { duration: DUR + 450, delay: P - 150, easing: 'linear' });
+            D.a(full, [{ opacity: 0, transform: 'translateY(-0.22em)' }, { opacity: 1, transform: 'none' }], { duration: 520, delay: P + DUR + 120 });
+        }
+
+        /* ---------- 04 Cards ---------- */
+        function cards(D) {
+            var e = D.el, cs = $$('.fcard', e), phone = matchMedia('(max-width: 600px)').matches;
+            cs.forEach(function (c) { c.classList.remove('flipped'); });
+            if (phone) {
+                cs.forEach(function (c, i) { D.a(c, [{ opacity: 0, transform: 'translateX(48px)' }, { opacity: 1, transform: 'none' }], { duration: 480, delay: 150 + i * 90 }); });
+                return;
+            }
+            cs.forEach(function (c, i) {
+                var cst = getComputedStyle(c);
+                D.a(c, [{ translate: (i * 2 - 3) + 'px ' + (40 - i * 3) + 'px', rotate: '0deg' }, { translate: cst.translate, rotate: cst.rotate }], { duration: 560, delay: 300 + (3 - i) * 110, easing: POP });
+            });
+            $$('.fan-names li', e).forEach(function (n, i) { D.a(n, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 700 + (3 - i) * 110 }); });
+        }
+
+        /* ---------- 05 AI ---------- */
+        function ai(D) {
+            var e = D.el, st = $('.ai-stage', e), bub = $('.bubble', e), aim = $('.aim', e), sel = $('.sel', e);
+            var page = $('.ai-page', e), gh = $('.ghost', e), dts = $$('.rows dt', e);
+            var s0 = rect(st), a = rect(aim), p = rect($('.doc-in', page));
+            gh.style.left = (a.left - s0.left - 10) + 'px'; gh.style.top = (a.top - s0.top - 8) + 'px';
+            var g = rect(gh), dx = p.left - g.left + 4, dy = p.top - g.top + 4, sc = Math.min(1, (p.width - 8) / g.width);
+            rise(D, bub, 0, 14, 380);
+            D.a(sel, [{ opacity: 1, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)', offset: 0.35 }, { opacity: 1, transform: 'scaleX(1)', offset: 0.8 }, { opacity: 0, transform: 'scaleX(1)' }], { duration: 1500, delay: 480 });
+            D.a($('.copied', e), [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'none', offset: 0.18 }, { opacity: 1, transform: 'none', offset: 0.8 }, { opacity: 0, transform: 'none' }], { duration: 1100, delay: 900, easing: 'ease-out' });
+            D.a(gh, [
+                { opacity: 0, transform: 'none' },
+                { opacity: 1, transform: 'translate(0,-6px)', offset: 0.12 },
+                { opacity: 1, transform: 'translate(' + (dx * 0.45) + 'px,' + (dy * 0.35 - 20) + 'px) scale(' + ((1 + sc) / 2) + ')', offset: 0.5 },
+                { opacity: 1, transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ')', offset: 0.88 },
+                { opacity: 0, transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ')' }
+            ], { duration: 900, delay: 1250, easing: 'cubic-bezier(.4,0,.2,1)' });
+            $$('.doc-in > *, .doc-in li', page).forEach(function (el, i) { if (el.tagName !== 'UL') rise(D, el, 2000 + i * 70, 6, 300); });
+            D.a(page, [{ transform: 'none' }, { transform: 'translateY(-3px)', offset: 0.4 }, { transform: 'none' }], { duration: 360, delay: 2050 });
+            var muted = getComputedStyle(dts[0]).color, prim = getComputedStyle(e).getPropertyValue('--primary').trim();
+            [480, 1250, 2000].forEach(function (t, i) { /* each step's row lights up while it happens */
+                D.a(dts[i], [{ color: muted }, { color: prim, offset: 0.15 }, { color: prim, offset: 0.75 }, { color: muted }], { duration: i === 2 ? 1200 : 900, delay: t, easing: 'linear' });
+            });
+        }
+
+        /* ---------- 06 Find ---------- */
+        var findChars = splitChars($('#d-find .qt'));
+        function find(D) {
+            var e = D.el, caret = $('.qcaret', e);
+            D.a(caret, [{ opacity: 1 }, { opacity: 1, offset: 0.95 }, { opacity: 0 }], { duration: 1400, delay: 150, easing: 'linear' });
+            var T = typeIn(D, findChars, caret, 250, 70);
+            $$('.results li', e).forEach(function (li, i) {
+                rise(D, li, T + 60 + i * 90, 10, 320);
+                D.a($('.mk', li), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 380, delay: T + 340 + i * 90, easing: 'cubic-bezier(.6,0,.3,1)' });
+            });
+            $$('.find-stage .chips .chip', e).forEach(function (c, i) { rise(D, c, T + 420 + i * 60, 8, 260); });
+        }
+
+        /* ---------- 07 Sunset ---------- */
+        function sunset(D) {
+            var e = D.el, box = rect($('.ss-sunbox', e)), sun = $('.sun', e), S = rect(sun).width;
+            var w = box.width, h = box.height, kf = [], n = 14;
+            var P0 = [0.18 * w, 0.42 * h], P1 = [0.5 * w, -0.2 * h], P2 = [0.8 * w, h + S * 0.8];
+            for (var i = 0; i <= n; i++) {
+                var t = i / n, u = 1 - t;
+                var x = u * u * P0[0] + 2 * u * t * P1[0] + t * t * P2[0], y = u * u * P0[1] + 2 * u * t * P1[1] + t * t * P2[1];
+                kf.push({ transform: 'translate(' + (x - S / 2).toFixed(1) + 'px,' + (y - S / 2).toFixed(1) + 'px)', opacity: i === n ? 0 : 1 });
+            }
+            kf[n - 1].opacity = 1;
+            D.a(sun, kf, { duration: 1700, delay: 200, easing: 'cubic-bezier(.35,0,.6,1)' });
+            var night = $('.ss-night', e);
+            D.a(night, [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 1000, delay: 1250, easing: 'cubic-bezier(.45,0,.2,1)' });
+            $$('.star', e).forEach(function (s, i) { D.a(s, [{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1.6)', offset: 0.5 }, { opacity: 1, transform: 'scale(1)' }], { duration: 420, delay: 1900 + i * 80, easing: 'ease-out' }); });
+        }
+
+        /* ---------- 08 Lock ---------- */
+        function lock(D) {
+            var e = D.el, main = $('.sweep-main', e), dot = $('.sweep-main .dot', e);
+            var r = rect(main), o = rect(dot), cx = o.left - r.left + o.width / 2, cy = o.top - r.top + o.height / 2, at = ' at ' + cx + 'px ' + cy + 'px';
+            D.a(main, [{ clipPath: 'circle(' + (o.width / 2) + 'px' + at + ')' }, { clipPath: 'circle(150%' + at + ')' }], { duration: 1500, delay: 150, easing: 'cubic-bezier(.5,0,.2,1)' });
+            $$('.sweep-main .lid', e).forEach(function (lid) {
+                D.a(lid, [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], { duration: 420, delay: 1450, easing: 'cubic-bezier(.5,0,.3,1)' });
+            });
+            var pl = $('.padlock', e);
+            D.a(pl, [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, delay: 1600 });
+            D.a($('.sh', pl), [{ transform: 'translateY(-6px)' }, { transform: 'translateY(-6px)', offset: 0.5 }, { transform: 'none' }], { duration: 620, delay: 1600, easing: POP });
+            D.a($('.kh', pl), [{ transform: 'scale(0)' }, { transform: 'scale(1)' }], { duration: 320, delay: 2150, easing: POP });
+        }
+
+        /* ---------- 09 Journey: margin rail + payoff ---------- */
+        var rail = $('.rail'), railDot = $('.rail-dot'), payoffEl = $('#d-payoff');
+        function railOn() { return rail && getComputedStyle(rail).display !== 'none'; }
+        function railMove() {
+            if (!railOn()) return;
+            var target = payoffEl.offsetTop + rect($('.payoff', payoffEl)).height * 0 - window.innerHeight * 0.4;
+            var p = Math.max(0, Math.min(1, window.scrollY / Math.max(1, target)));
+            railDot.style.transform = 'translateY(' + (p * rail.clientHeight).toFixed(1) + 'px)';
+        }
+        function payoff(D) {
+            var e = D.el, dot = $('.stop .dot', e), stop = $('.stop', e), s = rect(stop);
+            if (!D.firing) { D.a(dot, [{ opacity: 0 }, { opacity: 0 }], { duration: 1 }); return; } /* waiting: just hidden */
+            if (railOn()) { /* fly from the margin rail into the full stop */
+                var rd = rect(railDot), sx = rd.left - s.left, sy = rd.top - s.top;
+                var path = 'path("M ' + sx.toFixed(1) + ' ' + sy.toFixed(1) + ' C ' + (sx * 0.55).toFixed(1) + ' ' + (sy - 140).toFixed(1) + ', ' + (sx * 0.1).toFixed(1) + ' -150, 0 0")';
+                dot.style.offsetPath = path; dot.style.offsetRotate = '0deg'; dot.style.offsetAnchor = '0 0';
+                D.a(railDot, [{ opacity: 1 }, { opacity: 0 }], { duration: 1, delay: 1, easing: 'linear' });
+                D.a(dot, [{ offsetDistance: '0%', transform: 'scale(' + (rd.width / s.width).toFixed(3) + ')' }, { offsetDistance: '100%', transform: 'none' }], { duration: 1100, delay: 0, easing: 'cubic-bezier(.45,0,.2,1)' });
+                D.a(dot, [{ transform: 'none' }, { transform: 'scale(1.4, .7)', offset: 0.35 }, { transform: 'none' }], { duration: 260, delay: 1080, easing: 'ease-out', composite: 'add' });
+            } else { /* phones: the drop from above, as on the live site */
+                dot.style.offsetPath = innerWidth <= 640 ? 'path("M -90 -120 C -90 -50, -40 -8, 0 0")' : 'path("M -170 -190 C -170 -70, -70 -12, 0 0")';
+                dot.style.offsetRotate = '0deg'; dot.style.offsetAnchor = '0 0';
+                D.a(dot, [{ offsetDistance: '0%', opacity: 0 }, { opacity: 1, offset: 0.12 }, { offsetDistance: '100%', opacity: 1 }], { duration: 1100, delay: 200 });
+            }
+        }
+
+        /* ---------- Wire up ---------- */
+        var builders = { hero: hero, print: print, arabic: arabic, cards: cards, ai: ai, find: find, sunset: sunset, lock: lock, payoff: payoff };
+        var KEY = 'owlmd-lab-picks', picks = {};
+        try { picks = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { picks = {}; }
+        function savePicks() { try { localStorage.setItem(KEY, JSON.stringify(picks)); } catch (e) { } renderPicks(); }
+
+        $$('[data-demo]').forEach(function (el, idx) {
+            var name = el.getAttribute('data-demo'), D = new Demo(el, builders[name]);
+            D.idx = idx + 1; D.title = el.getAttribute('data-name');
+            if (name === 'payoff') D.fresh = true; /* measure at the moment it plays: the rail dot moves */
+            demos.push(D); byName[name] = D;
+            var ctl = $('.lab-ctl', el);
+            var rp = d.createElement('button'); rp.type = 'button'; rp.className = 'btn btn-secondary'; rp.textContent = 'Replay';
+            rp.addEventListener('click', function () { D.replay(); });
+            ctl.appendChild(rp);
+            var v = el.getAttribute('data-variants');
+            if (v) {
+                var vs = d.createElement('div'); vs.className = 'seg'; vs.setAttribute('role', 'group'); vs.setAttribute('aria-label', 'Version');
+                v.split(',').forEach(function (label, i) {
+                    var b = d.createElement('button'); b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', String(i === 0));
+                    b.addEventListener('click', function () { D.variant = i; $$('button', vs).forEach(function (x, j) { x.setAttribute('aria-pressed', String(j === i)); }); D.replay(); renderPicks(); });
+                    vs.appendChild(b);
+                });
+                ctl.appendChild(vs);
+            }
+            var seg = d.createElement('div'); seg.className = 'seg'; seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', 'Your pick');
+            ['Keep', 'Skip'].forEach(function (label) {
+                var b = d.createElement('button'); b.type = 'button'; b.textContent = label; b.setAttribute('data-pick', label.toLowerCase());
+                b.addEventListener('click', function () { picks[name] = picks[name] === b.getAttribute('data-pick') ? undefined : b.getAttribute('data-pick'); syncPick(); savePicks(); });
+                seg.appendChild(b);
+            });
+            ctl.appendChild(seg);
+            function syncPick() { $$('button', seg).forEach(function (b) { b.setAttribute('aria-pressed', String(picks[name] === b.getAttribute('data-pick'))); }); }
+            syncPick();
+        });
+
+        function renderPicks() {
+            var n = 0, lines = ['OwlMD motion lab picks', ''];
+            demos.forEach(function (D) {
+                var p = picks[D.el.getAttribute('data-demo')], name = D.el.getAttribute('data-demo');
+                if (p) n++;
+                var extra = (name === 'print' && D.variant === 1) ? ' (Printer version)' : (name === 'print' ? ' (Morph version)' : '');
+                lines.push(('0' + D.idx).slice(-2) + ' ' + D.title + extra + ': ' + (p ? p.toUpperCase() : '-'));
+            });
+            lines.push('', 'Slow: ' + (opt.slow ? 'on' : 'off') + ' / Theme: ' + (R.getAttribute('data-pref') || 'auto'));
+            $('#picks-out').value = lines.join('\n');
+            $('#picks-link').textContent = 'Picks ' + n + '/' + demos.length;
+        }
+        $('#picks-copy').addEventListener('click', function () {
+            var t = $('#picks-out'), btn = this;
+            function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy list'; }, 1500); }
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t.value).then(done, function () { t.select(); });
+            else { t.select(); try { d.execCommand('copy'); done(); } catch (e) { } }
+        });
+        $('#picks-clear').addEventListener('click', function () { picks = {}; $$('[data-pick]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); }); savePicks(); });
+        renderPicks();
+
+        /* flip cards on tap / Enter / Space */
+        $$('#d-cards .flip').forEach(function (f) {
+            function tog() { f.parentNode.classList.toggle('flipped'); }
+            f.addEventListener('click', function () { if (!matchMedia('(hover: hover)').matches) tog(); });
+            f.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); tog(); } });
+        });
+
+        /* bottom bar: slow motion and still (reduced-motion preview) */
+        var bSlow = $('#opt-slow'), bStill = $('#opt-still');
+        bStill.setAttribute('aria-pressed', String(opt.still));
+        if (!motionOK) { bSlow.disabled = true; }
+        bSlow.addEventListener('click', function () {
+            opt.slow = !opt.slow; bSlow.setAttribute('aria-pressed', String(opt.slow));
+            demos.forEach(function (D) { D.anims.forEach(function (a) { a.updatePlaybackRate(opt.slow ? 1 / 3 : 1); }); });
+            renderPicks();
+        });
+        bStill.addEventListener('click', function () {
+            if (!motionOK) return;
+            opt.still = !opt.still; bStill.setAttribute('aria-pressed', String(opt.still));
+            R.classList.toggle('lab-motion', !opt.still);
+            demos.forEach(function (D) { D.clear(); D.fired = false; });
+            if (!opt.still) queue();
+        });
+
+        if (!motionOK) return;
+        function start() {
+            R.classList.remove('lab-wait');
+            window.addEventListener('scroll', queue, { passive: true });
+            window.addEventListener('resize', queue);
+            check();
+        }
+        var started = false;
+        function go() { if (!started) { started = true; start(); } }
+        if (d.fonts && d.fonts.ready) d.fonts.ready.then(go); else go();
+        setTimeout(go, 1500); /* never wait longer than this for fonts */
+    })();
+    </script>
+</body>
+
+</html>
