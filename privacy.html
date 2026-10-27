@@ -50,68 +50,172 @@
     <main id="main" class="doc">
         <div class="doc-head">
             <h1>Privacy Policy</h1>
-            <p>Last Updated: 2025-11-14</p>
+            <p>Last updated: [OWNER: date]</p>
+            <p><a href="#ar">النسخة العربية</a> · <a href="v1/privacy.html">Policy for version 1</a></p>
         </div>
-
-        <div class="doc-box">
-            <h3>Summary</h3>
-            <p>We believe your documents belong to you. Owl.md is an <strong>offline-first</strong> application.</p>
-            <ul class="check-list">
-                <li>No personal data collection</li>
-                <li>No user accounts required</li>
-                <li>No tracking or analytics</li>
-                <li>Files stay on your device</li>
-            </ul>
-        </div>
-
-        <section>
-            <h2>Information We Do NOT Collect</h2>
-            <p>Owl.md does <strong>NOT</strong> collect, store, or transmit:</p>
-            <ul>
-                <li>Personal information (name, email, etc.)</li>
-                <li>User accounts or credentials</li>
-                <li>Location data</li>
-                <li>Usage statistics or analytics</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Data Stored Locally</h2>
-            <p>The following data stays on your device and is never sent to our servers:</p>
-
-            <h3>1. Document Content</h3>
-            <p>Your Markdown and PDF files are stored in your device's local storage.</p>
-
-            <h3>2. App Preferences</h3>
-            <p>Theme selection, PDF settings, and history are stored effectively using Android SharedPreferences.</p>
-        </section>
-
-        <section>
-            <h2>Network Requests</h2>
-            <p>The app only connects to the internet for:</p>
-            <ul>
-                <li><strong>GitHub Import (Optional):</strong> If you choose to load a file from a URL.</li>
-                <li><strong>Announcements:</strong> Checking for app updates via a public JSON file on GitHub.</li>
-                <li><strong>External Images:</strong> Loading images you add via URL.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Third-Party Services</h2>
-            <p>Owl.md does <strong>NOT</strong> use:</p>
-            <ul>
-                <li>Analytics services (No Firebase, No Google Analytics)</li>
-                <li>Crash reporting tools</li>
-                <li> Advertising networks</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Contact Us</h2>
-            <p>If you have any questions, please contact us:</p>
-            <p><strong>Email:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a></p>
-        </section>
-
+        <article lang="en" dir="ltr" id="en">
+        <h2>OwlMD Privacy Policy (English)</h2>
+<p><strong>App:</strong> OwlMD (Android package <code>com.injazapps.owlmd</code>)<br>
+<strong>Effective date:</strong> [OWNER: effective date]<br>
+<strong>Developer:</strong> [OWNER: legal name of the developer or company]<br>
+<strong>Contact for privacy questions:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: confirm this mailbox is monitored and who reads it]</p>
+<h3>1. Summary</h3>
+<p>OwlMD is an offline-first Markdown notes app. It has no accounts, no ads and no analytics, and it does not send your notes to the developer.<br>
+Your notes stay on your device unless you choose to share, export or back them up.<br>
+The app makes one automatic request: once a day it downloads the announcements file from GitHub, and you cannot turn this off. It sends none of your notes or identifiers, but GitHub can see your IP address.<br>
+If a note contains an image link, the app contacts the website that hosts the image, and that website can see your IP address.</p>
+<h3>2. Information we collect</h3>
+<p><strong>We do not collect any information.</strong> The app has no server of its own and no code that sends your notes, settings or identifiers to the developer.<br>
+The app contains no analytics, advertising, crash-reporting, attribution or payment library, and it has no sign-in.</p>
+<h3>3. Data stored on your device</h3>
+<p>The following is stored only on your device, in the app's private storage:</p>
+<ul>
+<li>Your documents (title, text, folder, tags, timestamps, cursor position), folders and tags, kept in a local database.</li>
+<li>Your settings (theme, language, sort order, app lock on/off, screen-awake, reading position in previews, search history, tips shown, and similar).</li>
+<li>Images you insert, and PDFs you export, with a list of exported PDFs.</li>
+<li>A short log of deletions (what kind of item was deleted and when, no text).</li>
+<li>A cache of the page count and title of your exported PDFs.</li>
+<li>The last announcements file the app downloaded, and which announcements you have read.</li>
+<li>A random identifier (a UUID) created on first launch and kept in the Android Keystore-backed secure storage. It is written on your local records so that a future version can tell which device wrote a record. It is not based on your hardware, Android ID, advertising ID or any account, and the app never sends it over the network.</li>
+<li>A local error log of at most 200 entries and 1 MB, containing error types, redacted messages, code locations, the app version, the Android version and the screen name. It is designed to exclude document text, titles, file paths, tags and searches, and it is never sent automatically.</li>
+<li>Temporary copies made when you share, open or import a file.</li>
+</ul>
+<p>Android's automatic backup and device-to-device transfer are turned off for this app, so Google's cloud backup does not copy this data.<br>
+Your data is not encrypted by the app itself; it relies on Android's app sandbox and your device lock.</p>
+<h3>4. Network requests the app makes</h3>
+<ol>
+<li><strong>Announcements.</strong> The app downloads a small public JSON file from <code>raw.githubusercontent.com</code> (GitHub), at most once every 24 hours, and when you pull to refresh in the announcements list. The request contains no document text, no identifier and no account information. GitHub, like any web server, can see the connection's IP address and the standard technical headers. The app shows the announcements it receives, and uses your app version only on your device to decide which ones apply. If the request fails, nothing is shown to you. <strong>This download happens automatically about once a day, and it cannot be turned off in the app.</strong></li>
+<li><strong>Import from GitHub.</strong> Only when you enter a GitHub file address and confirm, the app downloads that file from <code>raw.githubusercontent.com</code>.</li>
+<li><strong>Remote images.</strong> If a document you write or open contains an image link that starts with <code>https://</code> or <code>http://</code>, the app downloads that image when you preview the document, insert the image, or export it to PDF. The server that hosts the image can see your IP address and the image address. <strong>Images loaded over <code>http://</code> are not encrypted: the request and the image can be seen by others on the network.</strong> The app does this without a separate confirmation.</li>
+</ol>
+<p>The app makes no other network requests.</p>
+<h3>5. When your data leaves your device (only when you act)</h3>
+<p>Your data leaves the device only when you choose one of these actions, and you pick the destination:</p>
+<ul>
+<li><strong>Share or export a document</strong> as a Markdown file.</li>
+<li><strong>Export or share a PDF</strong>, share all PDFs as a ZIP, or open a PDF in another app.</li>
+<li><strong>Back up your library.</strong> The backup file contains all of your documents, folders, tags, settings, images and the random identifier from section 3. It is not encrypted by the app. Keep it somewhere you trust.</li>
+<li><strong>Send a diagnostic report.</strong> The app builds a text file from the local error log and opens the share sheet. The screen asks you to send it to <a href="mailto:support@injazapps.com">support@injazapps.com</a>. Nothing is sent unless you send it.</li>
+<li><strong>Email us.</strong> The "report a bug", "request a feature" and "get help" items open your email app with a short template. You decide what to write and whether to send.</li>
+<li><strong>Open a link</strong> in a document or an announcement. The link opens in your browser or another app.</li>
+</ul>
+<p>Once you send data to another app or service, that app's or service's own privacy practices apply.</p>
+<h3>6. Permissions</h3>
+<p>The app declares these Android permissions:</p>
+<ul>
+<li><strong>Internet</strong> and <strong>network state</strong>, for the requests in section 4.</li>
+<li><strong>Biometric</strong> and <strong>fingerprint</strong>, only if you turn on the optional app lock. Android shows the fingerprint, face or device-PIN prompt. The app does not read or store any biometric data or PIN.</li>
+</ul>
+<p>The app does not request access to your location, contacts, microphone, camera, calendar, phone, SMS, or general storage.<br>
+You choose files and photos through Android's own pickers. If you take a photo, your camera app takes it and hands it to OwlMD.<br>
+Other apps can send or open <code>.md</code> and text files in OwlMD. OwlMD only receives them; it creates a new document from the file.<br>
+The app can read an image from your clipboard only when you use the insert-from-clipboard action. It does not read other clipboard content.</p>
+<h3>7. App lock and screenshots</h3>
+<p>If you enable the app lock, the app uses Android's biometric or device-PIN prompt. While the lock is on, the app hides itself in the recent-apps view and blocks screenshots by default.</p>
+<h3>8. Retention and deletion</h3>
+<ul>
+<li>Your data stays on your device until you delete it or uninstall the app. Items you move to the trash are permanently removed after 7 days.</li>
+<li>You can clear the local error log in Settings, Diagnostics, Clear.</li>
+<li>Uninstalling the app removes the database, images, exports, error log and settings stored by the app. Files you exported, shared or backed up are outside the app and stay where you put them.</li>
+<li>The developer holds no copy of your documents and cannot delete them for you.</li>
+<li>[OWNER: how long messages and diagnostic reports you email to <a href="mailto:support@injazapps.com">support@injazapps.com</a> are kept, and how to request their deletion]</li>
+</ul>
+<h3>9. Sharing with third parties</h3>
+<p>The developer does not sell or share your data with third parties. The app contains no third-party analytics, advertising or tracking library.<br>
+The only third-party services contacted by the app are GitHub's raw file host (section 4, items 1 and 2) and the hosts of image links in your own documents (section 4, item 3).<br>
+[OWNER: confirm no server, log endpoint or analytics property exists outside this app repository]</p>
+<h3>10. Children</h3>
+<p>[OWNER: statement about children and the Play target audience]</p>
+<h3>11. Your rights</h3>
+<p>[OWNER: rights text by region (for example GDPR, CCPA), and the legal basis if the owner wants it stated]<br>
+Because the developer does not collect or store your notes, there is no developer-held personal data to access, correct or delete, other than what you may choose to email to <a href="mailto:support@injazapps.com">support@injazapps.com</a>.</p>
+<h3>12. Changes to this policy</h3>
+<p>[OWNER: how changes are announced and the policy URL]</p>
+<h3>13. Contact</h3>
+<p><a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: postal address if required]</p>
+        </article>
+        <article lang="ar" dir="rtl" id="ar">
+        <h2>سياسة الخصوصية لتطبيق OwlMD (العربية)</h2>
+        <p>آخر تحديث: [OWNER: التاريخ]</p>
+<p><strong>التطبيق:</strong> OwlMD (حزمة أندرويد <code>com.injazapps.owlmd</code>)<br>
+<strong>تاريخ السريان:</strong> [OWNER: تاريخ السريان]<br>
+<strong>المطوّر:</strong> [OWNER: الاسم القانوني للمطوّر أو الشركة]<br>
+<strong>للتواصل بشأن الخصوصية:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: تأكيد أن البريد مراقَب ومن يقرأ رسائله]</p>
+<h3>1. ملخص</h3>
+<p>OwlMD تطبيق لكتابة الملاحظات بصيغة Markdown يعمل دون اتصال بالإنترنت بشكل أساسي. لا يحتوي على حسابات ولا إعلانات ولا أدوات تحليلات، ولا يرسل ملاحظاتك إلى المطوّر.<br>
+تبقى ملاحظاتك على جهازك ما لم تقرّر مشاركتها أو تصديرها أو نسخها احتياطيًا.<br>
+يرسل التطبيق طلبًا تلقائيًا واحدًا: مرة كل يوم ينزّل ملف الإعلانات من GitHub، ولا يمكنك إيقاف ذلك. لا يرسل أيًّا من ملاحظاتك أو معرّفاتك، لكن يستطيع GitHub رؤية عنوان IP الخاص بك.<br>
+إذا احتوت ملاحظة على رابط صورة، يتصل التطبيق بالموقع الذي يستضيف الصورة، ويستطيع ذلك الموقع رؤية عنوان IP الخاص بك.</p>
+<h3>2. المعلومات التي نجمعها</h3>
+<p><strong>نحن لا نجمع أي معلومات.</strong> ليس للتطبيق خادم خاص به، ولا يحتوي على شيفرة ترسل ملاحظاتك أو إعداداتك أو معرّفاتك إلى المطوّر.<br>
+لا يحتوي التطبيق على مكتبات للتحليلات أو الإعلانات أو الإبلاغ عن الأعطال أو الإسناد أو الدفع، ولا يتطلب تسجيل الدخول.</p>
+<h3>3. البيانات المخزَّنة على جهازك</h3>
+<p>تُخزَّن البيانات التالية على جهازك فقط، في المساحة الخاصة بالتطبيق:</p>
+<ul>
+<li>مستنداتك (العنوان والنص والمجلد والوسوم والتواريخ وموضع المؤشر) ومجلداتك ووسومك، في قاعدة بيانات محلية.</li>
+<li>إعداداتك (السمة واللغة وترتيب العرض وتفعيل قفل التطبيق وإبقاء الشاشة مضاءة وموضع القراءة في المعاينة وسجل البحث والنصائح التي عُرضت وما شابه).</li>
+<li>الصور التي تدرجها وملفات PDF التي تصدّرها، مع قائمة بملفات PDF المصدَّرة.</li>
+<li>سجل مختصر لعمليات الحذف (نوع العنصر المحذوف ووقت حذفه، دون أي نص).</li>
+<li>ذاكرة مؤقتة لعدد صفحات ملفات PDF المصدَّرة وعناوينها.</li>
+<li>آخر ملف إعلانات نزّله التطبيق، والإعلانات التي قرأتها.</li>
+<li>معرّف عشوائي (UUID) يُنشأ عند أول تشغيل ويُحفظ في التخزين الآمن المدعوم بمخزن مفاتيح أندرويد. يُكتب على سجلاتك المحلية حتى تتمكن نسخة مستقبلية من معرفة أي جهاز كتب السجل. ولا يستند إلى عتاد جهازك أو معرّف أندرويد أو معرّف الإعلانات أو أي حساب، ولا يرسله التطبيق عبر الشبكة أبدًا.</li>
+<li>سجل أخطاء محلي لا يزيد على 200 مدخل وحجمه لا يتجاوز 1 ميغابايت، ويحتوي على أنواع الأخطاء ورسائل منقّحة ومواضع في الشيفرة وإصدار التطبيق وإصدار أندرويد واسم الشاشة. صُمّم بحيث يستبعد نصوص المستندات وعناوينها ومسارات الملفات والوسوم وعمليات البحث، ولا يُرسل تلقائيًا.</li>
+<li>نسخ مؤقتة تُنشأ عند مشاركة ملف أو فتحه أو استيراده.</li>
+</ul>
+<p>النسخ الاحتياطي التلقائي في أندرويد ونقل البيانات بين الأجهزة متوقفان لهذا التطبيق، لذلك لا ينسخ النسخ الاحتياطي السحابي من Google هذه البيانات.<br>
+لا يشفّر التطبيق بياناتك بنفسه، بل يعتمد على عزل التطبيقات في أندرويد وعلى قفل جهازك.</p>
+<h3>4. الطلبات التي يرسلها التطبيق عبر الشبكة</h3>
+<ol>
+<li><strong>الإعلانات.</strong> ينزّل التطبيق ملف JSON عامًا صغيرًا من <code>raw.githubusercontent.com</code> (GitHub) مرة واحدة كل 24 ساعة على الأكثر، وعند السحب للتحديث في قائمة الإعلانات. لا يحتوي الطلب على نص مستندات ولا معرّفات ولا معلومات حساب. يستطيع GitHub، كأي خادم ويب، رؤية عنوان IP للاتصال والترويسات التقنية المعتادة. يعرض التطبيق الإعلانات التي يستلمها، ويستخدم رقم إصدار تطبيقك على جهازك فقط لتحديد الإعلانات المناسبة. إذا فشل الطلب فلا يظهر لك شيء. <strong>يحدث هذا التنزيل تلقائيًا مرة كل يوم تقريبًا، ولا يمكن إيقافه من داخل التطبيق.</strong></li>
+<li><strong>الاستيراد من GitHub.</strong> لا يحدث هذا إلا عندما تُدخل عنوان ملف على GitHub وتؤكد، فينزّل التطبيق ذلك الملف من <code>raw.githubusercontent.com</code>.</li>
+<li><strong>الصور البعيدة.</strong> إذا احتوى مستند تكتبه أو تفتحه على رابط صورة يبدأ بـ <code>https://</code> أو <code>http://</code>، فينزّل التطبيق تلك الصورة عند معاينة المستند أو إدراج الصورة أو تصديره إلى PDF. يستطيع الخادم الذي يستضيف الصورة رؤية عنوان IP الخاص بك وعنوان الصورة. <strong>الصور التي تُحمَّل عبر <code>http://</code> غير مشفّرة: يمكن لغيرك على الشبكة رؤية الطلب والصورة.</strong> ويفعل التطبيق ذلك دون طلب تأكيد منفصل.</li>
+</ol>
+<p>لا يرسل التطبيق أي طلبات أخرى عبر الشبكة.</p>
+<h3>5. متى تغادر بياناتك جهازك (عندما تتخذ أنت الإجراء فقط)</h3>
+<p>لا تغادر بياناتك جهازك إلا عندما تختار أحد الإجراءات التالية، وأنت من يحدّد الوجهة:</p>
+<ul>
+<li><strong>مشاركة مستند أو تصديره</strong> كملف Markdown.</li>
+<li><strong>تصدير ملف PDF أو مشاركته</strong>، أو مشاركة كل ملفات PDF في ملف ZIP، أو فتح ملف PDF في تطبيق آخر.</li>
+<li><strong>نسخ مكتبتك احتياطيًا.</strong> يحتوي ملف النسخة الاحتياطية على كل مستنداتك ومجلداتك ووسومك وإعداداتك وصورك والمعرّف العشوائي المذكور في القسم 3. ولا يشفّره التطبيق، فاحتفظ به في مكان تثق به.</li>
+<li><strong>إرسال تقرير تشخيصي.</strong> يُنشئ التطبيق ملفًا نصيًا من سجل الأخطاء المحلي ويفتح قائمة المشاركة. تطلب الشاشة منك إرساله إلى <a href="mailto:support@injazapps.com">support@injazapps.com</a>. ولا يُرسَل شيء ما لم ترسله أنت.</li>
+<li><strong>مراسلتنا عبر البريد.</strong> تفتح عناصر "الإبلاغ عن مشكلة" و"طلب ميزة" و"الحصول على مساعدة" تطبيق البريد لديك مع قالب قصير. وأنت من يقرّر ما تكتبه وهل ترسله.</li>
+<li><strong>فتح رابط</strong> في مستند أو في إعلان. يُفتح الرابط في متصفحك أو في تطبيق آخر.</li>
+</ul>
+<p>وبمجرد أن ترسل بيانات إلى تطبيق أو خدمة أخرى، تنطبق ممارسات الخصوصية الخاصة بذلك التطبيق أو تلك الخدمة.</p>
+<h3>6. الأذونات</h3>
+<p>يعلن التطبيق عن أذونات أندرويد التالية:</p>
+<ul>
+<li><strong>الإنترنت</strong> و<strong>حالة الشبكة</strong>، للطلبات المذكورة في القسم 4.</li>
+<li><strong>المقاييس الحيوية</strong> و<strong>بصمة الإصبع</strong>، فقط إذا فعّلت قفل التطبيق الاختياري. يعرض أندرويد نافذة البصمة أو الوجه أو رمز PIN للجهاز. ولا يقرأ التطبيق أي بيانات حيوية أو رمز PIN ولا يخزّنها.</li>
+</ul>
+<p>لا يطلب التطبيق الوصول إلى موقعك أو جهات اتصالك أو الميكروفون أو الكاميرا أو التقويم أو الهاتف أو الرسائل النصية أو التخزين العام.<br>
+تختار الملفات والصور عبر أدوات الاختيار الخاصة بأندرويد. وإذا التقطت صورة، فإن تطبيق الكاميرا لديك هو الذي يلتقطها ويسلّمها إلى OwlMD.<br>
+يمكن لتطبيقات أخرى إرسال ملفات <code>.md</code> والملفات النصية إلى OwlMD أو فتحها فيه. يستقبلها OwlMD فقط، وينشئ مستندًا جديدًا من الملف.<br>
+يمكن للتطبيق قراءة صورة من الحافظة فقط عندما تستخدم إجراء الإدراج من الحافظة، ولا يقرأ أي محتوى آخر من الحافظة.</p>
+<h3>7. قفل التطبيق ولقطات الشاشة</h3>
+<p>إذا فعّلت قفل التطبيق، يستخدم التطبيق نافذة المقاييس الحيوية أو رمز PIN الخاصة بأندرويد. وما دام القفل مفعّلًا، يُخفي التطبيق محتواه في قائمة التطبيقات الأخيرة ويمنع لقطات الشاشة افتراضيًا.</p>
+<h3>8. الاحتفاظ بالبيانات وحذفها</h3>
+<ul>
+<li>تبقى بياناتك على جهازك حتى تحذفها أو تُزيل التطبيق. وتُحذف العناصر التي تنقلها إلى سلة المحذوفات نهائيًا بعد 7 أيام.</li>
+<li>يمكنك مسح سجل الأخطاء المحلي من الإعدادات ثم التشخيص ثم مسح.</li>
+<li>تؤدي إزالة التطبيق إلى حذف قاعدة البيانات والصور والملفات المصدَّرة وسجل الأخطاء والإعدادات التي خزّنها التطبيق. أما الملفات التي صدّرتها أو شاركتها أو نسختَها احتياطيًا فهي خارج التطبيق وتبقى حيث وضعتها.</li>
+<li>لا يحتفظ المطوّر بأي نسخة من مستنداتك ولا يستطيع حذفها نيابةً عنك.</li>
+<li>[OWNER: مدة الاحتفاظ بالرسائل والتقارير التشخيصية التي ترسلها إلى <a href="mailto:support@injazapps.com">support@injazapps.com</a> وطريقة طلب حذفها]</li>
+</ul>
+<h3>9. المشاركة مع أطراف ثالثة</h3>
+<p>لا يبيع المطوّر بياناتك ولا يشاركها مع أطراف ثالثة. ولا يحتوي التطبيق على أي مكتبة تحليلات أو إعلانات أو تتبّع تابعة لجهات خارجية.<br>
+والخدمات الخارجية الوحيدة التي يتصل بها التطبيق هي مضيف الملفات الخام في GitHub (القسم 4، البندان 1 و2) والمضيفات التي تستضيف روابط الصور في مستنداتك أنت (القسم 4، البند 3).<br>
+[OWNER: تأكيد عدم وجود أي خادم أو نقطة تسجيل أو خدمة تحليلات خارج مستودع التطبيق]</p>
+<h3>10. الأطفال</h3>
+<p>[OWNER: بيان بشأن الأطفال والفئة المستهدفة في Google Play]</p>
+<h3>11. حقوقك</h3>
+<p>[OWNER: نص الحقوق بحسب المنطقة (مثل GDPR وCCPA) والأساس القانوني إن رغب المالك في ذكره]<br>
+وبما أن المطوّر لا يجمع ملاحظاتك ولا يخزّنها، فلا توجد بيانات شخصية لدى المطوّر يمكنك طلب الاطلاع عليها أو تصحيحها أو حذفها، باستثناء ما قد تختار إرساله بالبريد إلى <a href="mailto:support@injazapps.com">support@injazapps.com</a>.</p>
+<h3>12. التغييرات على هذه السياسة</h3>
+<p>[OWNER: كيفية الإعلان عن التغييرات ورابط السياسة]</p>
+<h3>13. التواصل</h3>
+<p><a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: العنوان البريدي إن كان مطلوبًا]</p>
+        </article>
     </main>
     <footer class="site-footer">
         <div class="container">
