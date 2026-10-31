@@ -50,19 +50,19 @@
     <main id="main" class="doc">
         <div class="doc-head">
             <h1>Privacy Policy</h1>
-            <p>Last updated: [OWNER: date]</p>
+            <p>Last updated: [RELEASE DAY: date v2.0 is published]</p>
             <p><a href="#ar">النسخة العربية</a> · <a href="v1/privacy.html">Policy for version 1</a></p>
         </div>
         <article lang="en" dir="ltr" id="en">
         <h2>OwlMD Privacy Policy (English)</h2>
 <p><strong>App:</strong> OwlMD (Android package <code>com.injazapps.owlmd</code>)<br>
-<strong>Effective date:</strong> [OWNER: effective date]<br>
-<strong>Developer:</strong> [OWNER: legal name of the developer or company]<br>
-<strong>Contact for privacy questions:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: confirm this mailbox is monitored and who reads it]</p>
+<strong>Effective date:</strong> [RELEASE DAY: date v2.0 is published]<br>
+<strong>Developer:</strong> InjazApps<br>
+<strong>Contact for privacy questions:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a> (read by the developer)</p>
 <h3>1. Summary</h3>
 <p>OwlMD is an offline-first Markdown notes app. It has no accounts, no ads and no analytics, and it does not send your notes to the developer.<br>
 Your notes stay on your device unless you choose to share, export or back them up.<br>
-The app makes one automatic request: once a day it downloads the announcements file from GitHub, and you cannot turn this off. It sends none of your notes or identifiers, but GitHub can see your IP address.<br>
+The app downloads the announcements file from GitHub once a day, and also when you open the announcements or tap refresh. You cannot turn this off. It sends none of your notes or identifiers, but GitHub can see your IP address.<br>
 If a note contains an image link, the app contacts the website that hosts the image, and that website can see your IP address.</p>
 <h3>2. Information we collect</h3>
 <p><strong>We do not collect any information.</strong> The app has no server of its own and no code that sends your notes, settings or identifiers to the developer.<br>
@@ -84,7 +84,7 @@ The app contains no analytics, advertising, crash-reporting, attribution or paym
 Your data is not encrypted by the app itself; it relies on Android's app sandbox and your device lock.</p>
 <h3>4. Network requests the app makes</h3>
 <ol>
-<li><strong>Announcements.</strong> The app downloads a small public JSON file from <code>raw.githubusercontent.com</code> (GitHub), at most once every 24 hours, and when you pull to refresh in the announcements list. The request contains no document text, no identifier and no account information. GitHub, like any web server, can see the connection's IP address and the standard technical headers. The app shows the announcements it receives, and uses your app version only on your device to decide which ones apply. If the request fails, nothing is shown to you. <strong>This download happens automatically about once a day, and it cannot be turned off in the app.</strong></li>
+<li><strong>Announcements.</strong> The app downloads a small public JSON file from <code>raw.githubusercontent.com</code> (GitHub), automatically at most once every 24 hours, and also when you open the announcements list (if the last check was more than 15 minutes ago) or tap its refresh button. The request contains no document text, no identifier and no account information. GitHub, like any web server, can see the connection's IP address and the standard technical headers. The app shows the announcements it receives, and uses your app version only on your device to decide which ones apply. If the request fails, nothing is shown to you. <strong>This download happens automatically about once a day, and it cannot be turned off in the app.</strong></li>
 <li><strong>Import from GitHub.</strong> Only when you enter a GitHub file address and confirm, the app downloads that file from <code>raw.githubusercontent.com</code>.</li>
 <li><strong>Remote images.</strong> If a document you write or open contains an image link that starts with <code>https://</code> or <code>http://</code>, the app downloads that image when you preview the document, insert the image, or export it to PDF. The server that hosts the image can see your IP address and the image address. <strong>Images loaded over <code>http://</code> are not encrypted: the request and the image can be seen by others on the network.</strong> The app does this without a separate confirmation.</li>
 </ol>
@@ -118,33 +118,33 @@ The app can read an image from your clipboard only when you use the insert-from-
 <li>You can clear the local error log in Settings, Diagnostics, Clear.</li>
 <li>Uninstalling the app removes the database, images, exports, error log and settings stored by the app. Files you exported, shared or backed up are outside the app and stay where you put them.</li>
 <li>The developer holds no copy of your documents and cannot delete them for you.</li>
-<li>[OWNER: how long messages and diagnostic reports you email to <a href="mailto:support@injazapps.com">support@injazapps.com</a> are kept, and how to request their deletion]</li>
+<li>Emails and diagnostic reports you send to <a href="mailto:support@injazapps.com">support@injazapps.com</a> are kept only as long as needed to answer you, and no longer than 12 months. You can ask us to delete them sooner by writing to the same address.</li>
 </ul>
 <h3>9. Sharing with third parties</h3>
 <p>The developer does not sell or share your data with third parties. The app contains no third-party analytics, advertising or tracking library.<br>
 The only third-party services contacted by the app are GitHub's raw file host (section 4, items 1 and 2) and the hosts of image links in your own documents (section 4, item 3).<br>
-[OWNER: confirm no server, log endpoint or analytics property exists outside this app repository]</p>
+The developer runs no server, logging service or analytics service for OwlMD.</p>
 <h3>10. Children</h3>
-<p>[OWNER: statement about children and the Play target audience]</p>
+<p>OwlMD is a general note-taking app for people aged 13 and over. It is not directed at children under 13, and it does not collect personal information from anyone, including children.</p>
 <h3>11. Your rights</h3>
-<p>[OWNER: rights text by region (for example GDPR, CCPA), and the legal basis if the owner wants it stated]<br>
+<p>Wherever you live, you can ask us to see or delete any email or diagnostic report you sent us. Write to <a href="mailto:support@injazapps.com">support@injazapps.com</a> and we will answer within 30 days.<br>
 Because the developer does not collect or store your notes, there is no developer-held personal data to access, correct or delete, other than what you may choose to email to <a href="mailto:support@injazapps.com">support@injazapps.com</a>.</p>
 <h3>12. Changes to this policy</h3>
-<p>[OWNER: how changes are announced and the policy URL]</p>
+<p>If this policy changes, we update this page and its effective date. For important changes we also post a notice in the app's announcements. This policy is published at <a href="https://owlmd.injazapps.com/privacy.html">https://owlmd.injazapps.com/privacy.html</a>.</p>
 <h3>13. Contact</h3>
-<p><a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: postal address if required]</p>
+<p><a href="mailto:support@injazapps.com">support@injazapps.com</a></p>
         </article>
         <article lang="ar" dir="rtl" id="ar">
         <h2>سياسة الخصوصية لتطبيق OwlMD (العربية)</h2>
-        <p>آخر تحديث: [OWNER: التاريخ]</p>
+        <p>آخر تحديث: [RELEASE DAY: تاريخ نشر الإصدار 2.0]</p>
 <p><strong>التطبيق:</strong> OwlMD (حزمة أندرويد <code>com.injazapps.owlmd</code>)<br>
-<strong>تاريخ السريان:</strong> [OWNER: تاريخ السريان]<br>
-<strong>المطوّر:</strong> [OWNER: الاسم القانوني للمطوّر أو الشركة]<br>
-<strong>للتواصل بشأن الخصوصية:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: تأكيد أن البريد مراقَب ومن يقرأ رسائله]</p>
+<strong>تاريخ السريان:</strong> [RELEASE DAY: تاريخ نشر الإصدار 2.0]<br>
+<strong>المطوّر:</strong> InjazApps<br>
+<strong>للتواصل بشأن الخصوصية:</strong> <a href="mailto:support@injazapps.com">support@injazapps.com</a> (يقرؤه المطوّر)</p>
 <h3>1. ملخص</h3>
 <p>OwlMD تطبيق لكتابة الملاحظات بصيغة Markdown يعمل دون اتصال بالإنترنت بشكل أساسي. لا يحتوي على حسابات ولا إعلانات ولا أدوات تحليلات، ولا يرسل ملاحظاتك إلى المطوّر.<br>
 تبقى ملاحظاتك على جهازك ما لم تقرّر مشاركتها أو تصديرها أو نسخها احتياطيًا.<br>
-يرسل التطبيق طلبًا تلقائيًا واحدًا: مرة كل يوم ينزّل ملف الإعلانات من GitHub، ولا يمكنك إيقاف ذلك. لا يرسل أيًّا من ملاحظاتك أو معرّفاتك، لكن يستطيع GitHub رؤية عنوان IP الخاص بك.<br>
+ينزّل التطبيق ملف الإعلانات من GitHub مرة كل يوم، وأيضًا عند فتح الإعلانات أو الضغط على زر التحديث، ولا يمكنك إيقاف ذلك. لا يرسل أيًّا من ملاحظاتك أو معرّفاتك، لكن يستطيع GitHub رؤية عنوان IP الخاص بك.<br>
 إذا احتوت ملاحظة على رابط صورة، يتصل التطبيق بالموقع الذي يستضيف الصورة، ويستطيع ذلك الموقع رؤية عنوان IP الخاص بك.</p>
 <h3>2. المعلومات التي نجمعها</h3>
 <p><strong>نحن لا نجمع أي معلومات.</strong> ليس للتطبيق خادم خاص به، ولا يحتوي على شيفرة ترسل ملاحظاتك أو إعداداتك أو معرّفاتك إلى المطوّر.<br>
@@ -166,7 +166,7 @@ Because the developer does not collect or store your notes, there is no develope
 لا يشفّر التطبيق بياناتك بنفسه، بل يعتمد على عزل التطبيقات في أندرويد وعلى قفل جهازك.</p>
 <h3>4. الطلبات التي يرسلها التطبيق عبر الشبكة</h3>
 <ol>
-<li><strong>الإعلانات.</strong> ينزّل التطبيق ملف JSON عامًا صغيرًا من <code>raw.githubusercontent.com</code> (GitHub) مرة واحدة كل 24 ساعة على الأكثر، وعند السحب للتحديث في قائمة الإعلانات. لا يحتوي الطلب على نص مستندات ولا معرّفات ولا معلومات حساب. يستطيع GitHub، كأي خادم ويب، رؤية عنوان IP للاتصال والترويسات التقنية المعتادة. يعرض التطبيق الإعلانات التي يستلمها، ويستخدم رقم إصدار تطبيقك على جهازك فقط لتحديد الإعلانات المناسبة. إذا فشل الطلب فلا يظهر لك شيء. <strong>يحدث هذا التنزيل تلقائيًا مرة كل يوم تقريبًا، ولا يمكن إيقافه من داخل التطبيق.</strong></li>
+<li><strong>الإعلانات.</strong> ينزّل التطبيق ملف JSON عامًا صغيرًا من <code>raw.githubusercontent.com</code> (GitHub) تلقائيًا مرة واحدة كل 24 ساعة على الأكثر، وأيضًا عند فتح قائمة الإعلانات (إذا مرّ على آخر تحقق أكثر من 15 دقيقة) أو الضغط على زر التحديث فيها. لا يحتوي الطلب على نص مستندات ولا معرّفات ولا معلومات حساب. يستطيع GitHub، كأي خادم ويب، رؤية عنوان IP للاتصال والترويسات التقنية المعتادة. يعرض التطبيق الإعلانات التي يستلمها، ويستخدم رقم إصدار تطبيقك على جهازك فقط لتحديد الإعلانات المناسبة. إذا فشل الطلب فلا يظهر لك شيء. <strong>يحدث هذا التنزيل تلقائيًا مرة كل يوم تقريبًا، ولا يمكن إيقافه من داخل التطبيق.</strong></li>
 <li><strong>الاستيراد من GitHub.</strong> لا يحدث هذا إلا عندما تُدخل عنوان ملف على GitHub وتؤكد، فينزّل التطبيق ذلك الملف من <code>raw.githubusercontent.com</code>.</li>
 <li><strong>الصور البعيدة.</strong> إذا احتوى مستند تكتبه أو تفتحه على رابط صورة يبدأ بـ <code>https://</code> أو <code>http://</code>، فينزّل التطبيق تلك الصورة عند معاينة المستند أو إدراج الصورة أو تصديره إلى PDF. يستطيع الخادم الذي يستضيف الصورة رؤية عنوان IP الخاص بك وعنوان الصورة. <strong>الصور التي تُحمَّل عبر <code>http://</code> غير مشفّرة: يمكن لغيرك على الشبكة رؤية الطلب والصورة.</strong> ويفعل التطبيق ذلك دون طلب تأكيد منفصل.</li>
 </ol>
@@ -200,21 +200,21 @@ Because the developer does not collect or store your notes, there is no develope
 <li>يمكنك مسح سجل الأخطاء المحلي من الإعدادات ثم التشخيص ثم مسح.</li>
 <li>تؤدي إزالة التطبيق إلى حذف قاعدة البيانات والصور والملفات المصدَّرة وسجل الأخطاء والإعدادات التي خزّنها التطبيق. أما الملفات التي صدّرتها أو شاركتها أو نسختَها احتياطيًا فهي خارج التطبيق وتبقى حيث وضعتها.</li>
 <li>لا يحتفظ المطوّر بأي نسخة من مستنداتك ولا يستطيع حذفها نيابةً عنك.</li>
-<li>[OWNER: مدة الاحتفاظ بالرسائل والتقارير التشخيصية التي ترسلها إلى <a href="mailto:support@injazapps.com">support@injazapps.com</a> وطريقة طلب حذفها]</li>
+<li>نحتفظ بالرسائل والتقارير التشخيصية التي ترسلها إلى <a href="mailto:support@injazapps.com">support@injazapps.com</a> المدة اللازمة للرد عليك فقط، وبحد أقصى 12 شهرًا. ويمكنك أن تطلب حذفها قبل ذلك بمراسلتنا على العنوان نفسه.</li>
 </ul>
 <h3>9. المشاركة مع أطراف ثالثة</h3>
 <p>لا يبيع المطوّر بياناتك ولا يشاركها مع أطراف ثالثة. ولا يحتوي التطبيق على أي مكتبة تحليلات أو إعلانات أو تتبّع تابعة لجهات خارجية.<br>
 والخدمات الخارجية الوحيدة التي يتصل بها التطبيق هي مضيف الملفات الخام في GitHub (القسم 4، البندان 1 و2) والمضيفات التي تستضيف روابط الصور في مستنداتك أنت (القسم 4، البند 3).<br>
-[OWNER: تأكيد عدم وجود أي خادم أو نقطة تسجيل أو خدمة تحليلات خارج مستودع التطبيق]</p>
+لا يشغّل المطوّر أي خادم أو خدمة تسجيل أو خدمة تحليلات لتطبيق OwlMD.</p>
 <h3>10. الأطفال</h3>
-<p>[OWNER: بيان بشأن الأطفال والفئة المستهدفة في Google Play]</p>
+<p>OwlMD تطبيق عام لكتابة الملاحظات موجّه لمن هم في سن 13 عامًا فأكثر. وهو غير موجّه للأطفال دون 13 عامًا، ولا يجمع معلومات شخصية من أي شخص، بمن فيهم الأطفال.</p>
 <h3>11. حقوقك</h3>
-<p>[OWNER: نص الحقوق بحسب المنطقة (مثل GDPR وCCPA) والأساس القانوني إن رغب المالك في ذكره]<br>
+<p>أينما كنت، يمكنك أن تطلب منا الاطلاع على أي رسالة أو تقرير تشخيصي أرسلته إلينا أو حذفه. راسلنا على <a href="mailto:support@injazapps.com">support@injazapps.com</a> وسنرد خلال 30 يومًا.<br>
 وبما أن المطوّر لا يجمع ملاحظاتك ولا يخزّنها، فلا توجد بيانات شخصية لدى المطوّر يمكنك طلب الاطلاع عليها أو تصحيحها أو حذفها، باستثناء ما قد تختار إرساله بالبريد إلى <a href="mailto:support@injazapps.com">support@injazapps.com</a>.</p>
 <h3>12. التغييرات على هذه السياسة</h3>
-<p>[OWNER: كيفية الإعلان عن التغييرات ورابط السياسة]</p>
+<p>إذا تغيّرت هذه السياسة، نحدّث هذه الصفحة وتاريخ سريانها. وفي التغييرات المهمة ننشر أيضًا تنبيهًا في إعلانات التطبيق. هذه السياسة منشورة على <a href="https://owlmd.injazapps.com/privacy.html">https://owlmd.injazapps.com/privacy.html</a>.</p>
 <h3>13. التواصل</h3>
-<p><a href="mailto:support@injazapps.com">support@injazapps.com</a>  [OWNER: العنوان البريدي إن كان مطلوبًا]</p>
+<p><a href="mailto:support@injazapps.com">support@injazapps.com</a></p>
         </article>
     </main>
     <footer class="site-footer">
