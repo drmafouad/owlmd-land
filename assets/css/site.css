@@ -261,13 +261,13 @@ a:hover { text-decoration-thickness: 2px; }
 @media (min-width: 1000px) { .guide { grid-template-columns: 260px minmax(0, 1fr); gap: 64px; } }
 .toc { display: none; }
 @media (min-width: 1000px) {
-  .toc { display: block; position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-right: 16px; border-right: 1px solid var(--outline-variant); }
+  .toc { display: block; position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-inline-end: 16px; border-inline-end: 1px solid var(--outline-variant); }
 }
 .toc .label { display: block; margin: 24px 0 4px; }
 .toc .label:first-child { margin-top: 0; }
-.toc a { display: flex; align-items: center; min-height: var(--hit); padding-left: 12px; border-left: 2px solid transparent; color: var(--muted); text-decoration: none; font-size: 0.9375rem; }
+.toc a { display: flex; align-items: center; min-height: var(--hit); padding-inline-start: 12px; border-inline-start: 2px solid transparent; color: var(--muted); text-decoration: none; font-size: 0.9375rem; }
 .toc a:hover { color: var(--on-surface); }
-.toc a.active { color: var(--on-surface); border-left-color: var(--primary); font-weight: 600; }
+.toc a.active { color: var(--on-surface); border-inline-start-color: var(--primary); font-weight: 600; }
 .toc-m { border: 1px solid var(--outline-variant); border-radius: var(--r-card); }
 .toc-m summary { display: flex; align-items: center; min-height: var(--hit); padding: 0 16px; cursor: pointer; font-weight: 600; }
 .toc-m a { display: flex; align-items: center; min-height: var(--hit); padding: 0 16px; color: var(--on-surface); border-top: 1px solid var(--outline-variant); }
@@ -278,7 +278,7 @@ a:hover { text-decoration-thickness: 2px; }
 .prose h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.15; letter-spacing: -0.02em; margin: 64px 0 16px; padding-bottom: 12px; border-bottom: 1px solid var(--outline-variant); scroll-margin-top: 24px; }
 .prose h3 { font-size: 1.25rem; line-height: 1.3; margin: 32px 0 8px; scroll-margin-top: 24px; }
 .prose p, .prose li { color: var(--on-surface); }
-.prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 1.25em; }
+.prose ul, .prose ol { padding-inline-start: 1.4em; margin: 0 0 1.25em; }
 .prose li { margin-bottom: 0.4em; }
 .prose .intro { font-size: 1.25rem; line-height: 1.5; color: var(--muted); }
 .prose hr { border: 0; border-top: 1px solid var(--outline-variant); margin: 32px 0; }
@@ -310,7 +310,7 @@ a:hover { text-decoration-thickness: 2px; }
 .doc h3 { font-size: 1.25rem; margin: 24px 0 8px; }
 .doc-box h3 { margin-top: 0; }
 .doc p, .doc li { margin-bottom: 8px; }
-.doc ul { padding-left: 1.4em; margin: 0 0 1em; }
+.doc ul { padding-inline-start: 1.4em; margin: 0 0 1em; }
 .doc ul.check-list { list-style: none; padding-left: 0; margin-top: 16px; }
 .doc .check-list li { position: relative; padding-left: 28px; }
 .doc .check-list li::before { content: "\2713"; position: absolute; left: 0; font-weight: 700; color: var(--primary); }
@@ -318,3 +318,17 @@ a:hover { text-decoration-thickness: 2px; }
 /* ---------- Notice band (guide) ---------- */
 .notice { background: var(--surface-container); border-bottom: 1px solid var(--outline-variant); }
 .notice p { margin: 0; padding-block: 14px; font-size: 0.9375rem; font-weight: 500; }
+
+/* ---------- Launch switch: <html data-release="soon|live"> (OWLMD-241, 2026-11-07) ---------- */
+html:not([data-release="live"]) .rel-live, html[data-release="live"] .rel-soon { display: none !important; }
+
+/* ---------- v2 guide (OWLMD-241, 2026-11-07) ---------- */
+.prose blockquote { margin: 0 0 1.5em; }
+.callout-title { margin-bottom: 8px; font-weight: 600; }
+.prose table { border-collapse: collapse; margin: 0 0 1.5em; }
+.prose th, .prose td { padding: 8px 16px; border: 1px solid var(--outline-variant); text-align: start; }
+.guide-links { margin: 0 0 8px; font-size: 0.9375rem; }
+.guide-links a { display: inline-flex; align-items: center; min-height: var(--hit); }
+html[dir="rtl"] body { font-family: var(--font-ar); }
+html[dir="rtl"] .prose h1, html[dir="rtl"] .prose h2, html[dir="rtl"] .prose h3 { letter-spacing: 0; line-height: 1.4; }
+.prose code { unicode-bidi: isolate; }
