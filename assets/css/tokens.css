@@ -1,5 +1,6 @@
 /*
  * OwlMD website — design tokens.
+ * Updated 2026-11-07 (OWLMD-241): Cairo primary #9E3B2E and secondary #0F5C55, as palettes.dart. Cairo Night unchanged.
  * Every hex below is a SHIPPED value from the app, no new colours:
  *   lib/core/theme/palettes.dart  → AppPalettes.cairo (Cairo), AppPalettes.cairoDark (Cairo Night)
  *   lib/core/theme/cairo_brass.dart → cairoBrass (0xFFC08A2E)
@@ -28,9 +29,9 @@
   /* Cairo (light) */
   --surface: #EDE4D3;
   --on-surface: #1B1A17;
-  --primary: #14655E;
+  --primary: #9E3B2E;
   --on-primary: #EDE4D3;
-  --secondary: #5A574F;
+  --secondary: #0F5C55;
   --surface-container: #E4DBCB;
   --outline: #55514B;
   --outline-variant: #BDB6A8;
@@ -46,7 +47,7 @@
   --paper-ink: #1B1A17;
   --paper-muted: #45423D;
   --paper-rule: #BDB6A8;
-  --paper-accent: #14655E; /* = Cairo primary; the typeset page keeps Cairo colours in both themes */
+  --paper-accent: #9E3B2E; /* = Cairo primary; the typeset page keeps Cairo colours in both themes */
   --tile-limestone: #EDE4D3; /* logo tile on Cairo Night */
 
   /* Radius scale: chips 4 · buttons/inputs 8 · cards 12 · overlays 16 */
@@ -109,15 +110,15 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .alt-theme {
-    --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #14655E; --on-primary: #EDE4D3;
-    --secondary: #5A574F; --surface-container: #E4DBCB; --outline: #55514B;
+    --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #9E3B2E; --on-primary: #EDE4D3;
+    --secondary: #0F5C55; --surface-container: #E4DBCB; --outline: #55514B;
     --outline-variant: #BDB6A8; --muted: #45423D; --logo-tile: transparent;
     color-scheme: light;
   }
 }
 :root[data-theme="dark"] .alt-theme {
-  --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #14655E; --on-primary: #EDE4D3;
-  --secondary: #5A574F; --surface-container: #E4DBCB; --outline: #55514B;
+  --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #9E3B2E; --on-primary: #EDE4D3;
+  --secondary: #0F5C55; --surface-container: #E4DBCB; --outline: #55514B;
   --outline-variant: #BDB6A8; --muted: #45423D; --logo-tile: transparent;
   color-scheme: light;
 }
