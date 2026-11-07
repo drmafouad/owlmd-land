@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <!-- Built 2026-11-07 (OWLMD-241) from owlmd_v2 docs/release/user-guide.md. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
@@ -20,13 +21,13 @@
             if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' mo';
         })();
     </script>
-    <link rel="stylesheet" href="assets/css/tokens.css?v=6">
-    <link rel="stylesheet" href="assets/css/site.css?v=6">
+    <link rel="stylesheet" href="assets/css/tokens.css?v=7">
+    <link rel="stylesheet" href="assets/css/site.css?v=7">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <title>User Guide - Owl.md</title>
-    <meta name="description" content="Complete user guide for Owl.md. Learn to create beautiful PDFs, use Markdown syntax, and master advanced features.">
+    <title>User Guide - OwlMD</title>
+    <meta name="description" content="The OwlMD 2 user guide.">
     <link rel="canonical" href="https://owlmd.injazapps.com/guide.html">
 </head>
 
@@ -47,191 +48,172 @@
             </div>
         </div>
     </header>
-    <div class="notice" role="note">
-        <div class="container">
-            <p>This guide covers OwlMD 1. The OwlMD 2 guide arrives with the update.</p>
-        </div>
-    </div>
-    <div class="container guide">
+        <div class="container guide">
         <aside class="toc" aria-label="Guide contents">
-            <div class="label">Quick Start</div>
-            <a href="#quick-start">Getting Started</a>
-            <a href="#editor">Using the Editor</a>
-            <a href="#formatting">Toolbar</a>
-            <div class="label">Features</div>
-            <a href="#images">Images (New!)</a>
-            <a href="#themes">PDF Themes</a>
-            <a href="#syntax">Markdown Syntax</a>
-            <div class="label">Advanced</div>
-            <a href="#metadata">Metadata &amp; TOC</a>
-            <a href="#github">GitHub Integration</a>
-            <a href="#faq">Troubleshooting</a>
+            <a href="#create-a-note">Create a note</a>
+            <a href="#the-editor-toolbar">The editor toolbar</a>
+            <a href="#preview">Preview</a>
+            <a href="#callouts">Callouts</a>
+            <a href="#tables">Tables</a>
+            <a href="#arabic-and-english-in-one-note">Arabic and English in one note</a>
+            <a href="#folders">Folders</a>
+            <a href="#trash">Trash</a>
+            <a href="#pdf-export-and-themes">PDF export and themes</a>
+            <a href="#search">Search</a>
+            <a href="#bring-notes-in-and-share-them-out">Bring notes in and share them out</a>
+            <a href="#backup-and-restore">Backup and restore</a>
+            <a href="#announcements">Announcements</a>
+            <a href="#tips">Tips</a>
+            <a href="#settings">Settings</a>
         </aside>
         <div class="prose">
             <details class="toc-m">
                 <summary>Contents</summary>
-            <a href="#quick-start">Getting Started</a>
-            <a href="#editor">Using the Editor</a>
-            <a href="#formatting">Toolbar</a>
-            <a href="#images">Images (New!)</a>
-            <a href="#themes">PDF Themes</a>
-            <a href="#syntax">Markdown Syntax</a>
-            <a href="#metadata">Metadata &amp; TOC</a>
-            <a href="#github">GitHub Integration</a>
-            <a href="#faq">Troubleshooting</a>
+            <a href="#create-a-note">Create a note</a>
+            <a href="#the-editor-toolbar">The editor toolbar</a>
+            <a href="#preview">Preview</a>
+            <a href="#callouts">Callouts</a>
+            <a href="#tables">Tables</a>
+            <a href="#arabic-and-english-in-one-note">Arabic and English in one note</a>
+            <a href="#folders">Folders</a>
+            <a href="#trash">Trash</a>
+            <a href="#pdf-export-and-themes">PDF export and themes</a>
+            <a href="#search">Search</a>
+            <a href="#bring-notes-in-and-share-them-out">Bring notes in and share them out</a>
+            <a href="#backup-and-restore">Backup and restore</a>
+            <a href="#announcements">Announcements</a>
+            <a href="#tips">Tips</a>
+            <a href="#settings">Settings</a>
             </details>
         <main id="main">
-            <h1>User Guide</h1>
-            <p class="intro">Master Owl.md with our comprehensive
-                documentation. Updated for Version 1.1.47.</p>
-
-            <hr>
-
-            <section id="quick-start">
-                <h2>Quick Start</h2>
-                <h3>Creating Your First PDF</h3>
-                <ol>
-                    <li><strong>Write Markdown</strong>: Type or paste your content in the editor.</li>
-                    <li><strong>Preview</strong>: Swipe left or tap the "Preview" tab to see the live render.</li>
-                    <li><strong>Choose Theme</strong>: Tap the menu (⋮) -> Document Theme to select from 4 pro styles.
-                    </li>
-                    <li><strong>Share</strong>: Tap the Share button to export as PDF instantly.</li>
-                </ol>
-            </section>
-
-            <section id="editor">
-                <h2>The Editor</h2>
-                <p>The editor is designed for focus and speed. It autosaves your work locally so you never lose
-                    progress.</p>
-
-                <div class="callout">
-                    <h4>Pro Tip</h4>
-                    <p>Owl.md works 100% offline. Swiping between editor and preview features a silky smooth animation
-                        to keep you in flow.</p>
-                </div>
-
-                <h3 id="formatting">Formatting Toolbar</h3>
-                <ul>
-                    <li><strong>H</strong> - Insert Headings (H1-H6)</li>
-                    <li><strong>B / I</strong> - Bold and Italic</li>
-                    <li><strong>==</strong> - Highlight Text</li>
-                    <li><strong>[ ]</strong> - Checklist</li>
-                    <li><strong>Code</strong> - Code blocks</li>
-                    <li><strong>🖼️</strong> - Insert Image (Smart Dialog)</li>
-                </ul>
-            </section>
-
-            <section id="images">
-                <h2>Images</h2>
-                <p>Insert images from your device or URLs. The new Image Dialog gives you full control.</p>
-
-                <pre tabindex="0"><code>![Alt text](url){width=50% align=center}</code></pre>
-
-                <ul>
-                    <li><strong>Width Control</strong>: 25%, 50%, 75%, or 100%</li>
-                    <li><strong>Alignment</strong>: Left, Center, or Right</li>
-                    <li><strong>Sources</strong>: Local storage or any HTTPS URL</li>
-                </ul>
-            </section>
-
-            <section id="themes">
-                <h2>PDF Themes</h2>
-                <div class="card-grid">
-                    <div class="card">
-                        <h4>1. Professional</h4>
-                        <p>Clean Inter font with blue accents. Perfect for business reports.
-                        </p>
-                    </div>
-                    <div class="card">
-                        <h4>2. Modern</h4>
-                        <p>Asap font with vibrant orange. Great for creative docs.</p>
-                    </div>
-                    <div class="card">
-                        <h4>3. Minimalist</h4>
-                        <p>Ubuntu font, grayscale only. Ideal for technical specs.</p>
-                    </div>
-                    <div class="card">
-                        <h4>4. Classic</h4>
-                        <p>Noto Serif on ivory background. For academic writing.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="syntax">
-                <h2>Markdown Syntax</h2>
-
-                <h3>Headers</h3>
-                <pre tabindex="0"><code># H1 (Largest)
-## H2
-### H3</code></pre>
-
-                <h3>Lists</h3>
-                <pre tabindex="0"><code>- Bullet item
-1. Numbered item
-- [x] Completed task</code></pre>
-
-                <h3>Tables</h3>
-                <pre tabindex="0"><code>| Header 1 | Header 2 |
-|----------|----------|
-| Cell 1   | Cell 2   |</code></pre>
-            </section>
-
-            <section id="metadata">
-                <h2>Advanced Features</h2>
-
-                <h3>Automatic Table of Contents</h3>
-                <p>Add the marker <code>[TOC]</code> anywhere in your document to auto-generate a clickable Table of
-                    Contents with page numbers.</p>
-
-                <h3>Title Page Metadata</h3>
-                <p>Add YAML frontmatter to the very top of your file to generate a professional cover page:</p>
-                <pre tabindex="0"><code>---
-title: My Annual Report
-author: John Doe
-date: 2025-12-14
-version: 1.0
----</code></pre>
-            </section>
-
-            <section id="github">
-                <h2>GitHub Integration</h2>
-                <p>You can load Markdown files directly from any public repository.</p>
-                <ol>
-                    <li>Tap the <strong>Folder Icon</strong>.</li>
-                    <li>Select <strong>Load from GitHub URL</strong>.</li>
-                    <li>Paste the link (blob or raw format).</li>
-                </ol>
-            </section>
-
-            <section id="faq">
-                <h2>Troubleshooting</h2>
-
-                <h3>PDF Won't Generate?</h3>
-                <ul>
-                    <li>Check if your Markdown syntax is valid.</li>
-                    <li>Ensure you have storage space.</li>
-                    <li>Try switching themes.</li>
-                </ul>
-
-                <h3>Images Not Loading?</h3>
-                <ul>
-                    <li>For network images, ensure you have internet.</li>
-                    <li>For local images, ensure the file wasn't deleted.</li>
-                    <li>Check the URL format (must be HTTPS).</li>
-                </ul>
-            </section>
-
-            <div class="help">
-                <h3>Need more help?</h3>
-                <p>We're here for you.</p>
-                <a href="mailto:support@injazapps.com" class="btn btn-primary">Contact
-                    Support</a>
-            </div>
-
+            <h1>OwlMD Guide</h1>
+            <p class="intro">A short tour of what OwlMD does today. Everything here exists in this version.</p>
+            <p class="guide-links"><a href="guide-ar.html" lang="ar" dir="rtl">الدليل بالعربية</a> · <a href="v1/guide.html">Guide for version 1</a></p>
+<h2 id="create-a-note">Create a note</h2>
+<p>Tap the <strong>+</strong> button in the middle of the floating bottom navigation bar. It is there on every tab (Documents, Search, PDFs, Settings). A new note opens ready to type, inside the folder you have open (from other tabs it goes to the top level). Your text saves itself; a small dot at the top of the editor shows the state. When you reopen the app, a <strong>Continue</strong> card on the Documents screen can take you back to the note you last edited.</p>
+<p>Tap the note's title at the top of the editor to rename it.</p>
+<p>In a folder with no notes yet, the <strong>New note</strong> button in the middle of the screen starts a note in that folder.</p>
+<h2 id="the-editor-toolbar">The editor toolbar</h2>
+<p>The row above the keyboard inserts Markdown for you:</p>
+<ul>
+<li><strong>Bold</strong>, <strong>Italic</strong>, <strong>Heading</strong>, <strong>Bullet list</strong>, <strong>Checkbox</strong>, <strong>Numbered list</strong>, <strong>Quote</strong>, <strong>Link</strong>, <strong>Code</strong>, <strong>Highlight</strong>.</li>
+<li><strong>Undo</strong> and <strong>Redo</strong>.</li>
+<li><strong>Indent</strong> and <strong>Unindent</strong> appear when the cursor is in a list.</li>
+<li><strong>Insert</strong> (the ⊕ button at the end) opens a sheet with <strong>Image</strong>, <strong>Table</strong>, <strong>Callout</strong>, <strong>Code block</strong>, <strong>Divider</strong>, <strong>Page break</strong>, <strong>Link</strong> and <strong>Footnote</strong>.</li>
+</ul>
+<p>The <strong>Link</strong> button opens a form with the text and the URL. Put the cursor inside a link and tap it again to edit it, or use <strong>Remove link</strong> to keep the text and drop the link.</p>
+<p>The <strong>Image</strong> button offers four sources: <strong>Gallery</strong>, <strong>Camera</strong>, <strong>URL</strong> and <strong>In app</strong> (pictures you already used). Add alt text and a caption, choose a size (Fill width, Original, Large, Medium) and an alignment. Pictures you pick or take are copied into OwlMD and resized. To change one later, put the cursor inside it or tap the picture in the preview, then tap the <strong>Image</strong> button.</p>
+<h2 id="preview">Preview</h2>
+<p>On a phone, swipe to move between the editor and the live preview. On a wide screen the two sit side by side, and the floating button at the top hides the editor. Web and email links in the preview open in your browser or mail app.</p>
+<p>The <strong>⋮</strong> (More actions) menu in the editor's top bar has <strong>Choose PDF theme</strong>, <strong>Share as Markdown</strong>, <strong>Jump to heading</strong> and <strong>Right-to-left document</strong>.</p>
+<h2 id="callouts">Callouts</h2>
+<p>A callout is a quote block with a type tag:</p>
+<div class="callout"><p class="callout-title">Callouts</p><p>Write <code>&gt; [!type] Title</code> and put the text on the next lines that start with <code>&gt;</code>.</p></div>
+<p>The 14 types are: note, abstract, info, todo, tip, important, success, question, warning, failure, danger, bug, example and quote. Each has its own colour and icon, in the preview and in the PDF. The <strong>Callout</strong> tile in the Insert sheet lets you pick the type.</p>
+<h2 id="tables">Tables</h2>
+<p>Tap <strong>Insert</strong>, then <strong>Table</strong>, to add a small table:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cell</td>
+<td>Cell</td>
+</tr>
+</tbody>
+</table>
+<p>Edit the cells and add rows by typing more lines that start with <code>|</code>. Tables show in the preview and in the PDF.</p>
+<h2 id="arabic-and-english-in-one-note">Arabic and English in one note</h2>
+<p>You can mix Arabic and English freely, and write Western digits (0-9). By default each paragraph, heading and list item takes the direction of its first strong letter, and a block with no letters follows the one before it. Code blocks stay left to right.</p>
+<p>To make the whole note right to left, open <strong>⋮ → Right-to-left document</strong>. The choice is saved per note and also applies to the PDF. The app's own language is chosen in <strong>Settings → Appearance and language → Language</strong>.</p>
+<h2 id="folders">Folders</h2>
+<p>Every row in the Documents list has the same shape: the title (up to two lines, folders in bold), then a small line with the date and the reading time, such as "Today 10:12 · 3 min". Today's notes show the time; older ones show the date.</p>
+<ul>
+<li><strong>New folder</strong> (the folder button in the Documents top bar) asks for a name. Folders nest up to 3 levels deep; a folder's ⋮ menu has <strong>New subfolder</strong>, <strong>Rename</strong> and <strong>Delete</strong>.</li>
+<li>A note's ⋮ menu has <strong>Move to folder</strong>, <strong>Tags</strong>, <strong>Rename</strong> and <strong>Delete</strong>. <strong>No folder (root)</strong> moves it back to the top level.</li>
+<li>The name boxes (new folder, rename folder, rename note) are the same: the button stays off until you type something, and a name that another folder or note in the same place already uses shows a message instead of saving. Pressing Enter on the keyboard confirms.</li>
+<li>When you make a copy of a note or a PDF, or restore one from Trash into a place where the name is taken, the copy is called "Name (2)", "Name (3)" and so on.</li>
+<li>Swipe a row toward the start of the line (right to left in English, mirrored in Arabic) to reveal its actions. A note shows <strong>Move to folder</strong>, <strong>Tags</strong> and <strong>Delete</strong>. A folder shows <strong>Rename</strong> and <strong>Delete</strong>. A long swipe asks you to confirm the delete. A note deleted from its ⋮ menu goes to Trash straight away, with <strong>Undo</strong>.</li>
+<li>Press and hold a note to select several at once, then tag, move or delete them together.</li>
+<li>The <strong>Tags</strong> button above the list filters by tag. Manage all tags under <strong>Settings → Reading and library → Manage tags</strong>.</li>
+<li>The sort control orders by Last modified, Name or Length.</li>
+</ul>
+<h2 id="trash">Trash</h2>
+<p>Deleted notes, folders and PDFs go to Trash and stay there for <strong>7 days</strong>, then are removed for good. Open Trash from <strong>Settings → Reading and library → Trash</strong> or from the Documents <strong>⋮ → Trash</strong>. Tap <strong>Restore</strong> to bring an item back (a folder returns with what was deleted in it). <strong>Delete permanently</strong> removes an item at once, and <strong>Empty Trash</strong> clears everything.</p>
+<h2 id="pdf-export-and-themes">PDF export and themes</h2>
+<p>Tap the PDF button in the editor's top bar. Choose a file name, tick <strong>Printable</strong> if you want black and white with no tinted fills, and tap <strong>Export</strong>. The PDF opens in the share sheet and is kept in the PDFs tab.</p>
+<p>Pick the look under <strong>⋮ → Choose PDF theme</strong>. There are four themes: <strong>Professional</strong>, <strong>Modern</strong>, <strong>Minimalist</strong> and <strong>Standard</strong>. Each shows a sample page made by the real export engine, with the callouts drawn the way they will print. Tap a preview to enlarge it. A line <code>&lt;!-- pagebreak --&gt;</code> (or the <strong>Page break</strong> tile) starts a new PDF page.</p>
+<p>The <strong>PDFs</strong> tab lists every export with its date, page count and size. The <strong>All folders</strong> chip above the list shows the PDFs of one folder only (the choice lasts until you close the app). Sort by date, name or folder, share one file, or use <strong>Share all as zip</strong>.</p>
+<h2 id="search">Search</h2>
+<p>The Search tab looks in titles and note text as you type. <strong>Title only</strong> limits it to titles. Recent searches are kept below the field.</p>
+<h2 id="bring-notes-in-and-share-them-out">Bring notes in and share them out</h2>
+<ul>
+<li><strong>Documents ⋮ → Open file</strong> copies a <code>.md</code>, <code>.markdown</code> or text file (up to 5 MB) into OwlMD. The original is never changed.</li>
+<li><strong>Documents ⋮ → Import from GitHub</strong> loads a Markdown file from a GitHub file link.</li>
+<li>You can share text or Markdown files from other apps into OwlMD (Android).</li>
+<li><strong>⋮ → Share as Markdown</strong> shares the note's <code>.md</code> file. Pictures stored inside OwlMD do not travel inside it, and you see a warning. PDFs are not affected.</li>
+</ul>
+<h3 id="open-markdown-files-with-owlmd">Open Markdown files with OwlMD</h3>
+<ul>
+<li>Tap a <code>.md</code> or <code>.markdown</code> file in Files, Drive, an email or a chat, choose <strong>OwlMD</strong>, then <strong>Always</strong> to make it the default.</li>
+<li>If another app opens it instead: in your phone's <strong>Settings → Apps →</strong> that app <strong>→ Open by default</strong>, clear the defaults (the names may differ on your phone), then tap the file again.</li>
+<li>OwlMD opens a <strong>copy</strong> as a new note; the original file is not changed. Opening the same file again makes another copy.</li>
+<li>Files over 5 MB, and files that are not text, are refused with a message.</li>
+</ul>
+<h2 id="backup-and-restore">Backup and restore</h2>
+<p>Open <strong>Settings → Privacy and data → Backup</strong>. A sheet offers three actions:</p>
+<ul>
+<li><strong>Save backup to a file</strong> saves a <code>.zip</code> file to a place you choose. <strong>Send backup</strong> sends the same file through the share sheet.</li>
+<li>The file contains your notes (including those in Trash), folders, tags and the pictures your notes use. It does not contain settings or exported PDFs.</li>
+<li><strong>Restore from a backup</strong> replaces every note, folder and tag in the app with the file's contents. It asks you first, and says it cannot be undone. Pictures are restored too.</li>
+<li>OwlMD can still read an older <code>.json</code> backup, but not one larger than 150 MB. Save a new <code>.zip</code> backup instead.</li>
+</ul>
+<p>Make a backup before changing phones or reinstalling.</p>
+<h2 id="announcements">Announcements</h2>
+<p>The bell in the Documents top bar shows news and update notices, with a badge for unread items. Open it to filter by <strong>All</strong>, <strong>Info</strong> or <strong>Update</strong>, and <strong>Mark all read</strong>. If a newer version exists, a dialog offers <strong>Update</strong> (opens the store page) or <strong>Later</strong>; you can keep working. OwlMD fetches announcements from the network only for this, at most once a day. Without a connection you see what was fetched before.</p>
+<h2 id="tips">Tips</h2>
+<p>The first time you reach the Documents tab, the Search tab or the editor, a short tip card points at a control and explains it: a ring marks the control and an arrow on the card points to it. There are six tips in all. Tap <strong>Next</strong> (or anywhere on the dimmed screen) for the next one, <strong>Skip all</strong> to hide the rest of that screen's tips for good, and <strong>Done</strong> on the last one. The highlighted control does nothing while a tip is showing. A tip never closes the keyboard: if the keyboard would cover what it points at, the tip waits until you close it.</p>
+<p>To see the tips again, open <strong>Settings → Help and feedback → Show tips again</strong>.</p>
+<h2 id="settings">Settings</h2>
+<p>The Settings tab is in groups. Every path in this guide starts from here.</p>
+<p><strong>Appearance and language</strong></p>
+<ul>
+<li><strong>Theme</strong>: System, Cairo, Cairo Night or Sepia.</li>
+<li><strong>Language</strong>: English, العربية, Bahasa Indonesia, or <strong>Use my device's language</strong>. It changes at once.</li>
+<li><strong>Reduce transparency</strong>: solid bars instead of frosted glass.</li>
+<li><strong>Hide bar while scrolling</strong>: the bottom bar slides away as you scroll down.</li>
+</ul>
+<p><strong>Reading and library</strong></p>
+<ul>
+<li><strong>Manage tags</strong> and <strong>Trash</strong>.</li>
+<li><strong>Keep screen awake while reading</strong>: only while a note is open.</li>
+</ul>
+<p><strong>Privacy and data</strong></p>
+<ul>
+<li><strong>Backup</strong>: opens the sheet described under Backup and restore.</li>
+<li><strong>App lock</strong>: asks for your fingerprint or device PIN to open OwlMD. When it is on, it also shows <strong>Lock after</strong> and <strong>Hide in recents &amp; block screenshots</strong>.</li>
+</ul>
+<p><strong>Help and feedback</strong></p>
+<ul>
+<li><strong>Help and user guide</strong>: this guide.</li>
+<li><strong>Send feedback</strong>: opens a sheet with <strong>Report a Bug</strong> and <strong>Request a Feature</strong>. Each opens your email app with a message ready to send. The same two actions, and <strong>Get Help</strong>, are at the end of this guide under "Still need help?".</li>
+<li><strong>Show tips again</strong>.</li>
+</ul>
+<p><strong>About</strong></p>
+<ul>
+<li><strong>Version</strong>: touch and hold it to copy the number.</li>
+<li><strong>Privacy policy</strong>: opens the policy in your browser.</li>
+<li><strong>Open-source licences</strong>: the fonts and libraries OwlMD uses.</li>
+<li><strong>Diagnostics</strong>: errors are logged on your device only (no notes, titles or file paths). Nothing is sent automatically; <strong>Send diagnostic report</strong> opens the share sheet, and <strong>Clear log</strong> deletes the log.</li>
+</ul>
         </main>
         </div>
     </div>
-    <footer class="site-footer">
+<footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
@@ -265,7 +247,7 @@ version: 1.0
             </div>
         </div>
     </footer>
-    <script src="assets/js/site.js?v=6" defer></script>
+    <script src="assets/js/site.js?v=7" defer></script>
 </body>
 
 </html>

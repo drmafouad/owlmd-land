@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <!-- Built 2026-11-07 (OWLMD-241) from owlmd_v2 docs/release/user-guide.ar.md. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#EDE4D3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1B1A17" media="(prefers-color-scheme: dark)">
+    <!-- Set the theme before first paint (no flash). Choice is remembered in localStorage. -->
+    <script>
+        (function () {
+            var d = document.documentElement, p = 'auto';
+            try { p = localStorage.getItem('owlmd-theme') || 'auto'; } catch (e) { }
+            if (p !== 'light' && p !== 'dark') p = 'auto';
+            d.setAttribute('data-pref', p);
+            if (p !== 'auto') d.setAttribute('data-theme', p);
+            d.className += ' js';
+            // Motion on only when the visitor allows it and the browser can observe scroll position.
+            if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' mo';
+        })();
+    </script>
+    <link rel="stylesheet" href="assets/css/tokens.css?v=7">
+    <link rel="stylesheet" href="assets/css/site.css?v=7">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <title>دليل OwlMD</title>
+    <meta name="description" content="دليل استخدام OwlMD 2.">
+    <link rel="canonical" href="https://owlmd.injazapps.com/guide-ar.html">
+</head>
+
+<body>
+    <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <span class="brand-tile"><img src="assets/images/logo-light.svg" alt="" width="32" height="32"></span>
+                <span>OwlMD</span>
+            </a>
+            <span class="header-spacer"></span>
+            <a class="nav-guide" href="guide-ar.html">دليل المستخدم</a>
+            <div class="theme-toggle" role="group" aria-label="المظهر">
+                <button type="button" data-theme-set="light" aria-pressed="false" aria-label="فاتح" title="فاتح"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+                <button type="button" data-theme-set="dark" aria-pressed="false" aria-label="داكن" title="داكن"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.6 6.6 0 0 0 10.7 10.7z"/></svg></button>
+                <button type="button" data-theme-set="auto" aria-pressed="true" aria-label="تلقائي (يتبع جهازي)" title="تلقائي (يتبع جهازي)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" class="half"/></svg></button>
+            </div>
+        </div>
+    </header>
+        <div class="container guide">
+        <aside class="toc" aria-label="محتويات الدليل">
+            <a href="#create-a-note">إنشاء ملاحظة</a>
+            <a href="#the-editor-toolbar">شريط أدوات المحرر</a>
+            <a href="#preview">المعاينة</a>
+            <a href="#callouts">التنبيهات (Callouts)</a>
+            <a href="#tables">الجداول</a>
+            <a href="#arabic-and-english-in-one-note">العربية والإنجليزية في ملاحظة واحدة</a>
+            <a href="#folders">المجلدات</a>
+            <a href="#trash">سلة المحذوفات</a>
+            <a href="#pdf-export-and-themes">تصدير PDF وأنماطه</a>
+            <a href="#search">البحث</a>
+            <a href="#bring-notes-in-and-share-them-out">إدخال الملاحظات ومشاركتها</a>
+            <a href="#backup-and-restore">النسخ الاحتياطي والاستعادة</a>
+            <a href="#announcements">الإعلانات</a>
+            <a href="#tips">النصائح</a>
+            <a href="#settings">الإعدادات</a>
+        </aside>
+        <div class="prose">
+            <details class="toc-m">
+                <summary>المحتويات</summary>
+            <a href="#create-a-note">إنشاء ملاحظة</a>
+            <a href="#the-editor-toolbar">شريط أدوات المحرر</a>
+            <a href="#preview">المعاينة</a>
+            <a href="#callouts">التنبيهات (Callouts)</a>
+            <a href="#tables">الجداول</a>
+            <a href="#arabic-and-english-in-one-note">العربية والإنجليزية في ملاحظة واحدة</a>
+            <a href="#folders">المجلدات</a>
+            <a href="#trash">سلة المحذوفات</a>
+            <a href="#pdf-export-and-themes">تصدير PDF وأنماطه</a>
+            <a href="#search">البحث</a>
+            <a href="#bring-notes-in-and-share-them-out">إدخال الملاحظات ومشاركتها</a>
+            <a href="#backup-and-restore">النسخ الاحتياطي والاستعادة</a>
+            <a href="#announcements">الإعلانات</a>
+            <a href="#tips">النصائح</a>
+            <a href="#settings">الإعدادات</a>
+            </details>
+        <main id="main">
+            <h1>دليل OwlMD</h1>
+            <p class="intro">جولة سريعة في ما يقدّمه OwlMD اليوم. كل ما ورد هنا موجود في هذا الإصدار.</p>
+            <p class="guide-links"><a href="guide.html" lang="en" dir="ltr">English guide</a> · <a href="v1/guide.html" lang="en" dir="ltr">Guide for version 1</a></p>
+<h2 id="create-a-note">إنشاء ملاحظة</h2>
+<p>اضغط زر <strong>+</strong> في منتصف شريط التنقل العائم في الأسفل. وهو موجود في كل التبويبات (المستندات، بحث، ملفات PDF، الإعدادات). تُفتح الملاحظة الجديدة جاهزة للكتابة داخل المجلد المفتوح حاليًا (ومن التبويبات الأخرى تُنشأ في المستوى الأعلى). يُحفظ نصك تلقائيًا، وتُظهر نقطة صغيرة أعلى المحرر حالة الحفظ. وعند إعادة فتح التطبيق تعرض شاشة المستندات بطاقة <strong>متابعة</strong> تعيدك إلى آخر ملاحظة عدّلتها.</p>
+<p>اضغط عنوان الملاحظة أعلى المحرر لإعادة تسميتها.</p>
+<p>وفي مجلد ليس فيه ملاحظات بعد، يبدأ زر <strong>ملاحظة جديدة</strong> في منتصف الشاشة ملاحظة داخل هذا المجلد.</p>
+<h2 id="the-editor-toolbar">شريط أدوات المحرر</h2>
+<p>يضيف الصف الموجود فوق لوحة المفاتيح صيغة Markdown نيابةً عنك:</p>
+<ul>
+<li><strong>عريض</strong> و<strong>مائل</strong> و<strong>عنوان</strong> و<strong>قائمة نقطية</strong> و<strong>مربع اختيار</strong> و<strong>قائمة مرقمة</strong> و<strong>اقتباس</strong> و<strong>رابط</strong> و<strong>كود</strong> و<strong>تمييز</strong>.</li>
+<li><strong>تراجع</strong> و<strong>إعادة</strong>.</li>
+<li>يظهر <strong>إزاحة للداخل</strong> و<strong>إزاحة للخارج</strong> عندما يكون المؤشر داخل قائمة.</li>
+<li>يفتح زر <strong>إدراج</strong> (⊕ في نهاية الشريط) قائمة فيها: <strong>صورة</strong> و<strong>جدول</strong> و<strong>تنبيه</strong> و<strong>كتلة كود</strong> و<strong>فاصل</strong> و<strong>فاصل صفحة</strong> و<strong>رابط</strong> و<strong>حاشية</strong>.</li>
+</ul>
+<p>يفتح زر <strong>رابط</strong> نموذجًا لنص الرابط وعنوانه. ضع المؤشر داخل رابط موجود واضغط الزر مرة أخرى لتعديله، أو اختر <strong>إزالة الرابط</strong> لإبقاء النص وحذف الرابط فقط.</p>
+<p>يوفّر زر <strong>صورة</strong> أربعة مصادر: <strong>المعرض</strong> و<strong>الكاميرا</strong> و<strong>رابط</strong> و<strong>في التطبيق</strong> (صور استخدمتها سابقًا). أضف نصًا بديلًا وتعليقًا، واختر الحجم (ملء العرض، الحجم الأصلي، كبير، متوسط) والمحاذاة. تُنسخ الصور التي تختارها أو تلتقطها إلى OwlMD ويُصغَّر حجمها. ولتعديل صورة لاحقًا، ضع المؤشر داخلها أو اضغطها في المعاينة، ثم اضغط زر <strong>صورة</strong>.</p>
+<h2 id="preview">المعاينة</h2>
+<p>على الهاتف، اسحب للتنقل بين المحرر والمعاينة الحية. وعلى الشاشات الكبيرة يظهر الاثنان جنبًا إلى جنب، ويخفي الزر العائم في الأعلى المحرر. تُفتح روابط الويب والبريد في المعاينة في المتصفح أو تطبيق البريد.</p>
+<p>تضم قائمة <strong>⋮</strong> (المزيد من الإجراءات) في الشريط العلوي للمحرر: <strong>اختيار نمط PDF</strong> و<strong>مشاركة كملف Markdown</strong> و<strong>الانتقال إلى عنوان</strong> و<strong>مستند من اليمين إلى اليسار</strong>.</p>
+<h2 id="callouts">التنبيهات (Callouts)</h2>
+<p>التنبيه كتلة اقتباس مع وسم للنوع:</p>
+<div class="callout"><p class="callout-title">التنبيهات</p><p>اكتب <code>&gt; [!type] العنوان</code> ثم ضع النص في الأسطر التالية التي تبدأ بالرمز <code>&gt;</code>.</p></div>
+<p>الأنواع الأربعة عشر: note وabstract وinfo وtodo وtip وimportant وsuccess وquestion وwarning وfailure وdanger وbug وexample وquote. لكل نوع لونه وأيقونته في المعاينة وفي ملف PDF. ويتيح لك بند <strong>تنبيه</strong> في قائمة الإدراج اختيار النوع.</p>
+<h2 id="tables">الجداول</h2>
+<p>اضغط <strong>إدراج</strong> ثم <strong>جدول</strong> لإضافة جدول صغير:</p>
+<table>
+<thead>
+<tr>
+<th>عنوان</th>
+<th>عنوان</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>خلية</td>
+<td>خلية</td>
+</tr>
+</tbody>
+</table>
+<p>عدّل الخلايا، وأضف صفوفًا بكتابة أسطر أخرى تبدأ بالرمز <code>|</code>. تظهر الجداول في المعاينة وفي ملف PDF.</p>
+<h2 id="arabic-and-english-in-one-note">العربية والإنجليزية في ملاحظة واحدة</h2>
+<p>يمكنك الخلط بين العربية والإنجليزية بحرية، وكتابة الأرقام الغربية (0-9). افتراضيًا تأخذ كل فقرة وكل عنوان وكل عنصر قائمة اتجاه أول حرف قوي فيه، وتتبع الكتلة التي لا تحوي حروفًا اتجاه الكتلة السابقة. وتبقى كتل الكود من اليسار إلى اليمين.</p>
+<p>لجعل الملاحظة كلها من اليمين إلى اليسار، افتح <strong>⋮ ← مستند من اليمين إلى اليسار</strong>. يُحفظ الاختيار لكل ملاحظة على حدة، وينطبق كذلك على ملف PDF. أما لغة التطبيق نفسه فتُختار من <strong>الإعدادات ← المظهر واللغة ← اللغة</strong>.</p>
+<h2 id="folders">المجلدات</h2>
+<p>لكل صف في قائمة المستندات الشكل نفسه: العنوان (حتى سطرين، وتظهر المجلدات بخط عريض)، ثم سطر صغير فيه التاريخ ووقت القراءة، مثل «اليوم 10:12 · 3 د». تعرض ملاحظات اليوم الساعة، وتعرض الأقدم التاريخ.</p>
+<ul>
+<li><strong>مجلد جديد</strong> (زر المجلد في الشريط العلوي للمستندات) يطلب اسمًا. تتداخل المجلدات حتى 3 مستويات، وفي قائمة ⋮ الخاصة بالمجلد: <strong>مجلد فرعي جديد</strong> و<strong>إعادة تسمية</strong> و<strong>حذف</strong>.</li>
+<li>في قائمة ⋮ الخاصة بالملاحظة: <strong>نقل إلى مجلد</strong> و<strong>الوسوم</strong> و<strong>إعادة تسمية</strong> و<strong>حذف</strong>. ويعيدها <strong>بدون مجلد (الجذر)</strong> إلى المستوى الأعلى.</li>
+<li>مربعات الاسم (مجلد جديد، إعادة تسمية مجلد، إعادة تسمية ملاحظة) واحدة: يبقى الزر معطّلًا حتى تكتب شيئًا، وإذا كان الاسم مستخدمًا في المكان نفسه تظهر رسالة بدل الحفظ. ويؤكّد الضغط على Enter في لوحة المفاتيح.</li>
+<li>عند عمل نسخة من ملاحظة أو ملف PDF، أو استعادة عنصر من سلة المحذوفات إلى مكان يوجد فيه الاسم نفسه، تُسمّى النسخة «الاسم (2)» ثم «الاسم (3)» وهكذا.</li>
+<li>اسحب الصف نحو بداية السطر (من اليسار إلى اليمين في العربية) لإظهار إجراءاته. تعرض الملاحظة <strong>نقل إلى مجلد</strong> و<strong>الوسوم</strong> و<strong>حذف</strong>، ويعرض المجلد <strong>إعادة تسمية</strong> و<strong>حذف</strong>. والسحب الطويل يطلب تأكيد الحذف. أما الملاحظة المحذوفة من قائمة ⋮ فتنتقل إلى سلة المحذوفات فورًا مع خيار <strong>تراجع</strong>.</li>
+<li>اضغط مطولًا على ملاحظة لتحديد عدة ملاحظات معًا، ثم أضف وسمًا أو انقلها أو احذفها دفعة واحدة.</li>
+<li>يصفّي زر <strong>الوسوم</strong> فوق القائمة حسب الوسم. وتُدار كل الوسوم من <strong>الإعدادات ← القراءة والمكتبة ← إدارة الوسوم</strong>.</li>
+<li>يرتّب عنصر الفرز القائمة حسب آخر تعديل أو الاسم أو الطول.</li>
+</ul>
+<h2 id="trash">سلة المحذوفات</h2>
+<p>تنتقل الملاحظات والمجلدات وملفات PDF المحذوفة إلى سلة المحذوفات وتبقى فيها <strong>7 أيام</strong>، ثم تُحذف نهائيًا. افتح السلة من <strong>الإعدادات ← القراءة والمكتبة ← سلة المحذوفات</strong> أو من <strong>⋮ ← سلة المحذوفات</strong> في شاشة المستندات. اضغط <strong>استعادة</strong> لإرجاع عنصر (ويعود المجلد مع ما حُذف بداخله). ويحذف <strong>حذف نهائي</strong> العنصر فورًا، ويفرغ <strong>إفراغ سلة المحذوفات</strong> كل شيء.</p>
+<h2 id="pdf-export-and-themes">تصدير PDF وأنماطه</h2>
+<p>اضغط زر PDF في الشريط العلوي للمحرر. اختر اسم الملف، وفعّل <strong>قابل للطباعة</strong> إن أردت أبيض وأسود بدون تعبئة ملونة، ثم اضغط <strong>تصدير</strong>. يُفتح ملف PDF في قائمة المشاركة ويُحفظ في تبويب ملفات PDF.</p>
+<p>اختر المظهر من <strong>⋮ ← اختيار نمط PDF</strong>. هناك أربعة أنماط: <strong>احترافي</strong> و<strong>عصري</strong> و<strong>بسيط</strong> و<strong>قياسي</strong>. يعرض كل نمط صفحة نموذجية أنشأها محرك التصدير الفعلي، وفيها التنبيهات كما ستُطبع. اضغط على أي معاينة لتكبيرها. والسطر <code>&lt;!-- pagebreak --&gt;</code> (أو بند <strong>فاصل صفحة</strong>) يبدأ صفحة جديدة في PDF.</p>
+<p>يعرض تبويب <strong>ملفات PDF</strong> كل ما صدّرته مع تاريخه وعدد صفحاته وحجمه. ويعرض الشريحة <strong>كل المجلدات</strong> فوق القائمة ملفات مجلد واحد فقط (ويبقى الاختيار حتى تغلق التطبيق). رتّبه حسب التاريخ أو الاسم أو المجلد، وشارك ملفًا واحدًا، أو استخدم <strong>مشاركة الكل كملف مضغوط</strong>.</p>
+<h2 id="search">البحث</h2>
+<p>يبحث تبويب بحث في العناوين ونصوص الملاحظات أثناء الكتابة. ويقصر <strong>العناوين فقط</strong> البحث على العناوين. وتبقى عمليات البحث الأخيرة تحت الحقل.</p>
+<h2 id="bring-notes-in-and-share-them-out">إدخال الملاحظات ومشاركتها</h2>
+<ul>
+<li><strong>⋮ ← فتح ملف</strong> في المستندات ينسخ ملف <code>.md</code> أو <code>.markdown</code> أو ملفًا نصيًا (حتى 5 ميغابايت) إلى OwlMD. ولا يتغير الملف الأصلي أبدًا.</li>
+<li><strong>⋮ ← استيراد من GitHub</strong> في المستندات يحمّل ملف Markdown من رابط ملف على GitHub.</li>
+<li>يمكنك مشاركة نصوص أو ملفات Markdown من تطبيقات أخرى إلى OwlMD (أندرويد).</li>
+<li><strong>⋮ ← مشاركة كملف Markdown</strong> يشارك ملف <code>.md</code> الخاص بالملاحظة. والصور المخزّنة داخل OwlMD لا تنتقل معه، ويظهر تحذير بذلك. أما ملفات PDF فلا تتأثر.</li>
+</ul>
+<h3 id="open-markdown-files-with-owlmd">فتح ملفات Markdown باستخدام OwlMD</h3>
+<ul>
+<li>اضغط على ملف ‎<code>.md</code>‎ أو ‎<code>.markdown</code>‎ في تطبيق الملفات أو Drive أو البريد أو المحادثات، واختر OwlMD ثم «دائمًا» ليصبح التطبيق الافتراضي لهذه الملفات.</li>
+<li>إذا فتحه تطبيق آخر: افتح إعدادات الهاتف ← التطبيقات ← ذلك التطبيق ← خيار الفتح الافتراضي، وامسح الاختيار الافتراضي (يختلف اسم الخيار من هاتف لآخر)، ثم اضغط على الملف مرة أخرى.</li>
+<li>يفتح OwlMD نسخة من الملف كملاحظة جديدة، ولا يتغيّر الملف الأصلي. وفتح الملف نفسه مرة أخرى ينشئ نسخة جديدة.</li>
+<li>تُرفض الملفات التي يزيد حجمها على 5 ميغابايت والملفات غير النصية، مع رسالة توضّح السبب.</li>
+</ul>
+<h2 id="backup-and-restore">النسخ الاحتياطي والاستعادة</h2>
+<p>افتح <strong>الإعدادات ← الخصوصية والبيانات ← النسخ الاحتياطي</strong>. تعرض ورقة سفلية ثلاثة إجراءات:</p>
+<ul>
+<li><strong>حفظ النسخة الاحتياطية في ملف</strong> يحفظ ملف <code>.zip</code> في مكان تختاره. و<strong>إرسال النسخة الاحتياطية</strong> ترسل الملف نفسه عبر قائمة المشاركة.</li>
+<li>يحتوي الملف على ملاحظاتك (بما فيها الموجودة في سلة المحذوفات) ومجلداتك ووسومك والصور التي تستخدمها ملاحظاتك. ولا يحتوي على الإعدادات ولا على ملفات PDF المصدّرة.</li>
+<li><strong>استعادة من نسخة احتياطية</strong> يستبدل كل الملاحظات والمجلدات والوسوم في التطبيق بمحتوى الملف. ويسألك قبل ذلك وينبّهك إلى أنه لا يمكن التراجع. وتُستعاد الصور أيضًا.</li>
+<li>لا يزال OwlMD يقرأ النسخ الاحتياطية القديمة بصيغة <code>.json</code>، لكن ليس ما يزيد حجمه على 150 ميغابايت. احفظ بدلًا من ذلك نسخة جديدة بصيغة <code>.zip</code>.</li>
+</ul>
+<p>أنشئ نسخة احتياطية قبل تغيير الهاتف أو إعادة تثبيت التطبيق.</p>
+<h2 id="announcements">الإعلانات</h2>
+<p>يعرض الجرس في الشريط العلوي للمستندات الأخبار وإشعارات التحديث، مع شارة للعناصر غير المقروءة. افتحه للتصفية حسب <strong>الكل</strong> أو <strong>معلومة</strong> أو <strong>تحديث</strong>، واستخدم <strong>تعليم الكل كمقروء</strong>. وإذا توفر إصدار أحدث ظهر مربع حوار فيه <strong>تحديث</strong> (يفتح صفحة المتجر) أو <strong>لاحقًا</strong>، ويمكنك متابعة عملك. يجلب OwlMD الإعلانات من الشبكة لهذا الغرض فقط، ومرة واحدة في اليوم على الأكثر. وبدون اتصال ترى ما جُلب سابقًا.</p>
+<h2 id="tips">النصائح</h2>
+<p>عند وصولك لأول مرة إلى تبويب المستندات أو تبويب البحث أو المحرر، تشير بطاقة نصيحة قصيرة إلى أحد عناصر التحكم وتشرحه: حلقة تحيط بالعنصر وسهم على البطاقة يشير إليه. هناك ست نصائح في المجموع. اضغط <strong>التالي</strong> (أو أي مكان على الشاشة المعتّمة) للانتقال إلى النصيحة التالية، و<strong>تخطّي الكل</strong> لإخفاء بقية نصائح تلك الشاشة نهائيًا، و<strong>تم</strong> في النصيحة الأخيرة. لا يفعل العنصر المُبرَز شيئًا أثناء ظهور النصيحة. ولا تُغلق النصيحة لوحة المفاتيح أبدًا: إذا كانت اللوحة ستغطي ما تشير إليه، تنتظر النصيحة حتى تغلقها.</p>
+<p>لإظهار النصائح مجددًا افتح <strong>الإعدادات ← المساعدة والملاحظات ← إظهار النصائح مجددًا</strong>.</p>
+<h2 id="settings">الإعدادات</h2>
+<p>تبويب الإعدادات مقسّم إلى مجموعات. وتبدأ كل المسارات في هذا الدليل منه.</p>
+<p><strong>المظهر واللغة</strong></p>
+<ul>
+<li><strong>المظهر</strong>: حسب النظام، القاهرة، ليل القاهرة، أو سيبيا.</li>
+<li><strong>اللغة</strong>: English أو العربية أو Bahasa Indonesia، أو <strong>استخدام لغة جهازي</strong>. ويتغير فورًا.</li>
+<li><strong>تقليل الشفافية</strong>: أشرطة معتمة بدل الزجاج الضبابي.</li>
+<li><strong>إخفاء الشريط أثناء التمرير</strong>: ينزلق الشريط السفلي بعيدًا عند التمرير للأسفل.</li>
+</ul>
+<p><strong>القراءة والمكتبة</strong></p>
+<ul>
+<li><strong>إدارة الوسوم</strong> و<strong>سلة المحذوفات</strong>.</li>
+<li><strong>إبقاء الشاشة مضاءة أثناء القراءة</strong>: ما دامت ملاحظة مفتوحة فقط.</li>
+</ul>
+<p><strong>الخصوصية والبيانات</strong></p>
+<ul>
+<li><strong>النسخ الاحتياطي</strong>: يفتح الورقة الموصوفة في قسم النسخ الاحتياطي والاستعادة.</li>
+<li><strong>قفل التطبيق</strong>: يطلب بصمة الإصبع أو رمز الجهاز لفتح OwlMD. وعند تفعيله يظهر أيضًا <strong>القفل بعد</strong> و<strong>إخفاء في التطبيقات الأخيرة ومنع لقطات الشاشة</strong>.</li>
+</ul>
+<p><strong>المساعدة والملاحظات</strong></p>
+<ul>
+<li><strong>المساعدة ودليل الاستخدام</strong>: هذا الدليل.</li>
+<li><strong>إرسال ملاحظات</strong>: يفتح ورقة فيها <strong>الإبلاغ عن خطأ برمجي</strong> و<strong>اقتراح ميزة</strong>. يفتح كل منهما تطبيق البريد برسالة جاهزة للإرسال. والإجراءان نفسهما، مع <strong>طلب المساعدة</strong>، في نهاية هذا الدليل تحت «تحتاج مساعدة أخرى؟».</li>
+<li><strong>إظهار النصائح مجددًا</strong>.</li>
+</ul>
+<p><strong>حول التطبيق</strong></p>
+<ul>
+<li><strong>الإصدار</strong>: اضغط مطولًا لنسخ الرقم.</li>
+<li><strong>سياسة الخصوصية</strong>: تفتح السياسة في المتصفح.</li>
+<li><strong>تراخيص البرمجيات مفتوحة المصدر</strong>: الخطوط والمكتبات التي يستخدمها OwlMD.</li>
+<li><strong>التشخيص</strong>: تُسجَّل الأخطاء على جهازك فقط (بلا ملاحظات ولا عناوين ولا مسارات ملفات). ولا يُرسل شيء تلقائيًا؛ يفتح <strong>إرسال تقرير التشخيص</strong> قائمة المشاركة، ويحذف <strong>مسح السجل</strong> السجل.</li>
+</ul>
+        </main>
+        </div>
+    </div>
+<footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <p class="footer-brand"><span class="dot" aria-hidden="true"></span> InjazApps</p>
+                    <p class="label">OwlMD</p>
+                </div>
+                <nav aria-label="المنتج">
+                    <h2>المنتج</h2>
+                    <ul>
+                        <li><a href="guide-ar.html">دليل المستخدم</a></li>
+                        <li><a href="https://play.google.com/store/apps/details?id=com.injazapps.owlmd" rel="noopener">Google Play</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="قانوني">
+                    <h2>قانوني</h2>
+                    <ul>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <h2>الدعم</h2>
+                    <address>
+                        <span class="email-text">support@injazapps.com</span>
+                        <a href="mailto:support@injazapps.com">راسلنا</a>
+                        <a href="https://x.com/injazapps" rel="noopener">@injazapps on X</a>
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 InjazApps</p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/site.js?v=7" defer></script>
+</body>
+
+</html>
