@@ -331,4 +331,4 @@ html:not([data-release="live"]) .rel-live, html[data-release="live"] .rel-soon {
 .guide-links a { display: inline-flex; align-items: center; min-height: var(--hit); }
 html[dir="rtl"] body { font-family: var(--font-ar); }
 html[dir="rtl"] .prose h1, html[dir="rtl"] .prose h2, html[dir="rtl"] .prose h3 { letter-spacing: 0; line-height: 1.4; }
-.prose code { unicode-bidi: isolate; }
+.prose code { direction: ltr; unicode-bidi: isolate; } /* Markdown samples keep their order on the Arabic page */
