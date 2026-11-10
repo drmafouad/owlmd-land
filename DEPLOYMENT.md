@@ -1,5 +1,23 @@
 # Deployment Guide - Owl.md Landing Page
 
+Document version 1.1 · updated 2026-11-10 (OWLMD-242): "Release day" section added. The older sections below describe the v1 FTP setup and are kept for history; the site is now served by GitHub Pages from `main` at owlmd.injazapps.com, behind Cloudflare.
+
+## Release day (OwlMD 2.0)
+
+The v2 site waits on branch `web/v2-final`. Nothing on that branch reaches visitors until it is merged into `main`. Do the steps in order.
+
+**Before you start: rollback point.** Put the tag `site-pre-v2` on the current `main` and push the tag. If anything goes wrong later, `main` can be reset to this tag and the old site returns on the next Pages build.
+
+1. **Effective date.** The owner gives the date the policy takes effect. Write it in both places in `privacy.html` (English "Effective date" and Arabic "تاريخ السريان") and in `docs/release/privacy-policy-v2.md` in owlmd_v2, using the same words. Status 2026-11-10: done, the date is 10 November 2026 in both repos, so this step needs no work unless the owner changes the date.
+2. **Launch switch.** In `index.html`, line 2, change `data-release="soon"` to `data-release="live"`. This one line switches the hero chip, the hero line and the Google Play button to "Available on Google Play". It also points the guide and privacy links at the v2 pages and turns off the promo video (it ends on "Coming soon"). Commit it on `web/v2-final` and push the branch.
+3. **Merge.** Only after the owner says "merge site": merge `web/v2-final` into `main` with a fast-forward only merge, then push `main`. If the fast-forward is refused, `main` has moved: stop and bring `main` into the branch first.
+4. **Publish.** Watch the GitHub Pages build for the repository until it shows the new commit as deployed. Then purge the Cloudflare cache for owlmd.injazapps.com, so visitors do not get the old pages.
+5. **Live checks.** Each of these must answer 200 and show the v2 content: `/`, `/guide.html`, `/guide-ar.html`, `/privacy.html`, `/v1/guide.html`, `/v1/privacy.html`. On `/`, the chip and button say "Available on Google Play" and there is no video section. For privacy, take the SHA-256 of the live `privacy.html` and compare it with the SHA-256 of `privacy.html` on `main`; they must be the same file. The app links to `/privacy.html` from every version, so check it last and carefully.
+
+**Rollback.** Reset `main` to the tag `site-pre-v2`, push `main`, wait for the Pages build, and purge the Cloudflare cache again.
+
+---
+
 ## 🎯 Deployment to injazapps.com/owlmd
 
 ### Prerequisites
