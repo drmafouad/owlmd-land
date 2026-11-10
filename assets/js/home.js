@@ -14,7 +14,8 @@
 
     /* 02: mount the video only once the section is enabled (nothing is fetched while it is hidden) */
     var vsec = $('#video'), vtpl = $('#video-tpl');
-    if (vsec && vtpl && !vsec.hidden) vtpl.parentNode.insertBefore(d.importNode(vtpl.content, true), vtpl);
+    /* OWLMD-242: not mounted when data-release is "live" (the section is hidden by CSS then). */
+    if (vsec && vtpl && !vsec.hidden && d.documentElement.getAttribute('data-release') !== 'live') vtpl.parentNode.insertBefore(d.importNode(vtpl.content, true), vtpl);
     var vid = $('.promo video'), vplay = $('.promo-play');
     if (vid && vplay) {
         vplay.addEventListener('click', function () { vid.play(); });

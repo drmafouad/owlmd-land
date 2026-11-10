@@ -18,20 +18,21 @@
             if (p !== 'auto') d.setAttribute('data-theme', p);
             d.className += ' js';
             // Motion on only when the visitor allows it and the browser has the Web Animations API.
+            // The video poster is preloaded only while the video section is on (it is off when data-release is "live").
+            if (d.getAttribute('data-release') !== 'live') { var pl = document.createElement('link'); pl.rel = 'preload'; pl.as = 'image'; pl.href = 'assets/video/poster.jpg'; pl.setAttribute('fetchpriority', 'low'); document.head.appendChild(pl); }
             if ('animate' in d && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' lab-motion lab-wait';
         })();
     </script>
-    <link rel="stylesheet" href="assets/css/tokens.css?v=7">
-    <link rel="stylesheet" href="assets/css/site.css?v=7">
+    <link rel="stylesheet" href="assets/css/tokens.css?v=8">
+    <link rel="stylesheet" href="assets/css/site.css?v=8">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>OwlMD: Markdown is easy. PDFs aren't.</title>
     <meta name="description" content="Write Markdown notes in English and Arabic. Private, works offline, PDF export.">
     <link rel="canonical" href="https://owlmd.injazapps.com/">
-    <link rel="stylesheet" href="assets/css/home.css?v=7">
-    <link rel="preload" as="image" href="assets/video/poster.jpg" fetchpriority="low">
-    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=7">
+    <link rel="stylesheet" href="assets/css/home.css?v=8">
+    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=8">
     <meta property="og:type" content="website">
     <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
     <meta property="og:description" content="Write Markdown notes in English and Arabic. Private, works offline, PDF export.">
@@ -82,7 +83,11 @@
         </section>
 
 
-        <!-- 02 Promo video slot (live). To hide it again, add the word "hidden" to the <section> below. -->
+        <!-- 02 Promo video slot. Shown while data-release="soon"; hidden by CSS when data-release="live" (OWLMD-242, 2026-11-10),
+             because this video ends on "Coming soon". Nothing is fetched while it is hidden.
+             NEW VIDEO: put the new file at assets/video/owlmd2-promo.mp4 (and its poster at assets/video/poster.jpg,
+             its captions at assets/video/captions.vtt), then delete the "live" rule for #video in assets/css/site.css
+             and the data-release check in assets/js/home.js (search for OWLMD-242). -->
         <section class="promo" id="video" aria-labelledby="video-h">
             <div class="container rv">
                 <h2 id="video-h" class="label" style="margin-bottom: 12px;">Video</h2>
@@ -395,8 +400,8 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/site.js?v=7" defer></script>
-    <script src="assets/js/home.js?v=7" defer></script>
+    <script src="assets/js/site.js?v=8" defer></script>
+    <script src="assets/js/home.js?v=8" defer></script>
 </body>
 
 </html>

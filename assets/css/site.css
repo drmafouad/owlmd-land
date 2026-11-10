@@ -321,6 +321,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ---------- Launch switch: <html data-release="soon|live"> (OWLMD-241, 2026-11-07) ---------- */
 html:not([data-release="live"]) .rel-live, html[data-release="live"] .rel-soon { display: none !important; }
+/* OWLMD-242: the promo video ends on "Coming soon", so it is off at launch until a new video replaces it. */
+html[data-release="live"] #video { display: none !important; }
 
 /* ---------- v2 guide (OWLMD-241, 2026-11-07) ---------- */
 .prose blockquote { margin: 0 0 1.5em; }
