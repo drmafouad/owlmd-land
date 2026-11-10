@@ -101,10 +101,8 @@
                         <button class="promo-play" type="button" aria-label="Play the OwlMD 2 video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></button>
                     </template>
                     <noscript>
-                        <video controls playsinline muted preload="none" poster="assets/video/poster.jpg">
-                            <source src="assets/video/owlmd2-promo.mp4" type="video/mp4">
-                            <track kind="captions" srclang="en" label="English" src="assets/video/captions.vtt" default>
-                        </video>
+                        <!-- No video element without JavaScript: a hidden <video> would still fetch its poster and captions. -->
+                        <p><a href="assets/video/owlmd2-promo.mp4">Watch the OwlMD 2 video (MP4)</a></p>
                     </noscript>
                 </div>
             </div>
