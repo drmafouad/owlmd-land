@@ -173,7 +173,7 @@ html.lab-wait.lab-motion .lab-stage { visibility: hidden; } /* until fonts are i
 .pmd pre { margin: 0; font-family: var(--font-mono); font-size: 3.4cqw; line-height: 1.8; color: var(--paper-ink); white-space: pre; }
 .pmd .ln { display: block; width: max-content; }
 .pmd .mk, .pmd .tx, .pmd .cbx { display: inline-block; transform-origin: 0 50%; }
-.pmd .mk { color: var(--paper-accent); }
+.pmd .mk, .pmd .mq { color: var(--paper-accent); }
 .pv-b .pmd { background: var(--surface); border: 1px solid var(--outline-variant); }
 .pv-b .pmd pre { color: var(--on-surface); }
 .pv-b .pmd .mk { color: var(--primary); }
@@ -306,16 +306,16 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 @media (max-width: 599px) { /* OWLMD-248 phone: a 3-line strip, then the top of the page at full width; all text >= 11 px */
   .hero-pair { flex-direction: column; max-width: none; gap: 10px; }
   .hero-pair .hp-md { width: 100%; margin: 0; padding: 7px 10px; }
-  .hero-pair .hp-md .label, .hero-pair .hp-md .ln:nth-child(2), .hero-pair .hp-md .ln:nth-child(5), .hero-pair .hp-md .ln:nth-child(6) { display: none; }
+  .hero-pair .hp-md .label, .hero-pair .hp-md .ln:nth-child(2), .hero-pair .hp-md .ln:nth-child(6), .hero-pair .hp-md .ln:nth-child(7) { display: none; }
   .hero-pair .hp-md pre { font-size: 11px; line-height: 1.5; white-space: pre-wrap; } /* one line each from 360 px; wraps rather than clips below that */
   .hero-pair .hp-page { width: 100%; margin: 0; container-type: normal; }
   .hero-pair .hp-page .doc-table, .hero-pair .hp-page .doc-table ~ .doc-p { display: none; } /* phones: the page ends after the checklist */
   .hero-pair .hp-page .doc-in { padding: 18px 20px; }
   .hero-pair .hp-page h3 { font-size: 18px; margin: 0 0 6px; }
   .hero-pair .hp-page .doc-p, .hero-pair .hp-page .doc-tasks, .hero-pair .hp-page .doc-ctitle { font-size: 12px; }
-  .hero-pair .hp-page .doc-callout { margin-bottom: 8px; padding: 6px 10px; gap: 8px; }
-  .hero-pair .hp-page .doc-callout::before { width: 3px; }
-  .hero-pair .hp-page .doc-badge { width: 22px; height: 22px; font-size: 11px; }
+  .hero-pair .hp-page .doc-callout { margin-bottom: 8px; padding: 6px 10px; border-inline-start-width: 2px; border-radius: 6px; }
+  .hero-pair .hp-page .doc-chead { font-size: 12px; gap: 6px; margin-bottom: 3px; }
+  .hero-pair .hp-page .doc-ic { width: 14px; height: 14px; }
   .hero-pair .hp-page .doc-tasks { margin-bottom: 8px; }
   .hero-pair .hp-page .doc-tasks li { gap: 8px; }
   .hero-pair .hp-page .doc-cb { width: 13px; height: 13px; font-size: 11px; }
@@ -461,3 +461,24 @@ html.lab-motion .shot:not(.in) { opacity: 0; transform: translateY(12px); }
 /* live: the video is hidden, so the PDF section follows the hero directly */
 html[data-release="live"]:has(#in-app[hidden]) #d-print { padding-top: 0; border-top: 0; }
 @media (max-width: 359px) { #d-hero .desk { padding: 12px; } .hero-pair .hp-page .doc-in { padding: 14px 16px; } } /* very narrow phones: the 3-line strip stays one line each */
+
+/* OWLMD-249: the hero page and the PDF page draw the Note callout with the exporter's values, as the theme cards do:
+   accent #2F6585, fill #EEF3F6 (callout_styles.dart:78), 2 pt bar, 6 pt radius, padding 8 / 10 pt, header = info icon
+   + bold "Note" in the accent at body size, 4 pt gap, body in the page's ink. On these pages 1 pt = 0.32cqw. */
+.doc-callout { display: block; padding: 2.6cqw 3.2cqw; background: #EEF3F6; border-inline-start: max(2px, 0.64cqw) solid #2F6585; border-radius: 1.9cqw; overflow: visible; }
+.doc-callout::before { content: none; }
+.doc-chead { display: flex; align-items: center; gap: 1.6cqw; margin: 0 0 1.3cqw; font-size: 3.5cqw; line-height: 1.3; font-weight: 700; color: #2F6585; }
+.doc-ic { flex: none; width: 4.4cqw; height: 4.4cqw; fill: none; stroke: #2F6585; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.doc-callout .doc-ctitle { font-size: 3.5cqw; font-weight: 400; line-height: 1.4; color: var(--paper-ink); }
+.hp-md .mq { color: var(--primary); }
+@media (max-width: 599px) { /* OWLMD-249: the 4-line strip and the taller callout still fit a 320 px panel */
+  #d-hero .desk { padding: 14px; }
+  .hero-pair { gap: 8px; }
+  .hero-pair .hp-md { padding: 5px 10px; }
+  .hero-pair .hp-md pre { line-height: 1.4; }
+  .hero-pair .hp-page .doc-in { padding: 14px 16px; }
+  .hero-pair .hp-page h3 { margin-bottom: 4px; }
+  .hero-pair .hp-page .doc-p { margin-bottom: 6px; }
+  .hero-pair .hp-page .doc-callout { margin-bottom: 6px; padding: 5px 10px; }
+  .hero-pair .hp-page .doc-tasks { margin-bottom: 0; }
+}

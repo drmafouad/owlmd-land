@@ -141,7 +141,7 @@
         st.classList.toggle('pv-b', B);
         /* the overlay is visible for the whole demo, then gone */
         D.a(pmd, [{ opacity: 1 }, { opacity: 1, offset: 0.999 }, { opacity: 0 }], { duration: B ? M + 260 : M + 900, easing: 'linear' });
-        var marks = [[200, 300, 15], [560, 640, 34], [1260, 430, 21]];
+        var marks = [[200, 300, 15], [560, 280, 9], [880, 420, 26], [1360, 400, 21]]; /* delay, duration, characters per line (OWLMD-249: the callout is two lines) */
         lines.forEach(function (ln, i) {
             D.a(ln, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: marks[i][1], delay: marks[i][0], easing: 'steps(' + marks[i][2] + ', end)' });
         });
@@ -160,7 +160,7 @@
         D.a(mk[1], [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scaleX(.15)' }], { duration: 280, delay: M + 120, easing: 'ease-in' });
         D.a(co, [{ clipPath: 'inset(0 100% 0 0 round 4px)' }, { clipPath: 'inset(0 0 0 0 round 4px)' }], { duration: 520, delay: M + 160 });
         flip(D, tx[1], $('.doc-ctitle', e), M + 160, 620);
-        D.a($('.doc-badge', e), [{ transform: 'scale(0)' }, { transform: 'scale(1)' }], { duration: 320, delay: M + 560, easing: POP });
+        D.a($('.doc-chead', e), [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: M + 420 }); /* the Note header appears as the box opens */
         D.a(mk[2], [{ opacity: 1 }, { opacity: 0 }], { duration: 200, delay: M + 240 });
         flip(D, mk[3], $('.doc-cb', e), M + 240, 560);
         flip(D, tx[2], $('.dt3', e), M + 280, 620);

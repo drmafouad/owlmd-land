@@ -23,16 +23,16 @@
             if ('animate' in d && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' lab-motion lab-wait';
         })();
     </script>
-    <link rel="stylesheet" href="assets/css/tokens.css?v=12">
-    <link rel="stylesheet" href="assets/css/site.css?v=12">
+    <link rel="stylesheet" href="assets/css/tokens.css?v=13">
+    <link rel="stylesheet" href="assets/css/site.css?v=13">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>OwlMD: Markdown is easy. PDFs aren't.</title>
     <meta name="description" content="Write Markdown notes in English and Arabic. Private, works offline, PDF export.">
     <link rel="canonical" href="https://owlmd.injazapps.com/">
-    <link rel="stylesheet" href="assets/css/home.css?v=12">
-    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=12">
+    <link rel="stylesheet" href="assets/css/home.css?v=13">
+    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=13">
     <meta property="og:type" content="website">
     <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
     <meta property="og:description" content="Write Markdown notes in English and Arabic. Private, works offline, PDF export.">
@@ -94,14 +94,14 @@
                                 <h3>Meeting notes</h3>
                                 <p class="doc-p doc-x">Launch moves to 15 March.</p>
                                 <div class="doc-callout">
-                                    <span class="doc-badge" aria-hidden="true">NO</span>
-                                    <span class="doc-ctitle"><span class="sr-only">Note: </span>Send the draft by Friday</span>
+                                    <p class="doc-chead"><svg class="doc-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18 M12 11v5 M12 7.5h.01"/></svg>Note</p>
+                                    <p class="doc-ctitle">Send the draft by Friday</p>
                                 </div>
                                 <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span><span class="dt3">slides reviewed</span></li><li class="doc-x"><span class="doc-cb doc-cb-open" aria-hidden="true"></span><span class="sr-only">To do: </span><span>Omar: confirm the delivery date</span></li></ul>
                                 <table class="doc-table doc-x"><thead><tr><th>Task</th><th>Owner</th><th>Status</th></tr></thead><tbody><tr><td>Book the photographer</td><td>Sara</td><td>Open</td></tr><tr><td>Draft three posts</td><td>Lina</td><td>Open</td></tr></tbody></table>
                                 <p class="doc-p doc-x">Lina owns the social media plan.</p>
                             </div></div>
-                            <div class="hp-md" aria-hidden="true"><span class="label">Markdown</span><pre><span class="ln"><span class="mk">#</span> Meeting notes</span><span class="ln">Launch moves to 15 March.</span><span class="ln"><span class="mk">&gt; [!note]</span> Send the draft by Friday</span><span class="ln"><span class="mk">- [x]</span> slides reviewed</span><span class="ln"><span class="mk">- [ ]</span> Omar: confirm the delivery date</span><span class="ln"><span class="mk">|</span> Task <span class="mk">|</span> Owner <span class="mk">|</span> Status <span class="mk">|</span></span></pre></div>
+                            <div class="hp-md" aria-hidden="true"><span class="label">Markdown</span><pre><span class="ln"><span class="mk">#</span> Meeting notes</span><span class="ln">Launch moves to 15 March.</span><span class="ln"><span class="mk">&gt; [!note]</span></span><span class="ln"><span class="mk">&gt;</span> Send the draft by Friday</span><span class="ln"><span class="mk">- [x]</span> slides reviewed</span><span class="ln"><span class="mk">- [ ]</span> Omar: confirm the delivery date</span><span class="ln"><span class="mk">|</span> Task <span class="mk">|</span> Owner <span class="mk">|</span> Status <span class="mk">|</span></span></pre></div>
                         </div>
                     </div>
                 </div>
@@ -165,15 +165,14 @@
                                 <h3>Meeting notes</h3>
                                 <p class="doc-p doc-x">Launch moves to 15 March.</p>
                                 <div class="doc-callout">
-                                    <span class="doc-badge" aria-hidden="true">NO</span>
-                                    <span class="doc-ctitle"><span class="sr-only">Note: </span>Send the draft by Friday</span>
+                                    <p class="doc-chead"><svg class="doc-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18 M12 11v5 M12 7.5h.01"/></svg>Note</p>
+                                    <p class="doc-ctitle">Send the draft by Friday</p>
                                 </div>
                                 <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span><span class="dt3">slides reviewed</span></li><li class="doc-x"><span class="doc-cb doc-cb-open" aria-hidden="true"></span><span class="sr-only">To do: </span><span>Omar: confirm the delivery date</span></li></ul>
                                 <table class="doc-table doc-x"><thead><tr><th>Task</th><th>Owner</th><th>Status</th></tr></thead><tbody><tr><td>Book the photographer</td><td>Sara</td><td>Open</td></tr><tr><td>Draft three posts</td><td>Lina</td><td>Open</td></tr></tbody></table>
-                                <p class="doc-p doc-x">Lina owns the social media plan.</p>
                                 <p class="doc-foot doc-x">Page 1 of 1</p>
                             </div></div>
-                            <div class="pmd" aria-hidden="true"><pre><span class="ln l1"><span class="mk">#</span> <span class="tx">Meeting notes</span></span><span class="ln l2"><span class="mk">&gt; [!note]</span> <span class="tx">Send the draft by Friday</span></span><span class="ln l3"><span class="mk">-</span> <span class="cbx mk">[x]</span> <span class="tx">slides reviewed</span></span></pre></div>
+                            <div class="pmd" aria-hidden="true"><pre><span class="ln l1"><span class="mk">#</span> <span class="tx">Meeting notes</span></span><span class="ln l2"><span class="mk">&gt; [!note]</span></span><span class="ln l2b"><span class="mq">&gt;</span> <span class="tx">Send the draft by Friday</span></span><span class="ln l3"><span class="mk">-</span> <span class="cbx mk">[x]</span> <span class="tx">slides reviewed</span></span></pre></div>
                         </div>
                         </div>
                     </div>
@@ -468,8 +467,8 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/site.js?v=12" defer></script>
-    <script src="assets/js/home.js?v=12" defer></script>
+    <script src="assets/js/site.js?v=13" defer></script>
+    <script src="assets/js/home.js?v=13" defer></script>
 </body>
 
 </html>
