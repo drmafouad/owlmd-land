@@ -5,7 +5,7 @@
     'use strict';
     var d = document, R = d.documentElement;
     var EASE = 'cubic-bezier(.2,.8,.2,1)';      /* the site's one easing curve */
-    var LIMIT = 1150;                           /* ms: the longest any demo may take once it fires (OWLMD-246) */
+    var LIMIT = 1100;                           /* ms: the longest any demo may take once it fires (OWLMD-246) */
     var POP = 'cubic-bezier(.3,1.5,.5,1)';      /* small overshoot, for things that land */
     var motionOK = /\blab-motion\b/.test(R.className);
     var opt = { slow: false, still: !motionOK };

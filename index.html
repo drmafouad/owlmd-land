@@ -23,16 +23,16 @@
             if ('animate' in d && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.className += ' lab-motion lab-wait';
         })();
     </script>
-    <link rel="stylesheet" href="assets/css/tokens.css?v=9">
-    <link rel="stylesheet" href="assets/css/site.css?v=9">
+    <link rel="stylesheet" href="assets/css/tokens.css?v=10">
+    <link rel="stylesheet" href="assets/css/site.css?v=10">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>OwlMD: Markdown is easy. PDFs aren't.</title>
     <meta name="description" content="Write Markdown notes in English and Arabic. Private, works offline, PDF export.">
     <link rel="canonical" href="https://owlmd.injazapps.com/">
-    <link rel="stylesheet" href="assets/css/home.css?v=9">
-    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=9">
+    <link rel="stylesheet" href="assets/css/home.css?v=10">
+    <link rel="stylesheet" href="assets/css/theme-fonts.css?v=10">
     <meta property="og:type" content="website">
     <meta property="og:title" content="OwlMD: Markdown is easy. PDFs aren't.">
     <meta property="og:description" content="Write Markdown notes in English and Arabic. Private, works offline, PDF export.">
@@ -88,9 +88,7 @@
                         </div>
                         <p class="hero-note">Android. <span class="rel-soon">OwlMD 2 is coming soon.</span><span class="rel-live">Available on Google Play.</span></p>
                     </div>
-                    <div class="g-demo hero-visual">
-                        <!-- SCREENSHOT SLOT (hero): to show assets/screens/hero.webp, delete the <template ...> and </template> tags on the next line. -->
-                        <template data-shot="hero"><picture class="shot"><source srcset="assets/screens/hero.webp" type="image/webp"><img src="assets/screens/hero.webp" alt="OwlMD on an Android phone" width="1080" height="2340" loading="lazy" decoding="async"></picture></template>
+                    <div class="g-demo hero-visual desk">
                         <div class="hero-pair" role="img" aria-label="A Markdown note and the PDF page it becomes">
                             <div class="doc-page hp-page" aria-hidden="true"><div class="doc-in">
                                 <h3>Meeting notes</h3>
@@ -110,6 +108,21 @@
             </div>
         </section>
 
+
+        <!-- IN THE APP (OWLMD-246, 2026-11-13). Hidden until the three screenshots exist.
+             TO ENABLE: put editor.webp, preview.webp and pdf.webp in assets/screens/, then delete the word "hidden" on the next line.
+             Nothing is fetched while the band is hidden (the images are lazy and not rendered). -->
+        <section class="inapp band" id="in-app" aria-labelledby="inapp-h" hidden>
+            <div class="container">
+                <p class="label">In the app</p>
+                <h2 id="inapp-h">Write a note, see it formatted, export it to PDF.</h2>
+                <ul class="shots">
+                    <li><picture class="shot" style="--i:0"><source srcset="assets/screens/editor.webp" type="image/webp"><img src="assets/screens/editor.webp" alt="Editor: a Markdown note in the OwlMD editor" width="1080" height="2340" loading="lazy" decoding="async"></picture><span class="shot-cap" aria-hidden="true">Editor</span></li>
+                    <li><picture class="shot" style="--i:1"><source srcset="assets/screens/preview.webp" type="image/webp"><img src="assets/screens/preview.webp" alt="Preview: the same note, formatted" width="1080" height="2340" loading="lazy" decoding="async"></picture><span class="shot-cap" aria-hidden="true">Preview</span></li>
+                    <li><picture class="shot" style="--i:2"><source srcset="assets/screens/pdf.webp" type="image/webp"><img src="assets/screens/pdf.webp" alt="PDF viewer: the note exported to PDF" width="1080" height="2340" loading="lazy" decoding="async"></picture><span class="shot-cap" aria-hidden="true">PDF viewer</span></li>
+                </ul>
+            </div>
+        </section>
 
         <!-- 02 Promo video slot. Shown while data-release="soon"; hidden by CSS when data-release="live" (OWLMD-242, 2026-11-10),
              because this video ends on "Coming soon". Nothing is fetched while it is hidden.
@@ -146,9 +159,7 @@
                             <h2 class="big">Export any note to PDF.</h2>
                             <p class="lead">Choose a file name and one of 4 PDF themes. Every export is kept in the PDFs tab.</p>
                         </div>
-                        <div class="g-demo">
-                        <!-- SCREENSHOT SLOT (editor): to show assets/screens/editor.webp, delete the <template ...> and </template> tags on the next line. -->
-                        <template data-shot="editor"><picture class="shot"><source srcset="assets/screens/editor.webp" type="image/webp"><img src="assets/screens/editor.webp" alt="The OwlMD editor with a Markdown note" width="1080" height="2340" loading="lazy" decoding="async"></picture></template>
+                        <div class="g-demo desk">
                         <div class="pstage">
                             <div class="doc-page"><div class="doc-in">
                                 <h3>Meeting notes</h3>
@@ -160,6 +171,7 @@
                                 <ul class="doc-tasks"><li><span class="doc-cb" aria-hidden="true">&#10003;</span><span class="sr-only">Done: </span><span class="dt3">slides reviewed</span></li><li class="doc-x"><span class="doc-cb doc-cb-open" aria-hidden="true"></span><span class="sr-only">To do: </span><span>Omar: confirm the delivery date</span></li></ul>
                                 <table class="doc-table doc-x"><thead><tr><th>Task</th><th>Owner</th><th>Status</th></tr></thead><tbody><tr><td>Book the photographer</td><td>Sara</td><td>Open</td></tr><tr><td>Draft three posts</td><td>Lina</td><td>Open</td></tr></tbody></table>
                                 <p class="doc-p doc-x">Lina owns the social media plan.</p>
+                                <p class="doc-foot doc-x">Page 1 of 1</p>
                             </div></div>
                             <div class="pmd" aria-hidden="true"><pre><span class="ln l1"><span class="mk">#</span> <span class="tx">Meeting notes</span></span><span class="ln l2"><span class="mk">&gt; [!note]</span> <span class="tx">Send the draft by Friday</span></span><span class="ln l3"><span class="mk">-</span> <span class="cbx mk">[x]</span> <span class="tx">slides reviewed</span></span></pre></div>
                         </div>
@@ -179,9 +191,7 @@
                             <h2 class="big">Arabic stays Arabic.</h2>
                             <p class="lead">Arabic and English in the same note: each line follows its own direction, or make the whole note right to left. The choice also applies to the PDF.</p>
                         </div>
-                        <div class="g-demo">
-                        <!-- SCREENSHOT SLOT (preview): to show assets/screens/preview.webp, delete the <template ...> and </template> tags on the next line. -->
-                        <template data-shot="preview"><picture class="shot"><source srcset="assets/screens/preview.webp" type="image/webp"><img src="assets/screens/preview.webp" alt="An Arabic note in the OwlMD preview" width="1080" height="2340" loading="lazy" decoding="async"></picture></template>
+                        <div class="g-demo desk">
                         <div class="pdf-page" lang="ar" dir="rtl">
                             <h3><span class="ar-ink"><span class="ar-full">اُكْتُبْ بِالْعَرَبِيَّةِ</span><span class="ar-base" aria-hidden="true">اكتب بالعربية</span><i class="nib" aria-hidden="true"></i></span></h3>
                             <div class="pdf-rule"></div>
@@ -213,8 +223,6 @@
                         <li class="spec t-std"><div class="flip" tabindex="0" role="button" aria-label="Standard: show a sample page"><div class="spec-page ff"><p class="sp-h">Standard</p><span class="sp-rule" aria-hidden="true"></span><p class="sp-b">Send the draft by Friday. Slides are reviewed.</p><p class="sp-co"><span class="sp-ct">Note</span> Agenda shared</p></div><div class="spec-page fb" aria-hidden="true"><p class="sp-h">Standard</p><span class="sp-rule"></span><p class="sp-b">Launch moves to 15 March.</p><p class="sp-b">Lina owns the social media plan.</p><p class="sp-task"><i>&#10003;</i>Agenda shared</p></div></div></li>
                     </ul>
                     <p class="hint">Tap a card to see a page</p>
-                    <!-- SCREENSHOT SLOT (pdf): to show assets/screens/pdf.webp, delete the <template ...> and </template> tags on the next line. -->
-                    <template data-shot="pdf"><picture class="shot"><source srcset="assets/screens/pdf.webp" type="image/webp"><img src="assets/screens/pdf.webp" alt="A PDF exported from OwlMD" width="1080" height="2340" loading="lazy" decoding="async"></picture></template>
                 </div>
             </div>
         </section>
@@ -234,7 +242,7 @@
                                 <div><dt>PDF</dt><dd>Export it to PDF.</dd></div>
                             </dl>
                         </div>
-                        <div class="ai-stage">
+                        <div class="ai-stage desk">
                             <div class="bubble">
                                 <span class="label">AI assistant</span>
 <pre class="ai-md"><span class="aim"><span class="sel" aria-hidden="true"></span><span class="m-mark">##</span> Trip plan
@@ -376,14 +384,13 @@
                 <h2 id="also-h">Also inside</h2>
                 <!-- 6 tiles hold all 11 "Also inside" items from docs/release/store-listing.md -->
                 <ul class="bento">
-                    <li class="tile t-wide" style="--i:0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M11 10h5M11 14h3"/></svg><span>Callouts in 14 types, and highlight</span></li>
-                    <li class="tile" style="--i:1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 10h17M3.5 14.5h17M10 5v14"/></svg><span>Tables, including right-to-left tables</span></li>
-                    <li class="tile" style="--i:2"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 4 3.5 3-2.5 4 3.5"/></svg><span>Images from your gallery, camera or a web link, or pasted in</span></li>
-                    <li class="tile t-wide" style="--i:3"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M8 13h8"/></svg><span>Folders inside folders, sorted by date, name or length; Trash keeps deleted notes and folders for 7 days</span></li>
-                    <li class="tile" style="--i:4"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 5 9h14a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 19 17h-2"/><rect x="7" y="14" width="10" height="6" rx="1"/></svg><span>A printable PDF in black and white; share a note as a Markdown file, or open .md files</span></li>
-                    <li class="tile" style="--i:5"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M5 16.5a3 3 0 0 1 3-3h10M9 8h5"/></svg><span>Open Markdown from a GitHub link, and a built-in guide</span></li>
+                    <li class="tile" style="--i:0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M11 10h5M11 14h3"/></svg><h3 class="tile-t">Callouts</h3><p>Callouts in 14 types, and highlight.</p></li>
+                    <li class="tile" style="--i:1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 10h17M3.5 14.5h17M10 5v14"/></svg><h3 class="tile-t">Tables</h3><p>Tables, including right-to-left tables.</p></li>
+                    <li class="tile" style="--i:2"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 4 3.5 3-2.5 4 3.5"/></svg><h3 class="tile-t">Images</h3><p>From your gallery, camera or a web link, or pasted in.</p></li>
+                    <li class="tile" style="--i:3"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M8 13h8"/></svg><h3 class="tile-t">Folders</h3><p>Folders inside folders, sorted by date, name or length. Trash keeps deleted notes and folders for 7 days.</p></li>
+                    <li class="tile" style="--i:4"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 5 9h14a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 19 17h-2"/><rect x="7" y="14" width="10" height="6" rx="1"/></svg><h3 class="tile-t">Print and share</h3><p>Printable PDF: black and white, no tinted fills. Share a note as a Markdown file, or open .md files.</p></li>
+                    <li class="tile" style="--i:5"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M5 16.5a3 3 0 0 1 3-3h10M9 8h5"/></svg><h3 class="tile-t">Open and learn</h3><p>Open Markdown from a GitHub link, and a built-in guide. The app speaks English, Arabic and Indonesian.</p></li>
                 </ul>
-                <p class="also-lang">The app speaks English, Arabic and Indonesian.</p>
             </div>
         </section>
 
@@ -461,8 +468,8 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/site.js?v=9" defer></script>
-    <script src="assets/js/home.js?v=9" defer></script>
+    <script src="assets/js/site.js?v=10" defer></script>
+    <script src="assets/js/home.js?v=10" defer></script>
 </body>
 
 </html>
