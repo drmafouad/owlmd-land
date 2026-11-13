@@ -112,14 +112,14 @@ a:hover { text-decoration-thickness: 2px; }
 @media (min-width: 520px) { .nav-guide { display: inline-flex; } }
 
 /* Theme toggle: Light / Dark / Auto, shown as icons (names are in aria-label and the tooltip) */
-.theme-toggle { display: inline-flex; padding: 3px; border: 1px solid var(--outline); border-radius: var(--r-btn); }
+.theme-toggle { display: inline-flex; gap: 2px; } /* ghost icons (OWLMD-246) */
 .theme-toggle button {
   display: grid; place-items: center; width: var(--hit); height: var(--hit); padding: 0;
-  border: 0; border-radius: 4px; /* 8 − 3 padding − 1 border = 4 */
+  border: 0; border-radius: var(--r-btn);
   background: transparent; color: var(--on-surface); cursor: pointer;
 }
 .theme-toggle button:hover:not([aria-pressed="true"]) { background: var(--surface-container); }
-.theme-toggle button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
+.theme-toggle button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primary); border-radius: 0; } /* active: a 2px underline in primary, no fill */
 .theme-toggle button:focus-visible { outline-offset: 1px; }
 .theme-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .theme-toggle .half { fill: currentColor; }
@@ -186,6 +186,12 @@ a:hover { text-decoration-thickness: 2px; }
 @media (min-width: 900px) {
   .split-in { grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
 }
+/* OWLMD-246: one 12-column grid for every text + demo pair: text in columns 1-5, demo in 7-12, same top edge */
+@media (min-width: 900px) {
+  .lab-stage .split-in, .grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+  .lab-stage .split-in > :first-child, .grid12 > :first-child { grid-column: 1 / 6; }
+  .lab-stage .split-in > :last-child, .grid12 > :last-child { grid-column: 7 / 13; }
+}
 .split h2 { font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.03em; margin-bottom: 20px; }
 .split .lead { color: var(--muted); max-width: 38ch; margin: 0; }
 .split .lead + .lead { margin-top: 1em; }
@@ -243,8 +249,12 @@ a:hover { text-decoration-thickness: 2px; }
 .site-footer h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px; }
 .site-footer ul { margin: 0; padding: 0; list-style: none; }
 .site-footer li a, .site-footer address a { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--on-surface); }
-.site-footer address { font-style: normal; }
+.site-footer address { font-style: normal; display: flex; flex-direction: column; align-items: flex-start; } /* one link per line (OWLMD-246) */
 .email-text { display: block; user-select: all; -webkit-user-select: all; cursor: text; padding: 8px 0; }
+.email-row { display: inline-flex; align-items: center; gap: 8px; }
+.copy-btn { display: none; min-height: var(--hit); padding: 0 12px; border: 1px solid var(--outline); border-radius: var(--r-btn); background: transparent; color: var(--on-surface); font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+.js .copy-btn { display: inline-flex; align-items: center; }
+.copy-status { min-height: 0; color: var(--muted); font-size: 0.875rem; }
 .footer-bottom { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--outline-variant); color: var(--muted); font-size: 0.9375rem; }
 .footer-bottom p { margin: 0; }
 
@@ -334,3 +344,7 @@ html[data-release="live"] #video { display: none !important; }
 html[dir="rtl"] body { font-family: var(--font-ar); }
 html[dir="rtl"] .prose h1, html[dir="rtl"] .prose h2, html[dir="rtl"] .prose h3 { letter-spacing: 0; line-height: 1.4; }
 .prose code { direction: ltr; unicode-bidi: isolate; } /* Markdown samples keep their order on the Arabic page */
+
+/* ---------- Nav button (OWLMD-246): compact primary at 768 px and up ---------- */
+.btn-nav { display: none; min-height: var(--hit); padding: 0 16px; font-size: 0.875rem; }
+@media (min-width: 768px) { .btn-nav { display: inline-flex; } }

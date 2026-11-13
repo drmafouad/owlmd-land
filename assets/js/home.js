@@ -5,6 +5,7 @@
     'use strict';
     var d = document, R = d.documentElement;
     var EASE = 'cubic-bezier(.2,.8,.2,1)';      /* the site's one easing curve */
+    var LIMIT = 1150;                           /* ms: the longest any demo may take once it fires (OWLMD-246) */
     var POP = 'cubic-bezier(.3,1.5,.5,1)';      /* small overshoot, for things that land */
     var motionOK = /\blab-motion\b/.test(R.className);
     var opt = { slow: false, still: !motionOK };
@@ -17,10 +18,17 @@
     /* OWLMD-242: not mounted when data-release is "live" (the section is hidden by CSS then). */
     if (vsec && vtpl && !vsec.hidden && d.documentElement.getAttribute('data-release') !== 'live') vtpl.parentNode.insertBefore(d.importNode(vtpl.content, true), vtpl);
     var vid = $('.promo video'), vplay = $('.promo-play');
-    if (vid && vplay) {
-        vplay.addEventListener('click', function () { vid.play(); });
-        vid.addEventListener('play', function () { vplay.classList.add('gone'); });
+    if (vid && vplay) { /* one play affordance: the native controls appear only once the video starts (OWLMD-246) */
+        vplay.addEventListener('click', function () { vid.controls = true; vid.play(); });
+        vid.addEventListener('play', function () { vid.controls = true; vplay.classList.add('gone'); });
     }
+    /* footer: copy the email address */
+    $$('.copy-btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var st = $('.copy-status'), ok = function () { if (st) st.textContent = 'Email address copied'; };
+            if (navigator.clipboard) navigator.clipboard.writeText(b.getAttribute('data-copy')).then(ok, function () {});
+        });
+    });
     function rect(el) { return el.getBoundingClientRect(); }
 
     /* ---------- Engine: each demo builds its animations; arm = paused on frame 0, fire = play ---------- */
@@ -45,14 +53,18 @@
         this.fired = true;
         if (opt.still) { this.clear(); return; }
         if (!this.armed || this.fresh) { this.firing = true; this.arm(); this.firing = false; }
-        this.anims.forEach(function (a) { a.play(); });
+        /* OWLMD-246: every demo reaches its final state within 1.2 s of firing: a longer timeline plays faster */
+        var end = 0;
+        this.anims.forEach(function (a) { end = Math.max(end, a.effect.getComputedTiming().endTime); });
+        var rate = end > LIMIT ? end / LIMIT : 1;
+        this.anims.forEach(function (a) { a.playbackRate = rate; a.play(); });
     };
     Demo.prototype.replay = function () { this.armed = false; this.fire(); };
 
-    /* the scene is due when its middle passes 80% of the screen (same rule as the live site) */
+    /* OWLMD-246: the scene is due once 40% of it is on screen (or 40% of the screen is the scene) */
     function due(r, vh) {
-        var line = vh * 0.8, end = window.scrollY + vh >= R.scrollHeight - 2;
-        return r.bottom > 0 && r.top < vh && (r.top <= line - Math.min(r.height, line) / 2 || end);
+        var seen = Math.min(r.bottom, vh) - Math.max(r.top, 0), end = window.scrollY + vh >= R.scrollHeight - 2;
+        return seen > 0 && (seen >= 0.4 * Math.min(r.height, vh) || end);
     }
     var queued = false;
     function check() {
@@ -105,7 +117,6 @@
     function hero(D) {
         var e = D.el, cd = $('.cd', e), bar = $('.bar', cd), dc = $('.dc', cd);
         D.a($('.chip-brass', e), [{ transform: 'translateY(8px)' }, { transform: 'none' }], { duration: 260 });
-        rise(D, $('.l1', e), 40, 14, 340);
         var T = typeIn(D, heroChars, cd, 420, 55);                     /* typing ends ~1.03 s */
         /* the caret: on at 0.25 s, one blink after typing, then hands over to the dot */
         D.a(bar, [{ opacity: 0, offset: 0, easing: 'steps(1,end)' }, { opacity: 1, offset: 0.15, easing: 'steps(1,end)' }, { opacity: 0, offset: 0.72, easing: 'steps(1,end)' }, { opacity: 1, offset: 0.82, easing: 'steps(1,end)' }, { opacity: 1, offset: 0.9 }, { opacity: 0, offset: 1 }], { duration: 1650, easing: 'linear' });
@@ -113,6 +124,14 @@
         D.a(dc, [{ transform: 'scale(0)' }, { transform: 'scale(1.35)', offset: 0.6 }, { transform: 'scale(1)' }], { duration: 360, delay: 1560, easing: 'ease-out' });
         $$('.hero-sub, .hero-actions', e).forEach(function (el, i) { rise(D, el, T - 40 + i * 60, 12, 340); });
         blink(D, $('.site-header .owl'), 1950); /* the owl in the header */
+        /* OWLMD-246 hero pair: the Markdown lines type in (steps), then the page builds from them */
+        var lns = $$('.hp-md .ln', e), at = 260;
+        lns.forEach(function (ln, i) {
+            D.a(ln, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 170, delay: at + i * 190, easing: 'steps(12, end)' });
+        });
+        at += lns.length * 190;
+        D.a($('.hp-page', e), [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 360, delay: at });
+        $$('.hp-page .doc-in > *', e).forEach(function (x, i) { rise(D, x, at + 120 + i * 60, 6, 280); });
     }
 
     /* ---------- 02 Print ---------- */
@@ -145,6 +164,7 @@
         D.a(mk[2], [{ opacity: 1 }, { opacity: 0 }], { duration: 200, delay: M + 240 });
         flip(D, mk[3], $('.doc-cb', e), M + 240, 560);
         flip(D, tx[2], $('.dt3', e), M + 280, 620);
+        $$('.doc-x', e).forEach(function (x, i) { rise(D, x, M + 300 + i * 60, 6, 300); });
         var cb = $('.doc-cb', e), ink = getComputedStyle(cb).color;
         D.a(cb, [{ color: 'transparent' }, { color: 'transparent', offset: 0.6 }, { color: ink }], { duration: 900, delay: M + 240, easing: 'steps(1,end)' });
     }
@@ -164,20 +184,21 @@
         D.a(full, [{ opacity: 0, transform: 'translateY(-0.22em)' }, { opacity: 1, transform: 'none' }], { duration: 520, delay: P + DUR + 120 });
     }
 
-    /* ---------- 04 Cards ---------- */
+    /* ---------- 04 Specimens: stacked, then spread into the row (OWLMD-246) ---------- */
     function cards(D) {
-        var e = D.el, cs = $$('.fcard', e), phone = matchMedia('(max-width: 600px)').matches;
-        cs.forEach(function (c) { c.classList.remove('flipped'); });
-        if (phone) {
-            cs.forEach(function (c, i) { D.a(c, [{ opacity: 0, transform: 'translateX(48px)' }, { opacity: 1, transform: 'none' }], { duration: 480, delay: 150 + i * 90 }); });
-            return;
-        }
+        var cs = $$('.spec', D.el), box = rect($('.specimens', D.el)), cx = box.left + box.width / 2, cy = box.top + box.height / 2;
         cs.forEach(function (c, i) {
-            var cst = getComputedStyle(c);
-            D.a(c, [{ translate: (i * 2 - 3) + 'px ' + (40 - i * 3) + 'px', rotate: '0deg' }, { translate: cst.translate, rotate: cst.rotate }], { duration: 560, delay: 300 + (3 - i) * 110, easing: POP });
+            var r = rect(c), k = i - (cs.length - 1) / 2;
+            var dx = cx - (r.left + r.width / 2) + k * 10, dy = cy - (r.top + r.height / 2) + Math.abs(k) * 6;
+            D.a(c, [{ transform: 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) rotate(' + (k * 3) + 'deg)' }, { transform: 'none' }], { duration: 720, delay: 120 + (cs.length - 1 - i) * 40 });
         });
-        $$('.fan-names li', e).forEach(function (n, i) { D.a(n, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 700 + (3 - i) * 110 }); });
     }
+    /* tap / Enter / Space turns a card (hover turns it on mouse devices, in CSS) */
+    $$('.spec .flip').forEach(function (f) {
+        function t() { var c = f.parentNode; c.classList.toggle('flipped'); }
+        f.addEventListener('click', t);
+        f.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); t(); } });
+    });
 
     /* ---------- 05 AI ---------- */
     function ai(D) {
@@ -256,10 +277,16 @@
         var target = payoffEl.offsetTop + rect($('.payoff', payoffEl)).height * 0 - window.innerHeight * 0.4;
         var p = Math.max(0, Math.min(1, window.scrollY / Math.max(1, target)));
         railDot.style.transform = 'translateY(' + (p * rail.clientHeight).toFixed(1) + 'px)';
+        /* OWLMD-246: the rail fades (150 ms) while its dot overlaps the dark band or a tinted band */
+        var y = rect(rail).top + p * rail.clientHeight, off = false;
+        $$('.sweep-main, .band, .v1-band').forEach(function (b) { var r = rect(b); if (y > r.top && y < r.bottom) off = true; });
+        rail.classList.toggle('off', off);
     }
     function payoff(D) {
         var e = D.el, dot = $('.stop .dot', e), stop = $('.stop', e), s = rect(stop);
-        if (!D.firing) { D.a(dot, [{ opacity: 0 }, { opacity: 0 }], { duration: 1 }); return; } /* waiting: just hidden */
+        var cta = $('.cta-actions');
+        if (!D.firing) { D.a(dot, [{ opacity: 0 }, { opacity: 0 }], { duration: 1 }); if (cta) D.a(cta, [{ opacity: 0 }, { opacity: 0 }], { duration: 1 }); return; } /* waiting: just hidden */
+        if (cta) rise(D, cta, railOn() ? 1300 : 1500, 12, 340);
         if (railOn()) { /* fly from the margin rail into the full stop */
             var rd = rect(railDot), sx = rd.left - s.left, sy = rd.top - s.top;
             var path = 'path("M ' + sx.toFixed(1) + ' ' + sy.toFixed(1) + ' C ' + (sx * 0.55).toFixed(1) + ' ' + (sy - 140).toFixed(1) + ', ' + (sx * 0.1).toFixed(1) + ' -150, 0 0")';
@@ -274,19 +301,35 @@
         }
     }
 
+    /* ---------- 07b Theme chips (OWLMD-246) ---------- */
+    var ss = $('.sunset'), ssLabel = ss && ss.getAttribute('aria-label');
+    $$('.tchip').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var pal = b.getAttribute('data-pal');
+            $$('.tchip').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+            ss.setAttribute('data-pal', pal);
+            $('.ss-day .ss-name', ss).textContent = pal === 'system' ? 'Cairo' : b.textContent;
+            ss.setAttribute('aria-label', pal === 'system' ? ssLabel : 'The ' + b.textContent + ' theme');
+            if (pal === 'system' && byName.sunset) byName.sunset.replay();
+        });
+    });
+
+    /* ---------- Also inside tiles (60 ms apart) and enabled screenshot slots (80 ms apart): once, on entry ---------- */
+    $$('.shot').forEach(function (x, i) { x.style.setProperty('--i', i % 4); });
+    if (motionOK && window.IntersectionObserver) {
+        var io = new IntersectionObserver(function (es) {
+            es.forEach(function (x) { if (x.isIntersecting || x.boundingClientRect.bottom < 0) { x.target.classList.add('in'); io.unobserve(x.target); } });
+        }, { threshold: 0.2 });
+        $$('.bento, .shot').forEach(function (x) { io.observe(x); });
+    } else $$('.bento, .shot').forEach(function (x) { x.classList.add('in'); });
+
     /* ---------- Wire up ---------- */
     var builders = { hero: hero, print: print, arabic: arabic, cards: cards, ai: ai, find: find, sunset: sunset, lock: lock, payoff: payoff };
     $$('[data-demo]').forEach(function (el) {
         var name = el.getAttribute('data-demo'), D = new Demo(el, builders[name]);
+        byName[name] = D;
         if (name === 'payoff') D.fresh = true; /* measure at the moment it plays: the rail dot moves */
         demos.push(D);
-    });
-
-    /* flip cards on tap / Enter / Space */
-    $$('#d-cards .flip').forEach(function (f) {
-        function tog() { f.parentNode.classList.toggle('flipped'); }
-        f.addEventListener('click', function () { if (!matchMedia('(hover: hover)').matches) tog(); });
-        f.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); tog(); } });
     });
 
     if (!motionOK) return;

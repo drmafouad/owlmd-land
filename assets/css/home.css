@@ -35,54 +35,11 @@
 .doc-tasks li { display: flex; align-items: center; gap: 2.4cqw; }
 .doc-cb { font-family: var(--font-ui); flex: none; width: 4.4cqw; height: 4.4cqw; border: 0.4cqw solid var(--paper-ink); border-radius: 0.8cqw; display: grid; place-items: center; font-size: 3cqw; line-height: 1; font-weight: 700; }
 
-/* 05: the four type specimens, resting = fanned open with names. --pitch = gap between neighbouring cards */
-.fan-stage { --cw: clamp(120px, 15vw, 210px); --pitch: clamp(48px, 8.3vw, 120px); display: grid; justify-items: center; padding-block: 8px 24px; }
-.fan-cards { position: relative; list-style: none; margin: 0; padding: 0; width: var(--cw); height: calc(var(--cw) * 1.3); }
-.fcard { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 100%; z-index: 1; }
-.fcard-in:focus-visible { outline-offset: 4px; }
-.fcard:nth-child(1) { rotate: -9deg; translate: calc(var(--pitch) * -1.5) 0; }
-.fcard:nth-child(2) { rotate: -3deg; translate: calc(var(--pitch) * -0.5) 0; }
-.fcard:nth-child(3) { rotate: 3deg; translate: calc(var(--pitch) * 0.5) 0; }
-.fcard:nth-child(4) { rotate: 9deg; translate: calc(var(--pitch) * 1.5) 0; }
-.fcard-in {
-  height: 100%; display: flex; flex-direction: column; justify-content: flex-start;
-  padding: calc(var(--cw) * 0.09); background: var(--surface);
-  border: 1px solid var(--outline-variant); border-radius: var(--r-card); /* resting cards: hairline, no shadow */
-}
-.aa { display: block; align-self: flex-start; font-size: calc(var(--cw) * 0.36); line-height: 1; letter-spacing: -0.03em; padding: 4px 8px; margin: -4px -8px 0; border-radius: var(--r-chip); }
-.frule { display: block; height: 0; }
-.fcard-name { display: none; margin-top: auto; font-size: 1.0625rem; line-height: 1.2; color: var(--on-surface); }
-.t-pro .fcard-name, .t-mod .fcard-name, .t-std .fcard-name { font-weight: 700; }
-.fan-names { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; list-style: none; margin: 32px 0 0; padding: 0; }
-.fan-names li { font-size: 1.125rem; line-height: 1.3; letter-spacing: 0; color: var(--on-surface); } /* each name is set in its own theme's heading style */
-.fan-names .t-pro, .fan-names .t-mod, .fan-names .t-std { font-weight: 700; }
-.fan-names .t-min { font-weight: 400; }
-/* heading styles read from lib/features/pdf_export/domain/pdf_theme.dart */
-.t-pro .aa { font-weight: 700; color: var(--on-surface); }                       /* bold; H1 gets a 0.5pt grey rule */
-.t-pro .frule { height: 1px; background: var(--outline); margin: 12px 0; }
-.t-mod .aa { font-weight: 700; color: var(--on-surface); background: var(--surface-container); } /* bold; H1 on a light tint band */
-.t-min .aa { font-weight: 400; color: var(--muted); background: var(--surface-container); }       /* regular weight, tint band, no rules */
-.t-std .aa { font-weight: 700; color: var(--on-surface); }                       /* bold, no rule, no band, no accent */
-.fcard-in { transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); }
-.fcard:hover .fcard-in, .fcard-in:focus-visible {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); /* the only shadow on the page: a floating state */
-}
-.fcard:hover, .fcard:focus-within { z-index: 5; }
-@media (max-width: 600px) {
-  .fan-stage { --cw: 150px; }
-  .fan-cards { position: static; width: 100%; height: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .fcard, .fcard:nth-child(n) { position: relative; inset: auto; height: auto; rotate: none; translate: none; }
-  .fcard-in { aspect-ratio: 1 / 1; }
-  .aa { font-size: 3rem; }
-  .fcard-name { display: block; } /* on phones each card carries its own name */
-  .fan-names { display: none; }
-}
 .proof { margin: 24px 0 0; }
 .proof a { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--primary); }
 
 /* 06: the base (page-theme) copy exists only while motion is on */
-.sweep { position: relative; border-top: 1px solid var(--outline-variant); }
+.sweep { position: relative; }
 .sweep .split { border-top: 0; }
 .sweep-base { display: none; }
 .sweep-main { background: var(--surface); color: var(--on-surface); position: relative; z-index: 1; border-top: 0; }
@@ -90,7 +47,7 @@
 .sweep-logo img { border-radius: 6px; }
 
 /* 07 */
-.payoff { padding-block: clamp(56px, 10vw, 128px) clamp(40px, 6vw, 80px); }
+.payoff { padding-block: 0; }
 .payoff-title { font-size: clamp(2.25rem, 7.5vw, 5.5rem); line-height: 1.02; letter-spacing: -0.04em; }
 .stop { position: relative; display: inline-block; width: 0.172em; height: 0.172em; margin-left: 0.0625em; vertical-align: -0.0156em; }
 .stop .dot { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; vertical-align: baseline; }
@@ -172,9 +129,9 @@
 /* ===== Part 2: the motion lab styles ===== */
 .hero-title .dot, .hero-sub, .hero-actions { animation: none; } /* the site's hero keyframes are not used here */
 
-.lab-demo { border-top: 1px solid var(--outline-variant); padding-block: clamp(40px, 6vw, 80px); }
+.lab-demo { border-top: 1px solid var(--outline-variant); padding-block: var(--sec); }
 html.lab-wait.lab-motion .lab-stage { visibility: hidden; } /* until fonts are in, so measured motion lands right */
-.lab-stage .split-in { align-items: center; }
+.lab-stage .split-in { align-items: start; } /* demos share the heading block's top edge (OWLMD-246) */
 .lab-stage .split h2, .lab-stage h2.big { font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.03em; margin-bottom: 20px; }
 .lab-stage .lead { color: var(--muted); max-width: 38ch; margin: 0; }
 
@@ -195,7 +152,7 @@ html.lab-wait.lab-motion .lab-stage { visibility: hidden; } /* until fonts are i
 .sleep .lid { transform: none; } /* closed by default */
 
 /* ---------- 01 Hero ---------- */
-.home-hero { padding-block: clamp(48px, 9vw, 120px) clamp(48px, 8vw, 96px); }
+.home-hero { padding-block: var(--sec); }
 .lab-hero .hero-note { margin: 16px 0 0; font-size: 0.9375rem; color: var(--muted); }
 .lab-hero .chip-brass { margin-bottom: 28px; }
 .lab-hero .hero-title .line { display: block; }
@@ -208,7 +165,7 @@ html.lab-wait.lab-motion .lab-stage { visibility: hidden; } /* until fonts are i
 }
 
 /* ---------- 02 Print ---------- */
-.pstage { container-type: inline-size; position: relative; width: min(100%, 440px); aspect-ratio: 1 / 1.1; justify-self: center; }
+.pstage { container-type: inline-size; position: relative; width: 100%; max-width: 548px; aspect-ratio: 1 / 1.1; }
 .pstage .doc-page { position: absolute; inset: 0; height: 100%; max-width: none; }
 .pstage h3, .pstage .doc-ctitle, .pstage .dt3 { display: inline-block; transform-origin: 0 0; }
 .pstage h3 { display: block; width: max-content; }
@@ -226,45 +183,7 @@ html.lab-wait.lab-motion .lab-stage { visibility: hidden; } /* until fonts are i
 .ar-ink { position: relative; display: inline-block; }
 .ar-base { position: absolute; inset: 0; white-space: nowrap; }
 .nib { position: absolute; right: -0.1em; top: 58%; width: 0.172em; height: 0.172em; border-radius: 50%; background: var(--dot); opacity: 0; }
-.lab-ar .pdf-page { justify-self: center; }
 
-/* ---------- 04 Card deal + flip ---------- */
-.lab-fan .fcard { perspective: 1000px; }
-.lab-fan .flip { position: relative; height: 100%; transform-style: preserve-3d; transition: transform 550ms var(--ease); cursor: pointer; border-radius: var(--r-card); }
-.lab-fan .ff, .lab-fan .fb { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-.lab-fan .fcard:hover .fcard-in { transform: none; box-shadow: none; } /* the lift moves to the whole card */
-/* the back: a close-up of a page in that theme, text only, on the page colour (Limestone, or Basalt in Cairo Night) */
-.lab-fan .fb {
-    position: absolute; inset: 0; transform: rotateY(180deg); overflow: hidden;
-    border: 1px solid var(--outline-variant); border-radius: var(--r-card); background: var(--surface); color: var(--on-surface);
-}
-.fb-in { position: absolute; inset: 0; padding: calc(var(--cw) * 0.11); transform: scale(0.8); transform-origin: 0 0; transition: transform 700ms var(--ease) 150ms; } /* zooms in to read once it has turned */
-.fb-h { display: block; font-size: calc(var(--cw) * 0.105); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; margin-bottom: calc(var(--cw) * 0.06); overflow-wrap: anywhere; }
-.fb-rule { display: block; height: 0; }
-.fb-in p { margin: 0 0 0.6em; font-size: calc(var(--cw) * 0.075); line-height: 1.5; color: var(--muted); }
-.fb-task { display: flex; align-items: center; gap: 0.5em; }
-.fb-task i { display: grid; place-items: center; width: 1.2em; height: 1.2em; border: 1.5px solid var(--on-surface); border-radius: 3px; font-style: normal; font-size: 0.85em; font-weight: 700; color: var(--on-surface); }
-.t-pro .fb-rule { height: 1px; background: var(--outline); margin: 0 0 calc(var(--cw) * 0.06); }
-.t-mod .fb-h { font-family: "Asap Specimen", var(--font-ui); background: var(--surface-container); padding: 0.15em 0.3em; margin-inline: -0.3em; border-radius: var(--r-chip); }
-.t-min .fb-h { font-weight: 400; color: var(--muted); background: var(--surface-container); padding: 0.15em 0.3em; margin-inline: -0.3em; border-radius: var(--r-chip); }
-.t-std .fb-h, .t-std .fb-in p { font-family: "Noto Serif Specimen", var(--font-ui); }
-.lab-fan .flipped { z-index: 5; }
-.lab-fan .flipped .fb-in { transform: none; }
-@media (hover: hover) { .lab-fan .fcard:hover .fb-in, .lab-fan .flip:focus-visible .fb-in { transform: none; } .lab-fan .hint { display: none; } }
-@media (prefers-reduced-motion: reduce) { .lab-fan .flip, .fb-in { transition: none; } }
-@media (hover: hover) {
-    .lab-fan .fcard:hover .flip, .lab-fan .flip:focus-visible { transform: translateY(-8px) rotateY(180deg); }
-    .lab-fan .fcard:hover .ff, .lab-fan .fcard:hover .fb { box-shadow: 0 12px 28px rgb(0 0 0 / 0.25); }
-}
-.lab-fan .flipped .flip { transform: rotateY(180deg); }
-.lab-fan .hint { margin: 16px 0 0; text-align: center; color: var(--muted); font-size: 0.9375rem; }
-@media (max-width: 600px) { /* phones: a swipe row instead of the 2x2 grid */
-    .lab-fan .fan-stage { justify-items: stretch; --cw: 220px; }
-    .lab-fan .fan-cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-inline: calc(var(--gutter) * -1); padding: 12px var(--gutter) 20px; width: auto; scrollbar-width: none; }
-    .lab-fan .fcard, .lab-fan .fcard:nth-child(n) { flex: 0 0 66%; scroll-snap-align: center; }
-    .lab-fan .ff { aspect-ratio: 1 / 1.3; }
-    .lab-fan .flip { height: auto; }
-}
 
 /* ---------- 05 AI: copy, paste, PDF ---------- */
 .ai-stage { position: relative; display: grid; gap: 0; padding: 8px 0; }
@@ -338,7 +257,9 @@ html.lab-motion .lab-lock .sweep-base { display: block; position: absolute; inse
 
 /* ---------- 09 Journey: margin rail + payoff ---------- */
 .rail { position: fixed; z-index: 5; top: 20vh; bottom: 20vh; left: max(20px, calc((100vw - var(--max)) / 2 - 40px)); width: 1px; background: var(--outline-variant); display: none; pointer-events: none; }
-.rail-dot { position: absolute; left: -6px; top: -6px; width: 13px; height: 13px; border-radius: 50%; background: var(--dot); }
+.rail-dot { position: absolute; left: calc(var(--dot-d) / -2); top: calc(var(--dot-d) / -2); width: var(--dot-d); height: var(--dot-d); border-radius: 50%; background: var(--dot); }
+.rail { transition: opacity 150ms linear; }
+.rail.off { opacity: 0; } /* hidden while it overlaps the dark band or a tinted band (OWLMD-246) */
 @media (min-width: 1260px) { html.lab-motion .rail { display: block; } }
 
 /* ---------- Theme swatches: surface, ink and primary from palettes.dart (OWLMD-241, 2026-11-07) ---------- */
@@ -350,10 +271,140 @@ html.lab-motion .lab-lock .sweep-base { display: block; position: absolute; inse
 .sw-night { background: #1B1A17; color: #EDE4D3; --sw-primary: #1E968C; }
 .sw-half { flex: 1; align-self: stretch; display: flex; align-items: center; justify-content: center; }
 
-/* ---------- Also inside (OWLMD-241, 2026-11-07) ---------- */
-.also { padding-block: clamp(48px, 7vw, 80px); }
+/* ===== OWLMD-246 (2026-11-13): design polish ===== */
+:root { --sec: 56px; }
+@media (min-width: 900px) { :root { --sec: 96px; } }
+.promo, .also, .v1-band { padding-block: var(--sec); }
+#d-lock { padding-block: 0; border-top: 0; }
+.sweep .split { padding-block: var(--sec); }
+/* no hairline where a background change already separates two sections */
+#d-cards, #d-ai, #d-payoff, .v1-band { border-top: 0; border-bottom: 0; }
+
+/* Hero: two columns on desktop; the note -> PDF pair under the buttons on phones */
+.lab-hero .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.lab-hero .l1 { white-space: normal; }
+/* Headline line 1 and the chip paint on the first frame (LCP); the rest of the hero waits for the fonts, then plays */
+html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass { visibility: visible; }
+.hero-pair { position: relative; width: 100%; max-width: 548px; aspect-ratio: 1 / 0.98; }
+.hp-page { position: absolute; top: 0; right: 0; width: 80%; aspect-ratio: 1 / 1.1; }
+.hp-md {
+  position: absolute; left: 0; bottom: 0; z-index: 2; width: 58%; padding: 12px 14px;
+  background: var(--surface); color: var(--on-surface); border: 1px solid var(--outline); border-radius: var(--r-card);
+}
+.hp-md .label { display: block; margin-bottom: 6px; }
+.hp-md .ln { display: block; }
+.hp-md pre { margin: 0; font-family: var(--font-mono); font-size: clamp(0.5625rem, 0.95vw, 0.75rem); line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.hp-md .mk { color: var(--primary); }
+@media (max-width: 899px) {
+  .hero-visual { margin-top: 40px; }
+  .hero-pair { max-height: 320px; max-width: calc(320px / 0.98); }
+  .hp-md { width: 66%; padding: 10px 12px; }
+  .hp-md pre { font-size: 0.5625rem; white-space: pre; overflow: hidden; }
+}
+@media (max-width: 600px) { .lab-hero .hero-actions .btn { width: 100%; } }
+
+/* Screenshot slots: an enabled <picture class="shot"> replaces the drawn demo next to it */
+.shot img { display: block; width: auto; max-width: 100%; max-height: 640px; height: auto; border: 1px solid var(--outline-variant); border-radius: var(--r-card); }
+.g-demo:has(> .shot) > :not(.shot) { display: none; }
+
+/* Paper: a step lighter than the page in light mode, with a hairline; no shadow */
+.doc-page, .pdf-page, .ai-page, .spec-page { background: var(--paper); border: 1px solid var(--outline-variant); }
+
+/* Scene 03 page, fuller */
+.doc-page h3 { font-size: 7cqw; margin: 0 0 3cqw; }
+.doc-p { margin: 0 0 3.4cqw; font-size: 3.5cqw; line-height: 1.5; color: var(--paper-ink); }
+.doc-callout { margin-bottom: 4cqw; }
+.doc-tasks { margin-bottom: 4cqw; }
+.doc-tasks li + li { margin-top: 1.2cqw; }
+.doc-cb-open { border-color: var(--paper-muted); }
+.doc-table { width: 100%; border-collapse: collapse; margin: 0 0 4cqw; font-size: 3.1cqw; line-height: 1.4; color: var(--paper-ink); }
+.doc-table th, .doc-table td { text-align: start; padding: 1.4cqw 1.6cqw; border: 1px solid var(--paper-rule); }
+.doc-table th { font-weight: 700; }
+
+/* Arabic card, fuller; as wide as the other demos */
+.lab-stage .pdf-page { max-width: 548px; }
+.pdf-page h3 { line-height: 1.6; }
+.pdf-page .ar-p { font-family: var(--font-ar); color: var(--paper-ink); font-size: 1rem; line-height: 1.9; margin: 0 0 6px; }
+.ar-table { width: 100%; border-collapse: collapse; margin: 14px 0 0; font-family: var(--font-ar); font-size: 0.9375rem; color: var(--paper-ink); }
+.ar-table th, .ar-table td { text-align: start; padding: 6px 10px; border: 1px solid var(--paper-rule); }
+.ar-table td:last-child { direction: ltr; unicode-bidi: isolate; text-align: end; }
+
+/* "4 PDF themes": a full-width band, the four specimens in one row */
+.band { background: var(--surface-container); }
+.band-head { margin-bottom: 40px; }
+.specimens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 900px) { .specimens { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
+.spec-page { container-type: inline-size; aspect-ratio: 1 / 1.1; padding: 11%; border-radius: 4px; color: #1A1A1A; }
+/* flip: front = the specimen, back = a page in that theme; tap (or hover) to turn; no rotation at rest */
+.spec { perspective: 1000px; }
+.flip { display: grid; transform-style: preserve-3d; transition: transform 550ms var(--ease); cursor: pointer; border-radius: 4px; }
+.flip > .spec-page { grid-area: 1 / 1; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.flip > .fb { transform: rotateY(180deg); }
+.spec.flipped .flip { transform: rotateY(180deg); }
+@media (hover: hover) { .spec:hover .flip, .flip:focus-visible { transform: rotateY(180deg); } }
+@media (prefers-reduced-motion: reduce) { .flip { transition: none; } }
+.sp-task { display: flex; align-items: center; gap: 3cqw; margin: 2cqw 0 0; font-size: 6.6cqw; }
+.sp-task i { display: grid; place-items: center; width: 8cqw; height: 8cqw; border: 0.6cqw solid currentColor; border-radius: 1.4cqw; font-style: normal; font-family: var(--font-ui); font-size: 5.4cqw; font-weight: 700; }
+#d-cards .hint { margin: 16px 0 0; color: var(--muted); font-size: 0.9375rem; }
+.sp-h { margin: 0; font-size: 12cqw; line-height: 1.15; font-weight: 700; color: #1A1A1A; }
+.sp-rule { display: block; height: 0; margin: 4cqw 0; }
+.sp-b { margin: 0 0 6cqw; font-size: 7.2cqw; line-height: 1.5; }
+.sp-co { margin: 0; padding: 4cqw 5cqw; font-size: 6.6cqw; line-height: 1.35; border-inline-start: 1.2cqw solid #2164CF; background: color-mix(in srgb, #2164CF 8%, var(--paper)); }
+.sp-ct { display: block; font-size: 5.6cqw; font-weight: 700; color: #1B4FA8; }
+/* real styles from pdf_theme.dart */
+.t-pro .spec-page, .t-pro .sp-h { color: #000; font-family: var(--font-ui); }            /* Inter, black; H1 0.5 pt grey rule #8A8A8A */
+.t-pro .sp-rule { height: 1px; background: #8A8A8A; }
+.t-pro .sp-co { border-color: color-mix(in srgb, #0F5C55 40%, var(--paper)); }             /* callout border = teal accent at 40% */
+.t-mod .spec-page { color: #262626; }                                                        /* Asap (body falls back to Inter: subset font) */
+.t-mod .sp-h { color: #9E3B2E; font-family: "Asap Specimen", var(--font-ui); }              /* H1 Ablaq red, 2 pt rule #DBC39D, 6 pt below */
+.t-mod .sp-rule { height: 2px; background: #DBC39D; margin-top: 2cqw; }
+.t-min .spec-page, .t-min .sp-h { color: #1A1A1A; }                                         /* Ubuntu held back: Inter; title rule 1 pt, no shades */
+.t-min .sp-rule { height: 1px; background: #D9D9D9; }
+.t-min .sp-co { background: color-mix(in srgb, #2164CF 5%, var(--paper)); }
+.t-std .spec-page, .t-std .sp-h { color: #1A1A1A; font-family: "Noto Serif Specimen", var(--font-ui); } /* bold, no rule, no band, no accent */
+.t-std .sp-co { background: color-mix(in srgb, #2164CF 6%, var(--paper)); }
+.band > .container > .lab-stage > .shot { display: block; margin-top: 32px; }
+
+/* Your theme: four chips set the sunset panel's palette (palettes.dart). System keeps the day -> night scene. */
+.theme-picker { display: none; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.js .theme-picker { display: flex; }
+.tchip { min-height: var(--hit); gap: 8px; padding: 0 14px; border-radius: 999px; background: transparent; color: var(--on-surface); font: inherit; font-size: 0.9375rem; font-weight: 500; cursor: pointer; }
+.tchip[aria-pressed="true"] { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+.tsw { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--outline); background: linear-gradient(90deg, var(--a) 50%, var(--b) 50%); }
+.ss-name { font-size: 0.9375rem; font-weight: 600; }
+.sunset[data-pal="sepia"] .ss-layer { --surface: #F4ECD8; --on-surface: #5B4636; --primary: #8B5E34; --outline: #6F5740; --muted: #7A6450; }
+.sunset[data-pal="cairo"] .ss-layer { --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #9E3B2E; --outline: #55514B; --muted: #45423D; }
+.sunset[data-pal="night"] .ss-layer { --surface: #1B1A17; --on-surface: #EDE4D3; --primary: #1E968C; --outline: #8C867C; --muted: #B9B2A4; }
+.sunset[data-pal]:not([data-pal="system"]) .ss-night, .sunset[data-pal]:not([data-pal="system"]) .ss-word { display: none; }
+
+/* Lock: Backup and Offline grouped under "Also private" */
+.rows-label { margin: 24px 0 0; padding-bottom: 4px; }
+.lock-rows .rows + .rows-label + .rows > div:first-child { border-top: 1px solid var(--outline-variant); }
+
+/* Also inside: a bento of six tiles (2 columns on phones) */
 .also h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 24px; }
-.also-list { display: grid; gap: 0 32px; margin: 0; padding: 0; list-style: none; }
-@media (min-width: 760px) { .also-list { grid-template-columns: 1fr 1fr; } }
-.also-list li { padding: 12px 0; border-top: 1px solid var(--outline-variant); }
+.bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.bento .t-wide { grid-column: span 2; }
+@media (min-width: 900px) { .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
+/* tiles fade up once, 60 ms apart; screenshot slots rise 12 px, 80 ms apart (only when a slot is enabled) */
+html.lab-motion .bento .tile { transition: opacity 420ms var(--ease), transform 420ms var(--ease); transition-delay: calc(var(--i, 0) * 60ms); }
+html.lab-motion .bento:not(.in) .tile { opacity: 0; transform: translateY(12px); }
+html.lab-motion .shot { transition: opacity 420ms var(--ease), transform 420ms var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+html.lab-motion .shot:not(.in) { opacity: 0; transform: translateY(12px); }
+.tile { display: flex; flex-direction: column; gap: 14px; padding: 20px; border: 1px solid var(--outline-variant); border-radius: var(--r-card); line-height: 1.45; }
+.tile .ic { width: 24px; height: 24px; fill: none; stroke: var(--primary); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .also-lang { margin: 24px 0 0; color: var(--muted); }
+
+/* Closing call to action */
+.payoff-title { margin: 0; }
+#d-payoff { padding-bottom: 32px; }
+.cta { padding-block: 0 var(--sec); }
+.cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.cta-link { display: inline-flex; align-items: center; min-height: var(--hit); color: var(--on-surface); font-weight: 600; }
+@media (max-width: 600px) { .cta-actions .btn { width: 100%; } }
+
+/* One dot size per viewport (--dot-d): hero full stop, lock band, closing landing, rail */
+.lab-hero .cd, .stop, .lab-lock h2 .dot { width: var(--dot-d); height: var(--dot-d); }
+/* a chosen palette shows the day layer in that palette, with the sun (the dot) up in its sky */
+.sunset[data-pal]:not([data-pal="system"]) .sun { opacity: 1 !important; transform: none !important; left: 68%; top: 26%; }
+@media (hover: hover) and (pointer: fine) { #d-cards .hint { display: none; } }
