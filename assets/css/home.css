@@ -281,25 +281,33 @@ html.lab-motion .lab-lock .sweep-base { display: block; position: absolute; inse
 #d-cards, #d-ai, #d-payoff, .v1-band { border-top: 0; border-bottom: 0; }
 
 /* Hero: two columns on desktop; the note -> PDF pair under the buttons on phones */
-.lab-hero .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.lab-hero .hero-title { font-size: clamp(min(2.5rem, 10.3vw), 5.3vw, 4rem); }
 .lab-hero .l1 { white-space: normal; }
+@media (min-width: 900px) {
+  .lab-hero.grid12 > .g-text { grid-column: 1 / 7; }            /* the headline gets column 6 too: "Markdown is easy." on one line */
+  .lab-hero .l1 { white-space: nowrap; }
+  .lab-hero .hero-sub, .lab-hero .hero-note { max-width: 30em; }
+}
 /* Headline line 1 and the chip paint on the first frame (LCP); the rest of the hero waits for the fonts, then plays */
 html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass { visibility: visible; }
-.hero-pair { position: relative; width: 100%; max-width: 548px; aspect-ratio: 1 / 0.98; }
-.hp-page { position: absolute; top: 0; right: 0; width: 80%; aspect-ratio: 1 / 1.1; }
+/* OWLMD-247: the card sits above the page (desktop) or beside it (phones); the only overlap is a corner of
+   the page's empty margin, so no page text is ever covered */
+.hero-pair { display: flex; flex-direction: column; width: 100%; max-width: 548px; }
 .hp-md {
-  position: absolute; left: 0; bottom: 0; z-index: 2; width: 58%; padding: 12px 14px;
+  order: -1; align-self: flex-start; position: relative; z-index: 2; width: 66%; padding: 12px 14px;
   background: var(--surface); color: var(--on-surface); border: 1px solid var(--outline); border-radius: var(--r-card);
 }
+.hp-page { align-self: flex-end; width: 76%; margin-top: -20px; aspect-ratio: auto; }
 .hp-md .label { display: block; margin-bottom: 6px; }
 .hp-md .ln { display: block; }
 .hp-md pre { margin: 0; font-family: var(--font-mono); font-size: clamp(0.5625rem, 0.95vw, 0.75rem); line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
 .hp-md .mk { color: var(--primary); }
-@media (max-width: 899px) {
-  .hero-visual { margin-top: 40px; }
-  .hero-pair { max-height: 260px; max-width: calc(260px / 0.98); }
-  .hp-md { width: 66%; padding: 10px 12px; }
-  .hp-md pre { font-size: 0.5625rem; white-space: pre; overflow: hidden; }
+@media (max-width: 899px) { .hero-visual { margin-top: 40px; } }
+@media (max-width: 599px) { /* phone: side by side, card over the page's left margin only */
+  .hero-pair { flex-direction: row; align-items: flex-start; max-width: none; }
+  .hp-md { width: 48%; flex: none; margin-top: 14%; padding: 8px 10px; }
+  .hp-md pre { font-size: 0.5625rem; line-height: 1.6; }
+  .hp-page { flex: none; width: 56%; margin: 0 0 0 -4%; }
 }
 @media (max-width: 600px) { .lab-hero .hero-actions .btn { width: 100%; } }
 
@@ -320,7 +328,8 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 .doc-table th { font-weight: 700; }
 
 /* Arabic card, fuller; as wide as the other demos */
-.lab-stage .pdf-page { max-width: 548px; }
+.lab-stage .pdf-page { max-width: 548px; aspect-ratio: auto; }
+.lab-stage .pdf-page .pdf-foot { margin-top: 16px; }
 .pdf-page h3 { line-height: 1.6; }
 .pdf-page .ar-p { font-family: var(--font-ar); color: var(--paper-ink); font-size: 1rem; line-height: 1.9; margin: 0 0 6px; }
 .ar-table { width: 100%; border-collapse: collapse; margin: 14px 0 0; font-family: var(--font-ar); font-size: 0.9375rem; color: var(--paper-ink); }
@@ -332,9 +341,9 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 .band-head { margin-bottom: 40px; }
 .specimens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
 @media (min-width: 900px) { .specimens { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
-.spec-page { container-type: inline-size; aspect-ratio: 1 / 1.1; padding: 11%; border-radius: 4px; color: #1A1A1A; }
+.spec-page { container-type: inline-size; padding: 11%; border-radius: 4px; color: #1A1A1A; }
 /* flip: front = the specimen, back = a page in that theme; tap (or hover) to turn; no rotation at rest */
-.spec { perspective: 1000px; }
+.spec { perspective: 1000px; display: grid; } /* every card in the row is as tall as the tallest */
 .flip { display: grid; transform-style: preserve-3d; transition: transform 550ms var(--ease); cursor: pointer; border-radius: 4px; }
 .flip > .spec-page { grid-area: 1 / 1; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 .flip > .fb { transform: rotateY(180deg); }
@@ -346,21 +355,23 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 #d-cards .hint { margin: 16px 0 0; color: var(--muted); font-size: 0.9375rem; }
 .sp-h { margin: 0; font-size: 12cqw; line-height: 1.15; font-weight: 700; color: #1A1A1A; }
 .sp-rule { display: block; height: 0; margin: 4cqw 0; }
-.sp-b { margin: 0 0 6cqw; font-size: 7.2cqw; line-height: 1.5; }
-.sp-co { margin: 0; padding: 4cqw 5cqw; font-size: 6.6cqw; line-height: 1.35; border-inline-start: 1.2cqw solid #2164CF; background: color-mix(in srgb, #2164CF 8%, var(--paper)); }
-.sp-ct { display: block; font-size: 5.6cqw; font-weight: 700; color: #1B4FA8; }
+.sp-b { margin: 0 0 5cqw; font-size: 7.2cqw; line-height: 1.5; }
+/* callout: 2 pt bar, 6 pt radius (split_callout.dart); bar, title and tint use the theme's accentColor at its calloutTintAlpha */
+.sp-co { --acc: #0F5C55; --tint: 8%; margin: 0; padding: 4cqw 5cqw; font-size: 6.6cqw; line-height: 1.35; border-inline-start: 1.2cqw solid var(--acc); border-radius: 0 3.6cqw 3.6cqw 0; background: color-mix(in srgb, var(--acc) var(--tint), var(--paper)); }
+.sp-ct { display: block; font-size: 5.6cqw; font-weight: 700; color: var(--acc); }
 /* real styles from pdf_theme.dart */
 .t-pro .spec-page, .t-pro .sp-h { color: #000; font-family: var(--font-ui); }            /* Inter, black; H1 0.5 pt grey rule #8A8A8A */
 .t-pro .sp-rule { height: 1px; background: #8A8A8A; }
-.t-pro .sp-co { border-color: color-mix(in srgb, #0F5C55 40%, var(--paper)); }             /* callout border = teal accent at 40% */
+.t-pro .sp-co { --acc: #0F5C55; --tint: 8%; border-color: color-mix(in srgb, #0F5C55 40%, var(--paper)); } /* accent teal; border at 40% (calloutBorderAccentAlpha) */
+.t-mod .sp-co { --acc: #0F5C55; --tint: 8%; }
 .t-mod .spec-page { color: #262626; }                                                        /* Asap (body falls back to Inter: subset font) */
 .t-mod .sp-h { color: #9E3B2E; font-family: "Asap Specimen", var(--font-ui); }              /* H1 Ablaq red, 2 pt rule #DBC39D, 6 pt below */
 .t-mod .sp-rule { height: 2px; background: #DBC39D; margin-top: 2cqw; }
 .t-min .spec-page, .t-min .sp-h { color: #1A1A1A; }                                         /* Ubuntu held back: Inter; title rule 1 pt, no shades */
 .t-min .sp-rule { height: 1px; background: #D9D9D9; }
-.t-min .sp-co { background: color-mix(in srgb, #2164CF 5%, var(--paper)); }
+.t-min .sp-co { --acc: #333333; --tint: 5%; }
 .t-std .spec-page, .t-std .sp-h { color: #1A1A1A; font-family: "Noto Serif Specimen", var(--font-ui); } /* bold, no rule, no band, no accent */
-.t-std .sp-co { background: color-mix(in srgb, #2164CF 6%, var(--paper)); }
+.t-std .sp-co { --acc: #0B5CAD; --tint: 6%; }
 
 /* Your theme: four chips set the sunset panel's palette (palettes.dart). System keeps the day -> night scene. */
 .theme-picker { display: none; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
@@ -368,10 +379,14 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 .tchip { min-height: var(--hit); gap: 8px; padding: 0 14px; border-radius: 999px; background: transparent; color: var(--on-surface); font: inherit; font-size: 0.9375rem; font-weight: 500; cursor: pointer; }
 .tchip[aria-pressed="true"] { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
 .tsw { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--outline); background: linear-gradient(90deg, var(--a) 50%, var(--b) 50%); }
-.ss-name { font-size: 0.9375rem; font-weight: 600; }
-.sunset[data-pal="sepia"] .ss-layer { --surface: #F4ECD8; --on-surface: #5B4636; --primary: #8B5E34; --outline: #6F5740; --muted: #7A6450; }
-.sunset[data-pal="cairo"] .ss-layer { --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #9E3B2E; --outline: #55514B; --muted: #45423D; }
-.sunset[data-pal="night"] .ss-layer { --surface: #1B1A17; --on-surface: #EDE4D3; --primary: #1E968C; --outline: #8C867C; --muted: #B9B2A4; }
+.ss-ground { justify-content: space-between; gap: 12px; }
+.ss-sample { min-width: 0; }
+.ss-h { margin: 0 0 2px; font-size: clamp(0.8125rem, 1.4vw, 1.0625rem); font-weight: 700; line-height: 1.25; }
+.ss-t { margin: 0; font-size: clamp(0.6875rem, 1.1vw, 0.875rem); line-height: 1.4; color: var(--muted); }
+.ss-chip { flex: none; display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 999px; background: var(--primary); color: var(--on-primary); font-size: 0.8125rem; font-weight: 600; }
+.sunset[data-pal="sepia"] .ss-layer { --surface: #F4ECD8; --on-surface: #5B4636; --primary: #8B5E34; --on-primary: #F4ECD8; --outline: #6F5740; --muted: #7A6450; }
+.sunset[data-pal="cairo"] .ss-layer { --surface: #EDE4D3; --on-surface: #1B1A17; --primary: #9E3B2E; --on-primary: #EDE4D3; --outline: #55514B; --muted: #45423D; }
+.sunset[data-pal="night"] .ss-layer { --surface: #1B1A17; --on-surface: #EDE4D3; --primary: #1E968C; --on-primary: #1B1A17; --outline: #8C867C; --muted: #B9B2A4; }
 .sunset[data-pal]:not([data-pal="system"]) .ss-night, .sunset[data-pal]:not([data-pal="system"]) .ss-word { display: none; }
 
 /* Lock: Backup and Offline grouped under "Also private" */
@@ -426,3 +441,8 @@ html.lab-motion .shot:not(.in) { opacity: 0; transform: translateY(12px); }
 .shots li { display: grid; gap: 10px; justify-items: center; }
 .shot img { display: block; width: 100%; max-width: 300px; height: auto; border: 1px solid var(--outline-variant); border-radius: var(--r-card); }
 .shot-cap { color: var(--muted); font-size: 0.9375rem; font-weight: 600; }
+
+/* OWLMD-247: the hero's bottom padding is the only gap before the next section (96 desktop / 56 phone) */
+#d-hero + .inapp[hidden] + .promo, #d-hero + .promo { padding-top: 0; }
+/* live: the video is hidden, so the PDF section follows the hero directly */
+html[data-release="live"]:has(#in-app[hidden]) #d-print { padding-top: 0; border-top: 0; }

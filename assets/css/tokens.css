@@ -1,7 +1,7 @@
 /*
  * OwlMD website — design tokens.
- * Updated 2026-11-13 (OWLMD-246): light-mode paper is #F7F4EE (AppPalettes.light.surfaceContainerLowest, the nearest
- *   existing step lighter than Cairo's surface; Cairo's own surfaceContainerLowest equals its surface). Dark mode unchanged.
+ * Updated 2026-11-13 (OWLMD-247): paper is Limestone #EDE4D3 in both modes (owner chose option A);
+ *   every paper demo sits on a desk panel in --surface-container, so the page still lifts off the background.
  * Updated 2026-11-07 (OWLMD-241): Cairo primary #9E3B2E and secondary #0F5C55, as palettes.dart. Cairo Night unchanged.
  * Every hex below is a SHIPPED value from the app, no new colours:
  *   lib/core/theme/palettes.dart  → AppPalettes.cairo (Cairo), AppPalettes.cairoDark (Cairo Night)
@@ -45,7 +45,7 @@
   --brass: #C08A2E;     /* Cairo Brass: fill only */
   --on-brass: #1B1A17;  /* Basalt on brass = 5.73:1 */
   --dot: #CF6A33;       /* logo beak: decorative dot only */
-  --paper: #F7F4EE;     /* typeset PDF page in light mode: one step lighter than the page (OWLMD-246) */
+  --paper: #EDE4D3;     /* typeset PDF page: Limestone, on a surface-container desk panel (OWLMD-247, option A) */
   --paper-ink: #1B1A17;
   --paper-muted: #45423D;
   --paper-rule: #BDB6A8;
