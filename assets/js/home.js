@@ -125,7 +125,7 @@
         $$('.hero-sub, .hero-actions', e).forEach(function (el, i) { rise(D, el, T - 40 + i * 60, 12, 340); });
         blink(D, $('.site-header .owl'), 1950); /* the owl in the header */
         /* OWLMD-246 hero pair: the Markdown lines type in (steps), then the page builds from them */
-        var lns = $$('.hp-md .ln', e), at = 260;
+        var lns = $$('.hp-md .ln', e).filter(function (l) { return l.offsetHeight; }), at = 260; /* phones show three lines */
         lns.forEach(function (ln, i) {
             D.a(ln, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 170, delay: at + i * 190, easing: 'steps(12, end)' });
         });

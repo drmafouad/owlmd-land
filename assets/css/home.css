@@ -303,11 +303,24 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 .hp-md pre { margin: 0; font-family: var(--font-mono); font-size: clamp(0.5625rem, 0.95vw, 0.75rem); line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
 .hp-md .mk { color: var(--primary); }
 @media (max-width: 899px) { .hero-visual { margin-top: 40px; } }
-@media (max-width: 599px) { /* phone: side by side, card over the page's left margin only */
-  .hero-pair { flex-direction: row; align-items: flex-start; max-width: none; }
-  .hp-md { width: 48%; flex: none; margin-top: 14%; padding: 8px 10px; }
-  .hp-md pre { font-size: 0.5625rem; line-height: 1.6; }
-  .hp-page { flex: none; width: 56%; margin: 0 0 0 -4%; }
+@media (max-width: 599px) { /* OWLMD-248 phone: a 3-line strip, then the top of the page at full width; all text >= 11 px */
+  .hero-pair { flex-direction: column; max-width: none; gap: 10px; }
+  .hero-pair .hp-md { width: 100%; margin: 0; padding: 7px 10px; }
+  .hero-pair .hp-md .label, .hero-pair .hp-md .ln:nth-child(2), .hero-pair .hp-md .ln:nth-child(5), .hero-pair .hp-md .ln:nth-child(6) { display: none; }
+  .hero-pair .hp-md pre { font-size: 11px; line-height: 1.5; white-space: pre-wrap; } /* one line each from 360 px; wraps rather than clips below that */
+  .hero-pair .hp-page { width: 100%; margin: 0; container-type: normal; }
+  .hero-pair .hp-page .doc-table, .hero-pair .hp-page .doc-table ~ .doc-p { display: none; } /* phones: the page ends after the checklist */
+  .hero-pair .hp-page .doc-in { padding: 18px 20px; }
+  .hero-pair .hp-page h3 { font-size: 18px; margin: 0 0 6px; }
+  .hero-pair .hp-page .doc-p, .hero-pair .hp-page .doc-tasks, .hero-pair .hp-page .doc-ctitle { font-size: 12px; }
+  .hero-pair .hp-page .doc-callout { margin-bottom: 8px; padding: 6px 10px; gap: 8px; }
+  .hero-pair .hp-page .doc-callout::before { width: 3px; }
+  .hero-pair .hp-page .doc-badge { width: 22px; height: 22px; font-size: 11px; }
+  .hero-pair .hp-page .doc-tasks { margin-bottom: 8px; }
+  .hero-pair .hp-page .doc-tasks li { gap: 8px; }
+  .hero-pair .hp-page .doc-cb { width: 13px; height: 13px; font-size: 11px; }
+  .hero-pair .hp-page .doc-table { font-size: 11px; margin-bottom: 8px; }
+  .hero-pair .hp-page .doc-table th, .hp-page .doc-table td { padding: 3px 6px; }
 }
 @media (max-width: 600px) { .lab-hero .hero-actions .btn { width: 100%; } }
 
@@ -356,22 +369,23 @@ html.lab-wait .lab-hero .line:first-child, html.lab-wait .lab-hero .chip-brass {
 .sp-h { margin: 0; font-size: 12cqw; line-height: 1.15; font-weight: 700; color: #1A1A1A; }
 .sp-rule { display: block; height: 0; margin: 4cqw 0; }
 .sp-b { margin: 0 0 5cqw; font-size: 7.2cqw; line-height: 1.5; }
-/* callout: 2 pt bar, 6 pt radius (split_callout.dart); bar, title and tint use the theme's accentColor at its calloutTintAlpha */
-.sp-co { --acc: #0F5C55; --tint: 8%; margin: 0; padding: 4cqw 5cqw; font-size: 6.6cqw; line-height: 1.35; border-inline-start: 1.2cqw solid var(--acc); border-radius: 0 3.6cqw 3.6cqw 0; background: color-mix(in srgb, var(--acc) var(--tint), var(--paper)); }
-.sp-ct { display: block; font-size: 5.6cqw; font-weight: 700; color: var(--acc); }
+/* OWLMD-248: the Note callout exactly as the exporter draws it, the same in all four themes (DSN-47):
+   accent #2F6585 and fill #EEF3F6 (callout_styles.dart _pdf), 2 pt bar in the accent, 6 pt radius, padding 8 / 10 pt,
+   header = 13.75 pt icon + bold title in the accent at body size, 4 pt gap, body in the theme's text colour.
+   On the specimen, 1 pt = 0.6cqw. */
+.sp-co { margin: 0; padding: 4.8cqw 6cqw; font-size: 6.6cqw; line-height: 1.35; background: #EEF3F6; border-inline-start: 1.2cqw solid #2F6585; border-radius: 3.6cqw; }
+.sp-ct { display: flex; align-items: center; gap: 2.4cqw; margin: 0 0 2.4cqw; font-weight: 700; color: #2F6585; }
+.sp-ic { flex: none; width: 8.25cqw; height: 8.25cqw; fill: none; stroke: #2F6585; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.sp-cb { margin: 0; }
 /* real styles from pdf_theme.dart */
 .t-pro .spec-page, .t-pro .sp-h { color: #000; font-family: var(--font-ui); }            /* Inter, black; H1 0.5 pt grey rule #8A8A8A */
 .t-pro .sp-rule { height: 1px; background: #8A8A8A; }
-.t-pro .sp-co { --acc: #0F5C55; --tint: 8%; border-color: color-mix(in srgb, #0F5C55 40%, var(--paper)); } /* accent teal; border at 40% (calloutBorderAccentAlpha) */
-.t-mod .sp-co { --acc: #0F5C55; --tint: 8%; }
 .t-mod .spec-page { color: #262626; }                                                        /* Asap (body falls back to Inter: subset font) */
 .t-mod .sp-h { color: #9E3B2E; font-family: "Asap Specimen", var(--font-ui); }              /* H1 Ablaq red, 2 pt rule #DBC39D, 6 pt below */
 .t-mod .sp-rule { height: 2px; background: #DBC39D; margin-top: 2cqw; }
 .t-min .spec-page, .t-min .sp-h { color: #1A1A1A; }                                         /* Ubuntu held back: Inter; title rule 1 pt, no shades */
 .t-min .sp-rule { height: 1px; background: #D9D9D9; }
-.t-min .sp-co { --acc: #333333; --tint: 5%; }
 .t-std .spec-page, .t-std .sp-h { color: #1A1A1A; font-family: "Noto Serif Specimen", var(--font-ui); } /* bold, no rule, no band, no accent */
-.t-std .sp-co { --acc: #0B5CAD; --tint: 6%; }
 
 /* Your theme: four chips set the sunset panel's palette (palettes.dart). System keeps the day -> night scene. */
 .theme-picker { display: none; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
@@ -446,3 +460,4 @@ html.lab-motion .shot:not(.in) { opacity: 0; transform: translateY(12px); }
 #d-hero + .inapp[hidden] + .promo, #d-hero + .promo { padding-top: 0; }
 /* live: the video is hidden, so the PDF section follows the hero directly */
 html[data-release="live"]:has(#in-app[hidden]) #d-print { padding-top: 0; border-top: 0; }
+@media (max-width: 359px) { #d-hero .desk { padding: 12px; } .hero-pair .hp-page .doc-in { padding: 14px 16px; } } /* very narrow phones: the 3-line strip stays one line each */
